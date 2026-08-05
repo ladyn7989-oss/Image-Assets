@@ -1,0 +1,9 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "i7TSlzSXH1Iq8uf-mbwTF"
+uri = "file://attached_assets/generated_images/fomo-belly.png"
+type = "image"
+title = "Fomo Belly Sprite"
+description = "Generated seated belly-pet sprite for Fomo, matched to the uploaded gray-blue spotted character references."
