@@ -119,3 +119,10 @@ uri = "file://attached_assets/generated_images/nyx-belly.png"
 type = "image"
 title = "Nyx belly Sprite"
 description = "Generated Nyx Bellweather sprite for the Date With Destiny character set."
+
+[[outputs]]
+id = "DrKoWw2P9UMYo6v6ehksX"
+uri = "file://date-with-destiny-offline.zip"
+type = "unspecified"
+title = "Date With Destiny — Offline Edition"
+description = "Standalone offline game bundle with all artwork, full Zero and Luce sprite sets, local saves, and README instructions."
