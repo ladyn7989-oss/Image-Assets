@@ -1,1 +1,2 @@
 - [Uploaded HTML image packaging](uploaded-html-images.md) — keep external and filename-only image references local when rendering uploaded HTML in the mockup sandbox.
+- [Uploaded classic-script interactions](uploaded-classic-script-interactions.md) — use a capture-phase document handler for new actions when the uploaded game dispatcher is minified and hard to patch safely.
