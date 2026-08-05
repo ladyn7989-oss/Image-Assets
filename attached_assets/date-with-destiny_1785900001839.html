@@ -701,14 +701,14 @@ function preyDialogueLine(predId,preyId){
 }
 ;
 
-let S={scr:"title",cid:null,si:0,af:0,sc:0,es:0,ea:50,er:0,ec:null,ul:{},hs:0,mods:[],ms:"info",em:null,rt:null,afCh:0,auto:false,skip:false,vnScr:"vn",bcl:0,bc:null,bact:null,btxt:"",loc:"home",day:1,worldDay:1,energy:3,tcid:null,tnid:0,bellyReturn:null,cpos:{},bp:{},bd:{},buddy:null,bellyPlayerHost:null,rikoDrained:false,sf:{},drain:0,ach:{},enc:0,coins:0,gifts:{},giftLog:{},stats:{dates:0,rounds:0,gifts:0,encounters:0,bellyTime:0},settings:{textSpeed:35,animations:true,typewriter:true},time:0};
+let S={scr:"title",cid:null,si:0,af:0,sc:0,es:0,ea:50,er:0,ec:null,ul:{},hs:0,mods:[],ms:"info",em:null,rt:null,afCh:0,auto:false,skip:false,vnScr:"vn",bcl:0,bc:null,bact:null,btxt:"",loc:"home",day:1,worldDay:1,energy:3,tcid:null,tnid:0,bellyReturn:null,cpos:{},bp:{},bd:{},buddy:null,bellyPlayerHost:null,rikoDrained:false,meetingHost:null,meetingVisitor:null,npcId:null,unnamedPred:null,unnamedEncounter:false,zoroarkEnded:false,zoroarkCycles:0,sf:{},drain:0,ach:{},enc:0,coins:0,gifts:{},giftLog:{},stats:{dates:0,rounds:0,gifts:0,encounters:0,bellyTime:0},settings:{textSpeed:35,animations:true,typewriter:true},time:0};
 const mem=(()=>{let m={};let p=null;try{p=window.parent}catch(e){}return{get:(k)=>{try{return m[k]!==undefined?m[k]:null}catch(e){return null}},set:(k,v)=>{m[k]=v;try{if(p&&p.postMessage)p.postMessage({t:"dwd",k:k,v:v},"*")}catch(e){}}}})();
 function ld(){try{const d=JSON.parse(mem.get("dwd"));if(d)S={...S,...d,scr:"title"}}catch(e){}}
-function sv(){try{mem.set("dwd",JSON.stringify({ul:S.ul,hs:S.hs,mods:S.mods,ach:S.ach||{},sf:S.sf||{},bp:S.bp||{},bd:S.bd||{},bellyPlayerHost:S.bellyPlayerHost||null,rikoDrained:!!S.rikoDrained,drain:S.drain||0,coins:S.coins||0,gifts:S.gifts||{},giftLog:S.giftLog||{},stats:S.stats||{},settings:S.settings||{},enc:S.enc||0}))}catch(e){}}
+function sv(){try{mem.set("dwd",JSON.stringify({ul:S.ul,hs:S.hs,mods:S.mods,ach:S.ach||{},sf:S.sf||{},bp:S.bp||{},bd:S.bd||{},bellyPlayerHost:S.bellyPlayerHost||null,rikoDrained:!!S.rikoDrained,zoroarkEnded:!!S.zoroarkEnded,unnamedPred:S.unnamedPred||null,unnamedEncounter:!!S.unnamedEncounter,zoroarkCycles:S.zoroarkCycles||0,drain:S.drain||0,coins:S.coins||0,gifts:S.gifts||{},giftLog:S.giftLog||{},stats:S.stats||{},settings:S.settings||{},enc:S.enc||0}))}catch(e){}}
 function gc(id){return[...C,...S.mods].find(c=>c.id===id)}
 function allC(){return[...C,...S.mods]}
 function toast(m){const t=document.createElement("div");t.className="to";t.textContent=m;document.getElementById("g").appendChild(t);setTimeout(()=>t.remove(),2500)}
-function R(){const g=document.getElementById("g");var st=S.settings||{};if(st.animations===false){document.body.classList.add('no-anim')}else{document.body.classList.remove('no-anim')}const screens={title:title,select:sel,cityMap,talk:talkScreen,vn,vn,end:ending,gal,achievements:achievementsScreen,stats:statsScreen,settings:settingsScreen,giftShop,giftsScreen,giftReact,endless,endlessReact,endlessEnd,vnSave,vnLoad,bellyMode,bellyReact,digestEndScreen,drainedEnd,encounter:encounterScreen,miniEvent:miniEventScreen};g.innerHTML=(screens[S.scr]||title)();bind()}
+function R(){const g=document.getElementById("g");var st=S.settings||{};if(st.animations===false){document.body.classList.add('no-anim')}else{document.body.classList.remove('no-anim')}const screens={title:title,select:sel,cityMap,talk:talkScreen,vn,vn,end:ending,gal,achievements:achievementsScreen,stats:statsScreen,settings:settingsScreen,giftShop,giftsScreen,giftReact,endless,endlessReact,endlessEnd,vnSave,vnLoad,bellyMode,bellyReact,digestEndScreen,drainedEnd,encounter:encounterScreen,petMeeting:petMeetingScreen,npcTalk:npcTalkScreen,unnamedEnding:unnamedPredEnding,miniEvent:miniEventScreen};g.innerHTML=(screens[S.scr]||title)();bind()}
 const GIFT_ITEMS=[
   {id:"choco",name:"Chocolates",icon:"\u{1F36B}",price:20,pref:["beerus","champa","vincent"],react:"Oh! Chocolates! *munches happily* You know the way to my heart~"},
   {id:"crystal",name:"Power Crystal",icon:"\u{1F50E}",price:50,pref:["riko","vox","anubis"],react:"A power crystal! Do you have ANY idea how much XP this is worth? ...Thank you. Seriously."},
@@ -1049,6 +1049,40 @@ function rikoEncounterLine(){
   if(pets.length===0)return "Riko waddles past cradling his belly, the barbarian inside groaning. \"Keep it down in there, big guy,\" he mutters, not even looking at you.";
   return "Riko waddles past with a smug pat to his round belly. Inside, "+rikoOccupantText()+" shift and grumble. \"What?\" he says. \"A low-level mob can have a collection. Tell the others to mind their business.\"";
 }
+function hostPetSummary(hostId){
+  var pets=getPets(hostId);
+  if(pets.length===0)return "no pets";
+  return pets.map((pid)=>{
+    var g=gc(pid);var d=petDrain(hostId,pid);
+    return g?g.name+(hostId==="riko"?" ("+Math.round(d)+"% drain)":""):pid;
+  }).join(", ");
+}
+function petMeetingLine(hostId,visitorId){
+  var host=gc(hostId),visitor=gc(visitorId),summary=hostPetSummary(hostId);
+  var npcVisitor=visitorId&&visitorId.indexOf("npc:")===0;
+  var npc=npcVisitor?NPCS.find((n)=>n.id===visitorId.substring(4)):null;
+  if(!host||(!visitor&&!npc))return "The conversation gets lost in the crowd.";
+  if(npc){
+    if(hostId==="riko")return npc.name+" watches Riko pat his belly. \"And who are you keeping in there?\" Riko grins. \"My collection: "+summary+". They are not lost. They are mine.\"";
+    return npc.name+" glances toward Fomo's soft middle. \"Are those voices coming from your belly?\" Fomo hugs himself and nods. \"They're "+summary+". I promised they could stay.\"";
+  }
+  if(hostId==="riko"){
+    var rikoLead=visitorId==="fomo"?"Fomo peers at Riko's belly, ears twitching.":"\"Hey, Riko,\" "+visitor.name+" says, eyeing the round demon's stomach.";
+    return rikoLead+" \"What exactly is going on in there?\" Riko pats himself with a smug grin. \"My collection. "+summary+". They wandered in, I kept them, and the drain is doing the rest. You got a problem?\"";
+  }
+  var fomoLead=visitorId==="riko"?"Riko eyes Fomo's soft middle with open suspicion.":"\"Fomo,\" "+visitor.name+" asks, glancing toward the pool. ";
+  return fomoLead+"What about the ones you keep?\" Fomo's ears lift as he hugs his belly. \"They're "+summary+". I don't want anyone to be lonely, okay? They can stay as long as they need.\"";
+}
+const NPCS=[
+  {id:"watchman",name:"The Night Watchman",role:"Off-duty city watch",loc:"crossroads",icon:"\u{1F6E1}\uFE0F",line:"The watchman rubs his chin. \"I've seen that little demon with a fuller belly every night this week. If Riko says they're his pets, I suppose that's what they are.\""},
+  {id:"poolgoer",name:"A Poolside Stranger",role:"Anonymous swimmer",loc:"pool",icon:"\u{1F3CA}",line:"The stranger lowers their voice. \"Fomo keeps talking to his stomach when he thinks nobody's listening. It sounds like he's got a whole little family in there.\""},
+  {id:"courier",name:"A Late Courier",role:"City messenger",loc:"alley",icon:"\u{1F4E6}",line:"The courier checks a battered map. \"I keep delivering food to the crossroads and the pool. Never to a front door. Whoever lives inside those two is eating well.\""},
+  {id:"barista",name:"An Anonymous Barista",role:"Cafe regular",loc:"cafe",icon:"\u2615",line:"The barista glances toward the window. \"People come here to gossip about Riko and Fomo. I don't judge. I just keep the coffee warm.\""}
+];
+function npcsAt(locId){return NPCS.filter((n)=>n.loc===locId)}
+function petHostsAt(locId){
+  return charsAt(locId).filter((c)=>{return c.id==="riko"||c.id==="fomo"});
+}
 function bellyTalkLine(c){
   var pets=getPets(c.id);
   if(pets.length===0)return TALK_BELLY[c.id]||"Oh, them? They are in here. *pats belly*";
@@ -1186,6 +1220,28 @@ function digestEnd(c){
     +'<div class="eb"><button class="b bp" data-a="go" data-d="cityMap" style="background:#2dd4bf">Continue as Sentient Fat \u2192</button><div style="display:flex;gap:8px;margin-top:8px"><button class="b bo" data-a="go" data-d="select" style="flex:1">More Dates</button><button class="b bo" data-a="go" data-d="title" style="flex:1">Home</button></div></div></div>';
 }
 function digestEndScreen(){return digestEnd(gc(S.cid))}
+function unnamedPredEnding(){
+  var kind=S.unnamedPred||"zoroark";
+  var z=kind==="zoroark";
+  var cycles=S.zoroarkCycles||0;
+  var title=z?"Zoroark — The Thought-Eating Ending":"The Unnamed Predator — No Way Back";
+  var color=z?"#7c3aed":"#475569";
+  var lead=z
+    ?"The invisible force finally takes shape: a Zoroark, its dark mane flowing like a tear in the night. Its eyes catch yours, and the world forgets how to stay still."
+    :"The shadow opens without a mouth. Something unseen folds around you, swallowing your sense of direction before it ever touches your body.";
+  var body=z
+    ?(cycles===0
+      ?"The Zoroark draws you into its warm, impossible interior, but the real trap is the voice in your thoughts. Each slow pulse of digestion rearranges a memory: your name becomes a sound, your past becomes a story the Zoroark is telling, and the outside world becomes a dream you can no longer prove was real. Whenever you try to remember yourself, the darkness answers with a softer, kinder version of its own hunger. You remain conscious, but consciousness no longer belongs entirely to you."
+      :"The cycle begins again. The Zoroark's digestion does not simply consume you; it revises you. One thought dissolves, another appears in its place, and the Zoroark's voice fills every gap with patient certainty. You remember being afraid. Then you remember choosing this. Then you remember that there was never an outside at all. The next cycle is already waiting.")
+    :"There is no face to bargain with and no boundary to push against. The unnamed predator keeps you in a dim, echoing digestion where every attempt to escape returns as a quieter version of the same thought: stay, soften, disappear. You are held in a permanent state of uncertainty, aware enough to feel the loop and too lost to find its beginning.";
+  var button=z?'<button class="b bp" data-a="zoroarkCycle" style="background:#7c3aed">\u{1F9E0} Let the Thought-Eating Cycle Continue</button>':'<button class="b bp" data-a="unnamedCycle" style="background:#475569">\u{1F47B} Sink Deeper into the Unknown</button>';
+  var visual=z?'<div style="font-size:96px;text-align:center;padding:38px 12px 12px;filter:drop-shadow(0 0 18px #7c3aed)">\u{1F98A}</div><div style="text-align:center;color:#c4b5fd;font-size:12px;font-weight:800;letter-spacing:3px">ZOROARK</div>':'<div style="font-size:96px;text-align:center;padding:38px 12px 12px;filter:drop-shadow(0 0 18px #475569)">\u{1F441}\uFE0F</div><div style="text-align:center;color:#cbd5e1;font-size:12px;font-weight:800;letter-spacing:3px">UNNAMED PRESENCE</div>';
+  S.ach=S.ach||{};S.ach.unnamedPred=true;if(z){S.zoroarkEnded=true}sv();
+  return '<div class="s ew"><div class="ei">'+visual+'<div class="gd"></div></div>'
+    +'<div class="et"><div class="etl" style="color:'+color+'">'+title+'</div><div class="etb"><b>'+lead+'</b><br><br>'+body+'</div>'
+    +'<div class="est"><div class="ess"><b>\u221E</b>Awareness</div><div class="ess"><b>'+(z?(cycles+1):"???")+'</b>Cycles</div><div class="ess"><b>LOST</b>Rank</div></div></div>'
+    +'<div class="eb">'+button+'<button class="b bo" data-a="go" data-d="cityMap" style="flex:1">Return to City</button><button class="b bo" data-a="go" data-d="title" style="flex:1">Home</button></div></div>';
+}
 function drainedEnd(){
   var c=gc("riko");
   S.ach=S.ach||{};S.ach.drained=true;S.bellyPlayerHost="riko";S.rikoDrained=true;S.drain=100;sv();
@@ -1292,6 +1348,7 @@ function tryEncounter(){
     if(pool.length===0)return false;
     S.encPred=pool[Math.floor(Math.random()*pool.length)].id;
     S.encText=ENC_RISK_TEXT[Math.floor(Math.random()*ENC_RISK_TEXT.length)];
+    S.unnamedEncounter=S.encText===ENC_RISK_TEXT[2]&&Math.random()<0.6;
     S.scr="encounter";
     return true;
   }
@@ -1300,13 +1357,40 @@ function tryEncounter(){
 function encounterScreen(){
   var c=gc(S.encPred);
   if(!c){S.scr="cityMap";return R()}
+  var investigateLabel=S.unnamedEncounter?"\u{1F47B} Follow the Presence":"\u{1F440} Investigate";
   return '<div class="s"><div class="h"><h2>\u2757 Random Encounter</h2></div>'
     +'<div class="mloc"><div class="mlocdesc" style="font-size:15px;line-height:1.6">'+S.encText+'</div>'
     +'<div class="mempty" style="border-style:solid;text-align:left;padding:14px">Your instincts tell you '+c.name+' might be nearby...</div>'
     +'<div class="mcbtns" style="margin-top:14px">'
-    +'<button class="b bp" data-a="encInvestigate" style="flex:1">\u{1F440} Investigate</button>'
+    +'<button class="b bp" data-a="encInvestigate" style="flex:1">'+investigateLabel+'</button>'
     +'<button class="b bo" data-a="encIgnore" style="flex:1">\u{1F6B6} Keep Walking</button>'
     +'</div></div></div>';
+}
+function petMeetingScreen(){
+  var host=gc(S.meetingHost),visitor=gc(S.meetingVisitor);
+  var visitorId=S.meetingVisitor;
+  if(!host){S.scr="cityMap";return R()}
+  var visitorLabel=visitor?visitor.name:(visitorId&&visitorId.indexOf("npc:")===0?((NPCS.find((n)=>n.id===visitorId.substring(4))||{}).name||"A stranger"):"A stranger");
+  var text=petMeetingLine(host.id,visitorId);
+  return '<div class="s vn">'
+    +'<div class="vnbar"><button class="b inact" data-a="meetingEnd">\u2190 Back to City</button></div>'
+    +(host.bg?'<div class="vnbg"><img src="'+host.bg+'"></div>':'')
+    +'<div class="vnch"><img src="'+(host.spr&&host.spr.happy||host.p)+'" style="max-width:100%;max-height:100%;object-fit:contain"></div>'
+    +'<div class="dbox"><div class="dname" style="background:'+host.ac+';color:#fff">'+host.name+' \u2014 Pet Rumors</div><div class="dtext" id="tw" data-full="'+text.replace(/"/g,'&quot;')+'"></div><div style="font-size:11px;color:#94a3b8;text-align:center">Asked by '+visitorLabel+'</div></div>'
+    +'<div class="vc" id="ch" style="display:none"><div class="vt2" data-a="meetingEnd">\u25B6 Return to City</div></div>'
+    +'</div>';
+}
+function npcTalkScreen(){
+  var npc=NPCS.find((n)=>n.id===S.npcId);
+  if(!npc){S.scr="cityMap";return R()}
+  var host=petHostsAt(npc.loc)[0];
+  var text=host?npc.line+" "+(npc.id==="poolgoer"?"Fomo is here tonight, too.":"Someone nearby has more details."):npc.line;
+  return '<div class="s vn">'
+    +'<div class="vnbar"><button class="b inact" data-a="npcEnd">\u2190 Back to City</button></div>'
+    +'<div class="vnch" style="font-size:86px;display:flex;align-items:center;justify-content:center">'+npc.icon+'</div>'
+    +'<div class="dbox"><div class="dname" style="background:#64748b;color:#fff">'+npc.name+'</div><div class="dtext" id="tw" data-full="'+text.replace(/"/g,'&quot;')+'"></div><div style="font-size:11px;color:#94a3b8;text-align:center">'+npc.role+'</div></div>'
+    +'<div class="vc" id="ch" style="display:none"><div class="vt2" data-a="npcEnd">\u25B6 Return to City</div></div>'
+    +'</div>';
 }
 
 function cityMap(){
@@ -1324,8 +1408,10 @@ function cityMap(){
       +'</div>';
   }).join('');
   var hereChars=charsAt(loc.id);
+  var localHosts=petHostsAt(loc.id);
+  var localNpcs=npcsAt(loc.id);
   var actions='';
-  if(hereChars.length>0){
+  if(hereChars.length>0||localNpcs.length>0){
     for(var i=0;i<hereChars.length;i++){
       var c=hereChars[i];
       var hasBelly=getPets(c.id).length>0;
@@ -1343,6 +1429,16 @@ function cityMap(){
         +(S.ul[c.id]?'<button class="b bo" data-a="bellyMap" data-id="'+c.id+'">\u{1F47D} Belly</button>':'')
         +(hasBelly?'<button class="b bs" data-a="joinBelly" data-pid="'+c.id+'" style="border-color:#f472b6;flex:1">\u{1F91D} Join Belly ('+pets.length+' inside)</button>':'')
         +(hasBelly?pets.map((pid)=>'<button class="b bo" data-a="talkPrey" data-pid="'+c.id+'" data-preypid="'+pid+'" style="font-size:10px;flex:1">\u{1F4AC} '+gc(pid).name+' (muffled)</button>').join(''):'')
+        +(localHosts.filter((h)=>h.id!==c.id).map((h)=>'<button class="b bo" data-a="askPetHost" data-host="'+h.id+'" data-visitor="'+c.id+'" style="font-size:10px;flex:1;border-color:#f472b6;color:#f9a8d4">\u{1F4AC} Ask '+h.name+' about pets</button>').join(''))
+        +'</div></div>';
+    }
+    for(var ni=0;ni<localNpcs.length;ni++){
+      var npc=localNpcs[ni];
+      actions+='<div class="mcharcard" style="border-color:rgba(148,163,184,.35)">'
+        +'<div class="mcrow"><div class="mcavatar" style="display:flex;align-items:center;justify-content:center;background:rgba(100,116,139,.2);font-size:28px">'+npc.icon+'</div>'
+        +'<div><div class="mcname" style="color:#cbd5e1">'+npc.name+'</div><div class="mcsub">'+npc.role+'</div></div></div>'
+        +'<div class="mcbtns"><button class="b bs" data-a="npcTalk" data-npc="'+npc.id+'" style="flex:1">\u{1F4AC} Ask what they\'ve seen</button>'
+        +(localHosts.length?localHosts.map((h)=>'<button class="b bo" data-a="askPetHost" data-host="'+h.id+'" data-visitor="npc:'+npc.id+'" style="font-size:10px;flex:1;border-color:#f472b6;color:#f9a8d4">\u{1F50E} Ask about '+h.name+'</button>').join(''):'')
         +'</div></div>';
     }
   }else{
@@ -1441,8 +1537,10 @@ function bind(){document.querySelectorAll("[data-a]").forEach((el)=>{el.addEvent
    else if(a==="struggleFree"){if(S.drain<50){toast("You break free from Riko's belly!");S.drain=0;S.scr="cityMap";R()}else{toast("Too drained to escape!");R()}}
    else if(a==="joinBelly"){var pred=gc(el.dataset.pid);if(!pred){S.scr="cityMap";R();return}if(isBellyHost(pred.id)){toast(pred.name+" already has belly pets and cannot eat anyone else.");R();return}S.ach=S.ach||{};S.ach.joinBelly=true;if(pred.id==="fomo"&&Math.random()<0.4){S.sf=S.sf||{};S.sf[pred.id]=true;S.cid=pred.id;S.scr="digestEndScreen";sv();R();return}var jp=getPets(pred.id);S.bc=pred;S.bcl=50;S.buddy=jp.length>0?jp[Math.floor(Math.random()*jp.length)]:null;S.bact=null;S.btxt="";S.drain=0;S.scr="bellyMode";if(jp.length>0)toast(pred.name+" already has "+jp.length+" inside"+(jp.length>=4?" \u2014 it\'s a full house in there.":"."));R()}
    else if(a==="talkPrey"){var predId=el.dataset.pid;var preyId=el.dataset.preypid||(S.bp[predId]||[])[0];var prey=gc(preyId);toast(prey.name+': "'+preyDialogueLine(predId,preyId)+'"');R()}
-   else if(a==="meChoice"){var ev=S.me||MINI_EVENTS[0];var ch=ev.choices[+el.dataset.i];if(!ch){R();return}if(ch.coins){if(ch.coins<0&&(!S.coins||S.coins<-ch.coins)){toast("Not enough coins!");R();return}S.coins=Math.max(0,(S.coins||0)+ch.coins)}if(ch.energy)S.energy=Math.min(3,S.energy+ch.energy);if(ch.aff){S._meAff=(S._meAff||0)+ch.aff}if(ch.gift){S.gifts=S.gifts||{};var gi=GIFT_ITEMS.find((g)=>{return g.id===ch.gift});if(gi){S.gifts[ch.gift]=(S.gifts[ch.gift]||0)+1}}if(ch.ach){S.ach=S.ach||{};S.ach[ch.ach]=true}S.me=null;toast(ch.r);S.scr="cityMap";R()}
-   else if(a==="encInvestigate"){S.ach=S.ach||{};S.ach.encounter=true;S.enc=(S.enc||0)+1;S.stats=S.stats||{};S.stats.encounters=(S.stats.encounters||0)+1;var c=gc(S.encPred);if(!c){S.scr="cityMap";R();return}if(Math.random()<0.4){S.cid=c.id;S.af=15;S.scr="end";R()}else{S.coins=(S.coins||0)+5;toast("Just a false alarm... this time. "+c.name+" was nowhere to be found. (+5 coins found)");S.scr="cityMap";R()}}
+   else if(a==="meChoice"){var ev=S.me||MINI_EVENTS[0];var ch=ev.choices[+el.dataset.i];if(!ch){R();return}if(ev.id==="ghost"&&ch.ach==="ghostHunter"&&ch.t.indexOf("Follow the voice")!==-1){S.ach=S.ach||{};S.ach.ghostHunter=true;S.ach.unnamedPred=true;S.me=null;S.unnamedPred="zoroark";S.unnamedEncounter=false;S.scr="unnamedEnding";sv();R();return}if(ch.coins){if(ch.coins<0&&(!S.coins||S.coins<-ch.coins)){toast("Not enough coins!");R();return}S.coins=Math.max(0,(S.coins||0)+ch.coins)}if(ch.energy)S.energy=Math.min(3,S.energy+ch.energy);if(ch.aff){S._meAff=(S._meAff||0)+ch.aff}if(ch.gift){S.gifts=S.gifts||{};var gi=GIFT_ITEMS.find((g)=>{return g.id===ch.gift});if(gi){S.gifts[ch.gift]=(S.gifts[ch.gift]||0)+1}}if(ch.ach){S.ach=S.ach||{};S.ach[ch.ach]=true}S.me=null;toast(ch.r);S.scr="cityMap";R()}
+   else if(a==="zoroarkCycle"){S.unnamedPred="zoroark";S.zoroarkCycles=(S.zoroarkCycles||0)+1;S.zoroarkEnded=true;S.ach=S.ach||{};S.ach.unnamedPred=true;sv();R()}
+   else if(a==="unnamedCycle"){S.unnamedPred="unknown";S.ach=S.ach||{};S.ach.unnamedPred=true;sv();toast("The presence folds back into the dark.");S.scr="cityMap";R()}
+   else if(a==="encInvestigate"){S.ach=S.ach||{};S.ach.encounter=true;S.enc=(S.enc||0)+1;S.stats=S.stats||{};S.stats.encounters=(S.stats.encounters||0)+1;var c=gc(S.encPred);if(!c){S.scr="cityMap";R();return}if(S.unnamedEncounter){S.ach.unnamedPred=true;S.unnamedPred="unknown";S.unnamedEncounter=false;S.scr="unnamedEnding";sv();R();return}if(Math.random()<0.4){S.cid=c.id;S.af=15;S.scr="end";R()}else{S.coins=(S.coins||0)+5;toast("Just a false alarm... this time. "+c.name+" was nowhere to be found. (+5 coins found)");S.scr="cityMap";R()}}
    else if(a==="encIgnore"){toast("You keep walking, senses on edge.");S.scr="cityMap";R()}
    else if(a==="askBelly"){S.tnid=-1;R()}
    else if(a==="view"){const v=document.createElement("div");v.className="gv";v.innerHTML='<button class="b bs" data-a="cv" style="align-self:flex-start;margin-bottom:10px">← Close</button><img src="'+el.dataset.img+'"><p style="text-align:center;padding:10px;font-size:14px;font-weight:600">'+el.dataset.l+'</p>';document.getElementById("g").appendChild(v);v.querySelector("[data-a=cv]").addEventListener("click",()=>{v.remove()})}else if(a==="mtab"){S.ms=el.dataset.t;R()}else if(a==="newmod"){S.em={id:"",name:"",sub:"",desc:"",ac:"#7c3aed",p:"",e:"",et:"",spr:{},s:[]};S.ms="info";R()}else if(a==="msave"){saveMod()}else if(a==="addsc"){S.em=S.em||{};S.em.s=S.em.s||[];S.em.s.push({sp:"Narrator",t:"",ch:[{t:"",a:0}]});R()}else if(a==="delsc"){S.em.s.splice(+el.dataset.i,1);R()}else if(a==="addch"){S.em.s[+el.dataset.i].ch.push({t:"",a:0});R()}else if(a==="delch"){S.em.s[+el.dataset.si].ch.splice(+el.dataset.ci,1);R()}else if(a==="copy"){const t=document.getElementById("m_ex");t.select();try{document.execCommand("copy");toast("Copied!")}catch(e){toast("Copy failed")}}else if(a==="imp"){try{const m=JSON.parse(document.getElementById("m_im").value);if(!m.name||!m.s)throw 0;m.id=m.id||("mod_"+Date.now());m.modded=true;m.ac=m.ac||"#7c3aed";m.p=m.p||I.bp;m.e=m.e||I.be;m.et=m.et||"You are now their belly pet.";S.mods=S.mods.filter(x=>x.id!==m.id);S.mods.push(m);S.em=m;sv();toast("Mod imported!");R()}catch(e){toast("Invalid JSON!")}}else if(a==="editmod"){S.em=JSON.parse(JSON.stringify(S.mods.find(m=>m.id===el.dataset.id)));S.ms="info";R()}else if(a==="delmod"){S.mods=S.mods.filter(m=>m.id!==el.dataset.id);sv();toast("Mod deleted");R()}})})}
@@ -1529,7 +1627,7 @@ document.addEventListener('touchend',(e)=>{
 ld();R();
 // VN post-render hook
 origR=R;
-R=()=>{origR();if(S.scr==="vn"||S.scr==="endless"||S.scr==="endlessReact"||S.scr==="bellyMode"||S.scr==="bellyReact"||S.scr==="talk"||S.scr==="miniEvent"||S.scr==="giftReact"){var tw=document.getElementById("tw");if(tw&&tw.dataset.full){startTypewriter(tw.dataset.full,showChoices)}}};
+R=()=>{origR();if(S.scr==="vn"||S.scr==="endless"||S.scr==="endlessReact"||S.scr==="bellyMode"||S.scr==="bellyReact"||S.scr==="talk"||S.scr==="petMeeting"||S.scr==="npcTalk"||S.scr==="miniEvent"||S.scr==="giftReact"){var tw=document.getElementById("tw");if(tw&&tw.dataset.full){startTypewriter(tw.dataset.full,showChoices)}}};
 document.addEventListener("click",(e)=>{
   var el=e.target&&e.target.closest?e.target.closest("[data-a]"):null;
   if(!el)return;
@@ -1550,6 +1648,17 @@ document.addEventListener("click",(e)=>{
     e.preventDefault();e.stopImmediatePropagation();
     var rc=gc("riko");
     S.bc=rc;S.bellyPlayerHost="riko";S.rikoDrained=true;S.drain=100;S.bact=null;S.btxt="";S.scr="bellyMode";sv();R();
+  }else if(a==="askPetHost"){
+    e.preventDefault();e.stopImmediatePropagation();
+    var host=gc(el.dataset.host);
+    if(!host){S.scr="cityMap";R();return}
+    S.meetingHost=host.id;S.meetingVisitor=el.dataset.visitor||null;S.scr="petMeeting";R();
+  }else if(a==="meetingEnd"||a==="npcEnd"){
+    e.preventDefault();e.stopImmediatePropagation();
+    S.meetingHost=null;S.meetingVisitor=null;S.npcId=null;S.scr="cityMap";R();
+  }else if(a==="npcTalk"){
+    e.preventDefault();e.stopImmediatePropagation();
+    S.npcId=el.dataset.npc||null;S.scr="npcTalk";R();
   }
 },true);
 </script>
