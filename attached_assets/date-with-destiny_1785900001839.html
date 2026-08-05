@@ -732,10 +732,10 @@ function preyDialogueLine(predId,preyId){
 }
 ;
 
-let S={scr:"title",cid:null,si:0,af:0,sc:0,es:0,ea:50,er:0,ec:null,ul:{},hs:0,mods:[],ms:"info",em:null,rt:null,afCh:0,auto:false,skip:false,vnScr:"vn",bcl:0,bc:null,bact:null,btxt:"",loc:"home",day:1,worldDay:1,energy:3,tcid:null,tnid:0,bellyReturn:null,cpos:{},bp:{},bd:{},buddy:null,bellyPlayerHost:null,rikoDrained:false,meetingHost:null,meetingVisitor:null,npcId:null,twinsUnlocked:false,unnamedPred:null,unnamedEncounter:false,zoroarkEnded:false,zoroarkCycles:0,sf:{},drain:0,ach:{},enc:0,coins:0,gifts:{},giftLog:{},stats:{dates:0,rounds:0,gifts:0,encounters:0,bellyTime:0},settings:{textSpeed:35,animations:true,typewriter:true},time:0};
+let S={scr:"title",cid:null,si:0,af:0,sc:0,es:0,ea:50,er:0,ec:null,ul:{},hs:0,mods:[],ms:"info",em:null,rt:null,afCh:0,auto:false,skip:false,vnScr:"vn",bcl:0,bc:null,bact:null,btxt:"",loc:"home",day:1,worldDay:1,energy:3,tcid:null,tnid:0,bellyReturn:null,cpos:{},bp:{},bd:{},buddy:null,bellyPlayerHost:null,rikoDrained:false,meetingHost:null,meetingVisitor:null,npcId:null,twinsUnlocked:false,foxfireRumor:false,unnamedPred:null,unnamedEncounter:false,zoroarkEnded:false,zoroarkCycles:0,sf:{},drain:0,ach:{},enc:0,coins:0,gifts:{},giftLog:{},stats:{dates:0,rounds:0,gifts:0,encounters:0,bellyTime:0},settings:{textSpeed:35,animations:true,typewriter:true},time:0};
 const mem=(()=>{let m={};let p=null;try{p=window.parent}catch(e){}return{get:(k)=>{try{return m[k]!==undefined?m[k]:null}catch(e){return null}},set:(k,v)=>{m[k]=v;try{if(p&&p.postMessage)p.postMessage({t:"dwd",k:k,v:v},"*")}catch(e){}}}})();
 function ld(){try{const d=JSON.parse(mem.get("dwd"));if(d)S={...S,...d,scr:"title"}}catch(e){}}
-function sv(){try{mem.set("dwd",JSON.stringify({ul:S.ul,hs:S.hs,mods:S.mods,ach:S.ach||{},sf:S.sf||{},bp:S.bp||{},bd:S.bd||{},bellyPlayerHost:S.bellyPlayerHost||null,rikoDrained:!!S.rikoDrained,twinsUnlocked:!!S.twinsUnlocked,zoroarkEnded:!!S.zoroarkEnded,unnamedPred:S.unnamedPred||null,unnamedEncounter:!!S.unnamedEncounter,zoroarkCycles:S.zoroarkCycles||0,drain:S.drain||0,coins:S.coins||0,gifts:S.gifts||{},giftLog:S.giftLog||{},stats:S.stats||{},settings:S.settings||{},enc:S.enc||0}))}catch(e){}}
+function sv(){try{mem.set("dwd",JSON.stringify({ul:S.ul,hs:S.hs,mods:S.mods,ach:S.ach||{},sf:S.sf||{},bp:S.bp||{},bd:S.bd||{},bellyPlayerHost:S.bellyPlayerHost||null,rikoDrained:!!S.rikoDrained,twinsUnlocked:!!S.twinsUnlocked,foxfireRumor:!!S.foxfireRumor,zoroarkEnded:!!S.zoroarkEnded,unnamedPred:S.unnamedPred||null,unnamedEncounter:!!S.unnamedEncounter,zoroarkCycles:S.zoroarkCycles||0,drain:S.drain||0,coins:S.coins||0,gifts:S.gifts||{},giftLog:S.giftLog||{},stats:S.stats||{},settings:S.settings||{},enc:S.enc||0}))}catch(e){}}
 function gc(id){return[...C,...S.mods].find(c=>c.id===id)}
 function isTwin(id){return id==="zero"||id==="luce"}
 function isDiscovered(id){return !isTwin(id)||!!S.twinsUnlocked}
@@ -1110,7 +1110,7 @@ const NPCS=[
   {id:"watchman",name:"The Night Watchman",role:"Off-duty city watch",loc:"crossroads",icon:"\u{1F6E1}\uFE0F",line:"The watchman rubs his chin. \"I've seen that little demon with a fuller belly every night this week. If Riko says they're his pets, I suppose that's what they are.\""},
   {id:"poolgoer",name:"A Poolside Stranger",role:"Anonymous swimmer",loc:"pool",icon:"\u{1F3CA}",line:"The stranger lowers their voice. \"Fomo keeps talking to his stomach when he thinks nobody's listening. It sounds like he's got a whole little family in there.\""},
   {id:"courier",name:"A Late Courier",role:"City messenger",loc:"alley",icon:"\u{1F4E6}",line:"The courier checks a battered map. \"I keep delivering food to the crossroads and the pool. Never to a front door. Whoever lives inside those two is eating well.\""},
-  {id:"barista",name:"An Anonymous Barista",role:"Cafe regular",loc:"cafe",icon:"\u2615",line:"The barista glances toward the window. \"People come here to gossip about Riko and Fomo. I don't judge. I just keep the coffee warm.\""}
+  {id:"barista",name:"An Anonymous Barista",role:"Cafe regular",loc:"cafe",icon:"\u2615",line:"The barista glances toward the window. \"People come here to gossip about Riko and Fomo. But lately, everyone whispers about a foxfire hollow beyond the city. They say two Zoroarks live there — one calls from the dark, and the other makes the dark feel safe. I don't judge. I just keep the coffee warm.\""}
 ];
 function npcsAt(locId){return NPCS.filter((n)=>n.loc===locId)}
 function petHostsAt(locId){
@@ -1332,7 +1332,11 @@ function tryMiniEvent(){
 }
 function miniEventScreen(){
   var ev=S.me||MINI_EVENTS[0];
-  var choices=ev.choices.map((ch,i)=>{
+  var eventChoices=ev.choices.slice();
+  if(ev.id==="ghost"&&S.foxfireRumor&&!S.twinsUnlocked){
+    eventChoices.push({t:"Call out to Zero and Luce",r:"You remember the barista's rumor and call the twins by name. The cold answers at once — not with hunger, but with two voices recognizing that you came looking.",twinCall:true});
+  }
+  var choices=eventChoices.map((ch,i)=>{
     var costText='';
     if(ch.coins&&ch.coins<0)costText=' ('+ch.coins+' coins)';
     else if(ch.coins&&ch.coins>0)costText=' (+'+ch.coins+' coins)';
@@ -1581,7 +1585,7 @@ function bind(){document.querySelectorAll("[data-a]").forEach((el)=>{el.addEvent
    else if(a==="struggleFree"){if(S.drain<50){toast("You break free from Riko's belly!");S.drain=0;S.scr="cityMap";R()}else{toast("Too drained to escape!");R()}}
    else if(a==="joinBelly"){var pred=gc(el.dataset.pid);if(!pred){S.scr="cityMap";R();return}if(isBellyHost(pred.id)){toast(pred.name+" already has belly pets and cannot eat anyone else.");R();return}S.ach=S.ach||{};S.ach.joinBelly=true;if(pred.id==="fomo"&&Math.random()<0.4){S.sf=S.sf||{};S.sf[pred.id]=true;S.cid=pred.id;S.scr="digestEndScreen";sv();R();return}var jp=getPets(pred.id);S.bc=pred;S.bcl=50;S.buddy=jp.length>0?jp[Math.floor(Math.random()*jp.length)]:null;S.bact=null;S.btxt="";S.drain=0;S.scr="bellyMode";if(jp.length>0)toast(pred.name+" already has "+jp.length+" inside"+(jp.length>=4?" \u2014 it\'s a full house in there.":"."));R()}
    else if(a==="talkPrey"){var predId=el.dataset.pid;var preyId=el.dataset.preypid||(S.bp[predId]||[])[0];var prey=gc(preyId);toast(prey.name+': "'+preyDialogueLine(predId,preyId)+'"');R()}
-   else if(a==="meChoice"){var ev=S.me||MINI_EVENTS[0];var ch=ev.choices[+el.dataset.i];if(!ch){R();return}if(ev.id==="ghost"&&ch.ach==="ghostHunter"&&ch.t.indexOf("Follow the voice")!==-1){S.ach=S.ach||{};S.ach.ghostHunter=true;S.twinsUnlocked=true;S.cpos=S.cpos||{};S.cpos.zero="foxhollow";S.cpos.luce="foxhollow";S.me=null;S.unnamedPred=null;S.unnamedEncounter=false;S.scr="twinUnlock";sv();R();return}if(ch.coins){if(ch.coins<0&&(!S.coins||S.coins<-ch.coins)){toast("Not enough coins!");R();return}S.coins=Math.max(0,(S.coins||0)+ch.coins)}if(ch.energy)S.energy=Math.min(3,S.energy+ch.energy);if(ch.aff){S._meAff=(S._meAff||0)+ch.aff}if(ch.gift){S.gifts=S.gifts||{};var gi=GIFT_ITEMS.find((g)=>{return g.id===ch.gift});if(gi){S.gifts[ch.gift]=(S.gifts[ch.gift]||0)+1}}if(ch.ach){S.ach=S.ach||{};S.ach[ch.ach]=true}S.me=null;toast(ch.r);S.scr="cityMap";R()}
+   else if(a==="meChoice"){var ev=S.me||MINI_EVENTS[0];var eventChoices=ev.choices.slice();if(ev.id==="ghost"&&S.foxfireRumor&&!S.twinsUnlocked)eventChoices.push({t:"Call out to Zero and Luce",r:"You remember the barista\'s rumor and call the twins by name. The cold answers at once \u2014 not with hunger, but with two voices recognizing that you came looking.",twinCall:true});var ch=eventChoices[+el.dataset.i];if(!ch){R();return}if(ev.id==="ghost"&&((ch.ach==="ghostHunter"&&ch.t.indexOf("Follow the voice")!==-1)||ch.twinCall)){S.ach=S.ach||{};S.ach.ghostHunter=true;S.twinsUnlocked=true;S.cpos=S.cpos||{};S.cpos.zero="foxhollow";S.cpos.luce="foxhollow";S.me=null;S.unnamedPred=null;S.unnamedEncounter=false;S.scr="twinUnlock";sv();R();return}if(ch.coins){if(ch.coins<0&&(!S.coins||S.coins<-ch.coins)){toast("Not enough coins!");R();return}S.coins=Math.max(0,(S.coins||0)+ch.coins)}if(ch.energy)S.energy=Math.min(3,S.energy+ch.energy);if(ch.aff){S._meAff=(S._meAff||0)+ch.aff}if(ch.gift){S.gifts=S.gifts||{};var gi=GIFT_ITEMS.find((g)=>{return g.id===ch.gift});if(gi){S.gifts[ch.gift]=(S.gifts[ch.gift]||0)+1}}if(ch.ach){S.ach=S.ach||{};S.ach[ch.ach]=true}S.me=null;toast(ch.r);S.scr="cityMap";R()}
    else if(a==="twinCity"){S.loc="foxhollow";S.energy=Math.max(0,S.energy-1);R()}
    else if(a==="zoroarkCycle"){S.unnamedPred="zoroark";S.zoroarkCycles=(S.zoroarkCycles||0)+1;S.zoroarkEnded=true;S.ach=S.ach||{};S.ach.unnamedPred=true;sv();R()}
    else if(a==="unnamedCycle"){S.unnamedPred="unknown";S.ach=S.ach||{};S.ach.unnamedPred=true;sv();toast("The presence folds back into the dark.");S.scr="cityMap";R()}
@@ -1703,7 +1707,12 @@ document.addEventListener("click",(e)=>{
     S.meetingHost=null;S.meetingVisitor=null;S.npcId=null;S.scr="cityMap";R();
   }else if(a==="npcTalk"){
     e.preventDefault();e.stopImmediatePropagation();
-    S.npcId=el.dataset.npc||null;S.scr="npcTalk";R();
+    S.npcId=el.dataset.npc||null;
+    if(S.npcId==="barista"){
+      S.foxfireRumor=true;
+      sv();
+    }
+    S.scr="npcTalk";R();
   }
 },true);
 </script>
