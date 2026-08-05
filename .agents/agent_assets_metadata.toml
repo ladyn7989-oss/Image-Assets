@@ -63,3 +63,59 @@ uri = "file://attached_assets/generated_images/riko-belly.png"
 type = "image"
 title = "Riko belly Sprite"
 description = "Generated Riko sprite for the Date With Destiny character set."
+
+[[outputs]]
+id = "BSdZa5NKsaNfZuQWrKfwG"
+uri = "file://attached_assets/generated_images/nyx-base.png"
+type = "image"
+title = "Nyx base Sprite"
+description = "Generated Nyx Bellweather sprite for the Date With Destiny character set."
+
+[[outputs]]
+id = "o9WWW4r5tMQGa6WsZh38O"
+uri = "file://attached_assets/generated_images/nyx-happy.png"
+type = "image"
+title = "Nyx happy Sprite"
+description = "Generated Nyx Bellweather sprite for the Date With Destiny character set."
+
+[[outputs]]
+id = "mYVSP1Lumbs7QVoBJcoEb"
+uri = "file://attached_assets/generated_images/nyx-angry.png"
+type = "image"
+title = "Nyx angry Sprite"
+description = "Generated Nyx Bellweather sprite for the Date With Destiny character set."
+
+[[outputs]]
+id = "bjnRnlOw6QLhaEQhR_zXt"
+uri = "file://attached_assets/generated_images/nyx-sad.png"
+type = "image"
+title = "Nyx sad Sprite"
+description = "Generated Nyx Bellweather sprite for the Date With Destiny character set."
+
+[[outputs]]
+id = "qFNsgsfGpMhCnqj_T_dMA"
+uri = "file://attached_assets/generated_images/nyx-surprised.png"
+type = "image"
+title = "Nyx surprised Sprite"
+description = "Generated Nyx Bellweather sprite for the Date With Destiny character set."
+
+[[outputs]]
+id = "_kOnh636Xr6Ik0eKWzP0d"
+uri = "file://attached_assets/generated_images/nyx-blush.png"
+type = "image"
+title = "Nyx blush Sprite"
+description = "Generated Nyx Bellweather sprite for the Date With Destiny character set."
+
+[[outputs]]
+id = "UTQnXE3rhVujoZxzPqJUK"
+uri = "file://attached_assets/generated_images/nyx-smug.png"
+type = "image"
+title = "Nyx smug Sprite"
+description = "Generated Nyx Bellweather sprite for the Date With Destiny character set."
+
+[[outputs]]
+id = "gNYaxg96KOp38EaGFn9fN"
+uri = "file://attached_assets/generated_images/nyx-belly.png"
+type = "image"
+title = "Nyx belly Sprite"
+description = "Generated Nyx Bellweather sprite for the Date With Destiny character set."
