@@ -2,3 +2,4 @@
 - [Uploaded classic-script interactions](uploaded-classic-script-interactions.md) — use a capture-phase document handler for new actions when the uploaded game dispatcher is minified and hard to patch safely.
 - [ImageMagick preview labels](imagemagick-preview-labels.md) — montage label rendering fails in this workspace when ImageMagick has no configured font; skip labels for contact sheets.
 - [Standalone game bundles](dwd-bundle-rebuilds.md) — rebuild embedded/offline ZIPs explicitly after source or bundled-art changes; serving routes alone does not make archives current.
+- [Copyright-safe game audio](dwd-audio.md) — use original procedural Web Audio for ambient sound unless a future track has clearly documented CC0/public-domain licensing.

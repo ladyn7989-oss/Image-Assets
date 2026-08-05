@@ -103,7 +103,11 @@ assert.match(
   "city map displays a five-energy cap",
 );
 assert.match(source, /S\.energy=Math\.min\(5,S\.energy\+ch\.energy\)/, "rewards cap energy at five");
+assert.match(source, /ambient:true/, "ambient audio is enabled by default");
+assert.match(source, /data-a="setAmbient"/, "ambient audio has a settings control");
+assert.match(source, /document\.addEventListener\("visibilitychange"/, "ambient audio responds to tab visibility");
+assert.match(source, /Original procedural tones/, "ambient audio is explicitly copyright-safe");
 
 console.log(
-  `Date With Destiny regression checks passed: ${events.length} scheduled events, one-time priority behavior, and energy cap 5.`,
+  `Date With Destiny regression checks passed: ${events.length} scheduled events, one-time priority behavior, energy cap 5, and copyright-safe ambient audio.`,
 );
