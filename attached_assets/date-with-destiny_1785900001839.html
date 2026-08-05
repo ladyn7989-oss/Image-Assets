@@ -1,0 +1,1504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#7c3aed">
+<title>Date With Destiny</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;touch-action:manipulation;-webkit-user-select:none;user-select:none}
+body{font-family:system-ui,sans-serif;overflow:hidden;background:#1a0e2e;color:#e9d5ff}
+#g{max-width:480px;margin:0 auto;height:100dvh;display:flex;flex-direction:column;overflow:hidden;position:relative}
+.s{flex:1;display:flex;flex-direction:column;overflow:hidden;animation:f .3s forwards}
+@keyframes f{from{opacity:0}to{opacity:1}}
+.sc{overflow-y:auto;flex:1;-webkit-overflow-scrolling:touch}
+.h{padding:10px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(167,139,250,.15);background:rgba(26,14,46,.95)}
+.h h2{font-size:15px;font-weight:700;flex:1}
+.b{border:none;cursor:pointer;border-radius:8px;font-weight:600;font-family:inherit;transition:.15s}
+.b:active{transform:scale(.96)}
+.bs{font-size:12px;padding:6px 12px;background:rgba(167,139,250,.15);color:#a78bfa}
+.bp{font-size:14px;padding:10px 20px;background:#7c3aed;color:#fff}
+.bo{font-size:13px;padding:8px 14px;background:transparent;border:1px solid rgba(167,139,250,.3);color:#e9d5ff}
+.bl{font-size:16px;padding:14px 28px;width:100%;border-radius:10px}
+.tw{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:30px 24px}
+.tm{font-size:30px;font-weight:900;text-align:center;background:linear-gradient(135deg,#a78bfa,#f472b6);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;line-height:1.15}
+.ts{font-size:13px;color:#a78bfa;margin:4px 0 20px}
+.ta{width:130px;height:130px;border-radius:50%;object-fit:cover;border:3px solid rgba(167,139,250,.3);margin-bottom:8px}
+.tb{width:100%;max-width:280px;display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;padding:14px}
+.cc{border-radius:12px;overflow:hidden;cursor:pointer;border:1px solid rgba(167,139,250,.15);background:rgba(167,139,250,.05);position:relative}
+.cc:active{transform:scale(.97)}
+.cc .i{aspect-ratio:3/4;overflow:hidden}
+.cc img{width:100%;height:100%;object-fit:cover}
+.cc .n{padding:8px 10px}
+.cc .n b{font-size:13px;display:block}
+.cc .n span{font-size:10px;color:#a78bfa}
+.cc .d{position:absolute;top:6px;left:6px;background:#7c3aed;color:#fff;font-size:9px;font-weight:700;padding:2px 7px;border-radius:4px}
+.vn{flex:1;display:flex;flex-direction:column;overflow:hidden;position:relative}
+.vp{flex:1;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(26,14,46,.3),rgba(26,14,46,.8))}
+.vp img{max-width:100%;max-height:100%;object-fit:contain}
+.vp .gd{position:absolute;bottom:0;left:0;right:0;height:30%;background:linear-gradient(transparent,#1a0e2e)}
+.va{position:absolute;top:0;left:0;right:0;padding:8px 12px;z-index:3;background:linear-gradient(rgba(26,14,46,.85),transparent)}
+.vab{height:6px;border-radius:3px;background:rgba(167,139,250,.15);overflow:hidden;margin-top:4px}
+.vaf{height:100%;border-radius:3px;transition:width .5s}
+.val{font-size:10px;font-weight:700;display:flex;justify-content:space-between;color:#a78bfa}
+.vs2{position:absolute;top:8px;right:12px;font-size:11px;font-weight:700;color:#7c3aed;z-index:3;background:rgba(26,14,46,.8);padding:3px 8px;border-radius:6px}
+.vd{padding:12px 16px 6px;background:rgba(26,14,46,.97)}
+.vsp{font-size:14px;font-weight:700;margin-bottom:4px}
+.vt{font-size:14px;line-height:1.5;min-height:56px}
+.vc{padding:6px 16px 14px;display:flex;flex-direction:column;gap:7px;background:rgba(26,14,46,.97);overflow-y:auto;max-height:44vh;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.vch{padding:11px 14px;border-radius:8px;border:1px solid rgba(167,139,250,.2);background:rgba(167,139,250,.08);font-size:13px;font-weight:500;cursor:pointer;text-align:left;color:#e9d5ff;font-family:inherit}
+.vch:active{transform:scale(.97);background:rgba(167,139,250,.15)}
+.vt2{font-size:12px;color:#a78bfa;text-align:center;padding:10px;cursor:pointer}
+.ew{flex:1;display:flex;flex-direction:column;overflow:hidden}
+.ei{flex:1;position:relative;overflow:hidden;min-height:200px}
+.ei img{width:100%;height:100%;object-fit:cover}
+.ei .gd{position:absolute;bottom:0;left:0;right:0;height:60%;background:linear-gradient(transparent,#1a0e2e)}
+.et{padding:14px;max-height:50%;overflow-y:auto;background:rgba(26,14,46,.97)}
+.etl{font-size:18px;font-weight:900;margin-bottom:8px}
+.etb{font-size:13px;line-height:1.6;color:#c4b5fd}
+.est{display:flex;gap:10px;margin:10px 0;font-size:12px}
+.ess{background:rgba(167,139,250,.1);padding:6px 12px;border-radius:8px}
+.ess b{display:block;font-size:16px;color:#7c3aed}
+.eb{display:flex;gap:8px;padding:0 16px 14px}
+.eb .b{flex:1}
+.gg{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;padding:14px}
+.gi{border-radius:10px;overflow:hidden;border:1px solid rgba(167,139,250,.15);cursor:pointer;position:relative;aspect-ratio:3/4}
+.gi img{width:100%;height:100%;object-fit:cover}
+.gi .l{position:absolute;bottom:0;left:0;right:0;padding:6px 8px;background:linear-gradient(transparent,rgba(26,14,46,.95));font-size:11px;font-weight:600}
+.gi .lk{display:flex;align-items:center;justify-content:center;height:100%;background:rgba(167,139,250,.05);flex-direction:column;gap:6px}
+.gi .lk span{font-size:30px}
+.gi .lk p{font-size:11px;color:#a78bfa}
+.gv{position:fixed;inset:0;z-index:100;background:rgba(26,14,46,.97);display:flex;flex-direction:column;padding:14px}
+.gv img{flex:1;object-fit:contain;max-width:100%;border-radius:10px}
+.mf{padding:14px;display:flex;flex-direction:column;gap:12px}
+.mfl{font-size:12px;font-weight:600;color:#a78bfa}
+.mfi{padding:9px 10px;border-radius:8px;border:1px solid rgba(167,139,250,.2);background:rgba(167,139,250,.05);font-size:13px;color:#e9d5ff;font-family:inherit}
+.mft{padding:9px 10px;border-radius:8px;border:1px solid rgba(167,139,250,.2);background:rgba(167,139,250,.05);font-size:11px;color:#e9d5ff;font-family:monospace;min-height:60px;resize:vertical}
+.tt{display:flex;border-bottom:1px solid rgba(167,139,250,.15)}
+.tt div{flex:1;padding:10px;text-align:center;font-size:13px;font-weight:600;cursor:pointer;border-bottom:2px solid transparent;color:#a78bfa}
+.tt div.act{border-bottom-color:#7c3aed;color:#fff}
+.to{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#7c3aed;color:#fff;padding:10px 20px;border-radius:8px;font-size:13px;font-weight:600;z-index:200;animation:ti .3s}
+@keyframes ti{from{transform:translateX(-50%) translateY(20px);opacity:0}to{transform:translateX(-50%) translateY(0);opacity:1}}
+.dv{height:1px;background:rgba(167,139,250,.15);margin:4px 0}
+
+/* VN Engine CSS */
+.vnbg{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.vnbg img{width:100%;height:100%;object-fit:cover;animation:vni .5s ease-in forwards}
+@keyframes vni{from{opacity:0}to{opacity:1}}
+.vnch{position:relative;z-index:1;flex:1;display:flex;align-items:center;justify-content:center;animation:vci .4s ease-out forwards}
+@keyframes vci{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.vnbar{display:flex;gap:4px;padding:4px 8px;justify-content:flex-end;background:rgba(26,14,46,.5);position:relative;z-index:5}
+.vnbar .b{font-size:11px;padding:4px 10px;border-radius:6px}
+.vnbar .b.act{background:#7c3aed;color:#fff}
+.vnbar .b.inact{background:rgba(167,139,250,.15);color:#a78bfa}
+.vnfade{position:absolute;inset:0;background:#1a0e2e;z-index:50;pointer-events:none;opacity:0;transition:opacity .3s}
+.vnfade.show{opacity:1;pointer-events:all}
+.twc{display:inline-block;width:2px;height:14px;background:#e9d5ff;animation:tbk .5s infinite;margin-left:2px;vertical-align:middle}
+@keyframes tbk{0%,50%{opacity:1}51%,100%{opacity:0}}
+.dbox{position:relative;z-index:5;padding:10px 16px 4px;background:linear-gradient(180deg,rgba(26,14,46,.85),rgba(26,14,46,.98));border-top:1px solid rgba(167,139,250,.2)}
+.dname{display:inline-block;font-size:13px;font-weight:700;padding:3px 12px;border-radius:6px;margin-bottom:6px}
+.dtext{font-size:14px;line-height:1.5;min-height:48px}
+.slots{display:flex;flex-direction:column;gap:8px;padding:14px}
+.slot{border:1px solid rgba(167,139,250,.2);border-radius:10px;padding:12px;cursor:pointer;background:rgba(167,139,250,.05)}
+.slot:active{transform:scale(.98)}
+.slot .sh{font-size:12px;color:#a78bfa;margin-bottom:4px}
+.slot .sd{font-size:14px;font-weight:600}
+.slot .ss{font-size:11px;color:#a78bfa;margin-top:4px}
+.slot.empty .sd{color:#a78bfa;font-style:italic}
+
+
+.vnb{position:relative;z-index:4;padding:4px 12px;background:rgba(26,14,46,.6);display:flex;justify-content:space-between;align-items:center;font-size:12px}
+
+/* === LANDSCAPE & TABLET SUPPORT === */
+@media (orientation:landscape) and (max-width:1024px){
+  #g{max-width:100%!important;height:100dvh}
+  .vn{flex-direction:row!important;overflow:hidden}
+  .vnch{flex:1;max-width:55%;align-items:center;justify-content:center}
+  .vnbg{max-width:55%}
+  .dbox{flex:0 0 45%;max-width:45%;display:flex;flex-direction:column;justify-content:center;padding:16px 20px;overflow-y:auto}
+  .dtext{font-size:15px;min-height:60px}
+  .vc{flex:0 0 45%;max-width:45%;padding:10px 20px;overflow-y:auto;max-height:none}
+  .vch{padding:10px 14px;font-size:14px}
+  .vnbar{position:absolute;top:0;right:0;z-index:10;background:rgba(26,14,46,.8);border-radius:0 0 0 8px}
+  .tw{flex-direction:row!important;align-items:center;justify-content:center;padding:20px}
+  .tw .ta{width:100px;height:100px;margin-bottom:0;margin-right:16px}
+  .tw .tm{font-size:36px}
+  .tw .tb{max-width:320px}
+  .s{flex-direction:row!important}
+  .sc{flex:1;overflow-y:auto}
+}
+@media (min-width:768px){
+  #g{max-width:600px}
+  .dtext{font-size:16px}
+  .vch{padding:13px 16px;font-size:14px}
+  .tm{font-size:36px}
+  .ta{width:150px;height:150px}
+  .tb{max-width:320px}
+  .bp{font-size:16px;padding:12px 24px}
+}
+@media (orientation:landscape) and (min-width:1024px){
+  #g{max-width:900px}
+  .vnch{max-width:50%}
+  .dbox{max-width:50%;padding:24px}
+  .vc{max-width:50%;padding:16px 24px;max-height:none}
+  .dtext{font-size:17px}
+  .vch{padding:14px 18px;font-size:15px}
+}
+/* Landscape: ending screen side-by-side */
+@media (orientation:landscape) and (max-width:1024px){
+  .ew{flex-direction:row!important;align-items:stretch}
+  .ei{flex:1;max-width:45%;display:flex;align-items:center;justify-content:center}
+  .et{flex:1;max-width:55%;display:flex;flex-direction:column;justify-content:center;padding:16px 20px}
+}
+/* Landscape: select screen grid */
+@media (orientation:landscape) and (max-width:1024px){
+  .sc{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:12px}
+  .cc{margin:0!important}
+}
+/* Landscape: belly mode */
+@media (orientation:landscape) and (max-width:1024px){
+  .s.vn>.vnch{flex:1;max-width:55%}
+  .s.vn>.dbox{flex:0 0 45%;max-width:45%}
+  .s.vn>.vc{flex:0 0 45%;max-width:45%;max-height:none}
+}
+/* Allow text selection in inputs/textareas */
+input,textarea{touch-action:auto!important;-webkit-user-select:text!important;user-select:text!important}
+/* Button touch feedback */
+button,.vch,[data-a]{cursor:pointer;-webkit-touch-callout:none}
+button:active,.vch:active{opacity:0.7;transform:scale(0.97)}
+
+.vnch img,.vnbg img{pointer-events:none;-webkit-user-drag:none}
+.vch,[data-a]{min-height:36px;min-width:36px}
+button[data-a]{min-height:36px}nsform:scale(0.97)}
+
+.vnch img,.vnbg img{pointer-events:none;-webkit-user-drag:none}
+/* === CITY MAP === */
+.map{flex:1;position:relative;background:linear-gradient(135deg,#1a0e2e,#2d1b4e);overflow:hidden;min-height:300px}
+.mapbg{position:absolute;inset:0;background:radial-gradient(circle at 30% 40%,rgba(167,139,250,.08),transparent 40%),radial-gradient(circle at 70% 60%,rgba(244,114,182,.06),transparent 40%),radial-gradient(circle at 50% 50%,rgba(124,58,237,.04),transparent 60%)}
+.mpin{position:absolute;transform:translate(-50%,-50%);text-align:center;cursor:pointer;padding:4px;transition:.2s}
+.mpin:active{transform:translate(-50%,-50%) scale(.92)}
+.micon{font-size:26px;filter:drop-shadow(0 2px 4px rgba(0,0,0,.5))}
+.mpin.here{z-index:10}
+.mpin.here .micon{filter:drop-shadow(0 0 10px #7c3aed)}
+.mlbl{font-size:8px;font-weight:600;color:#c4b5fd;margin-top:1px;white-space:nowrap;text-shadow:0 1px 3px rgba(0,0,0,.8)}
+.mchars{margin-top:1px}
+.mcharp{width:18px;height:18px;border-radius:50%;object-fit:cover;border:1px solid rgba(167,139,250,.4)}
+.myou{font-size:8px;color:#7c3aed;font-weight:700;text-shadow:0 1px 2px rgba(0,0,0,.8)}
+.mloc{padding:12px 14px;background:rgba(26,14,46,.95);border-top:1px solid rgba(167,139,250,.2)}
+.mlocname{font-size:15px;font-weight:700;margin-bottom:3px}
+.mlocdesc{font-size:11px;color:#a78bfa;margin-bottom:8px;line-height:1.4}
+.mcharcard{border:1px solid rgba(167,139,250,.2);border-radius:10px;padding:8px;margin-bottom:6px;background:rgba(167,139,250,.05)}
+.mcharcard .mcrow{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.mcharcard .mcavatar{width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid rgba(167,139,250,.3)}
+.mcharcard .mcname{font-weight:700;font-size:13px}
+.mcharcard .mcsub{font-size:10px;color:#a78bfa}
+.mcharcard .mcbtns{display:flex;gap:5px}
+.mcharcard .mcbtns .b{font-size:11px;padding:5px 8px;flex:1;border-radius:6px}
+.mempty{text-align:center;color:#a78bfa;font-size:12px;padding:16px}
+.mbar{display:flex;gap:6px;padding:6px 14px 10px}
+.mbar .b{font-size:12px;padding:6px 12px}
+.mstats{font-size:11px;color:#a78bfa;display:flex;gap:10px}
+.mstats b{color:#e9d5ff}
+
+.no-anim *{animation:none!important;transition:none!important}
+.no-anim .vc{opacity:1!important;display:flex!important}
+.no-anim .s{animation:none!important;opacity:1!important}
+.no-anim .dtext{opacity:1!important}
+</style>
+</head>
+<body><div id="g"></div>
+<script>
+const B="https://media.base44.com/images/public/6a65151d5dd046764e8de589";
+const I={"bp": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/49cab3afa_generated_image.png", "cp": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/97974e553_generated_image.png", "hp": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/67908e2ad_generated_image.png", "vp": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/b13b05050_generated_image.png", "gp": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/30b3c49b3_generated_image.png", "be": "https://storage.googleapis.com/dramaland-public/ugc_media/20260804/79810d60d7814fb3b456d06311d5f917.jpg", "ce": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/3d9f93234_generated_image.png", "he": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/f8dfd3431_generated_image.png", "ve": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/3a3616313_generated_image.png", "ge": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/fff3fbce7_generated_image.png", "bh": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/a95092d88_generated_image.png", "ba": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/1a91fd238_generated_image.png", "bs": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/c4b701f1d_generated_image.png", "bu": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/8d403ed82_generated_image.png", "bl": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/04f98b63e_generated_image.png", "bm": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/82417e169_generated_image.png", "ch": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/6f92f6553_generated_image.png", "ca": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/e1cdc6357_generated_image.png", "cs": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/84c6b4aae_generated_image.png", "cu": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/3387f1b38_generated_image.png", "cl": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/24a2fd54c_generated_image.png", "cm": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/93a5f3438_generated_image.png", "hh": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/d953f062f_generated_image.png", "ha": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/e670e8132_generated_image.png", "hs": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/8efdb903c_generated_image.png", "hu": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/79986b4bb_generated_image.png", "hl": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/feed17329_generated_image.png", "hm": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/1c6ec6ac5_generated_image.png", "vh": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/7a3c7b0f8_generated_image.png", "va": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/f33438cb7_generated_image.png", "vs": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/9f26ff16c_generated_image.png", "vu": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/dad1cce22_generated_image.png", "vl": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/0d123119a_generated_image.png", "vm": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/c674a8d09_generated_image.png", "gh": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/a7c5d21ee_generated_image.png", "ga": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/32a547fdb_generated_image.png", "gs": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/36d78e546_generated_image.png", "gu": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/dd582413e_generated_image.png", "gl": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/e97138fb5_generated_image.png", "gm": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/455e06bb2_generated_image.png", "ap": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/3b7d23a75_generated_image.png", "ae": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/af55f7ba1_generated_image.png", "ah": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/76520c828_generated_image.png", "aan": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/71aa953d7_generated_image.png", "asd": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/77b77e636_generated_image.png", "au": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/ce9e43376_generated_image.png", "al": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/403a23ba8_generated_image.png", "am": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/163233f5d_generated_image.png", "ab": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/4e1cb2c2d_generated_image.png", "bbelly": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/760a86295_generated_image.png", "cbelly": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/163f5cff1_generated_image.png", "hbelly": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/768a0b863_generated_image.png", "vbelly": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/0acacf8b3_generated_image.png", "gbelly": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/d8965db5d_generated_image.png", "abelly": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/96bc4174b_generated_image.png", "op": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/55db71b56_generated_image.png", "oe": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/467eadddc_generated_image.png", "obg": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/41cdcb4a5_generated_image.png", "oh": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/c4a5ff70e_generated_image.png", "oa": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/4f032f23f_generated_image.png", "os": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/55c105c6b_generated_image.png", "ou": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/c981e6347_generated_image.png", "ol": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/a3ad70982_generated_image.png", "om": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/3d23653e4_generated_image.png", "obelly": "https://media.base44.com/images/public/6a65151d5dd046764e8de589/ec0d39871_generated_image.png"};
+const C=[
+{id:"beerus",name:"Beerus",sub:"God of Destruction",altEnd:"Beerus gazes at you with an intensity that transcends his usual lazy demeanor. \"You... you truly gave me everything,\" he murmurs, pulling you against his warm, soft middle. \"I never thought I would say this to a mortal. But you are not a mortal to me anymore. You are MINE. And I take care of what is mine.\" His belly envelops you completely, and for the first time, the God of Destruction seems at peace.",ac:"#7c3aed",dr:7,bg:"https://media.base44.com/images/public/6a65151d5dd046764e8de589/9bd0e342f_generated_image.png",p:I.bp,e:I.be,cg2:"",
+ spr:{happy:I.bh,angry:I.ba,sad:I.bs,surprised:I.bu,blush:I.bl,smug:I.bm,belly:I.bbelly},
+ d:"Lazy, powerful, obsessed with food. The universe's most dangerous napper.",
+ s:[
+  {sp:"Narrator",t:"You materialize on Beerus' planet. The God of Destruction sprawls on a floating cushion, snoring softly. Whis is nowhere in sight.",ex:"smug",ch:[{t:"Wake him gently",a:2},{t:"Wait patiently",a:1},{t:"Poke him",a:-2}]},
+  {sp:"Beerus",t:"Mmm... who dares disturb the sleep of a God of Destruction? You have exactly three seconds to justify your existence.",ex:"angry",ch:[{t:"I brought you a gift",a:3},{t:"I came to see you",a:2},{t:"I-I'm sorry!",a:1}]},
+  {sp:"Beerus",t:"A gift? You know how to please a god. What is it? It better be worth waking up for.",ex:"surprised",ch:[{t:"Your favorite pudding",a:3},{t:"A rare cosmic delicacy",a:2},{t:"Myself",a:1}]},
+  {sp:"Narrator",t:"Beerus' golden eyes light up. He devours the offering with terrifying, god-like speed. A satisfied purr rumbles through the planet.",ex:"happy",ch:[{t:"I can cook more anytime",a:3},{t:"Watch in awe",a:2},{t:"That was my lunch...",a:-1}]},
+  {sp:"Beerus",t:"You amuse me, mortal. More than any food ever has. Perhaps I should keep you around... permanently.",ex:"smug",ch:[{t:"I'd like that",a:3},{t:"Keep me close",a:2},{t:"As what exactly?",a:1}]},
+  {sp:"Beerus",t:"As my little belly pet. You'll live inside me, warm and safe forever. A god needs companionship, after all.",ex:"blush",ch:[{t:"Yes, my God",a:3,end:1},{t:"I'm scared but... yes",a:2,end:1},{t:"Absolutely not!",a:-3,back:4}]},
+  {sp:"ENDING",t:"Beerus opens his mouth, warm divine energy flowing around you. You slip inside the God of Destruction like sinking into a warm bath. His belly is a cozy pocket dimension — soft, warm, glowing with golden light. You curl up like a pet as Beerus purrs in his sleep. You are Beerus' belly pet — cherished by a god.",ex:"happy",end:1}
+ ]},
+{id:"champa",name:"Champa",altEnd:"Champa's round face breaks into the biggest grin you've ever seen. \"You ACTUALLY stayed! Nobody stays!\" He squeezes you against his enormous belly, giggling. \"You're different. You're SPECIAL. And I'm gonna keep you forever and ever and... *sniffles* ...I'm not crying, you're crying! Get in here!\" He swallows you up with the biggest, happiest gulp of his life.",sub:"God of Destruction (U6)",ac:"#ea580c",dr:7,bg:"https://media.base44.com/images/public/6a65151d5dd046764e8de589/9c1787117_generated_image.png",p:I.cp,e:I.ce,
+ spr:{happy:I.ch,angry:I.ca,sad:I.cs,surprised:I.cu,blush:I.cl,smug:I.cm,belly:I.cbelly},
+ d:"Gluttonous, competitive, surprisingly lovable. Will fight you for the last dumpling.",
+ s:[
+  {sp:"Narrator",t:"You find Champa at a universe food tournament, surrounded by towers of empty plates. Vados watches with mild concern.",ex:"happy",ch:[{t:"Impressive eating!",a:2},{t:"Can I cook for you?",a:3},{t:"You ate ALL that?",a:1}]},
+  {sp:"Champa",t:"Heh! You think that's impressive? I haven't even started yet! Vados, get this mortal a chair!",ex:"smug",ch:[{t:"I have a recipe you'd love",a:3},{t:"I bet you could eat more",a:2},{t:"Show me what you got",a:1}]},
+  {sp:"Narrator",t:"You present your homemade dish. Champa's eyes go wide, his tail puffing up with excitement.",ex:"surprised",ch:[{t:"It's a family recipe",a:2},{t:"Made it just for you",a:3},{t:"It's nothing special",a:1}]},
+  {sp:"Champa",t:"*devours the entire dish in seconds* THIS IS AMAZING! You're not allowed to leave!",ex:"happy",ch:[{t:"I can make more!",a:3},{t:"I'm glad you like it",a:2},{t:"Want seconds?",a:3}]},
+  {sp:"Champa",t:"Nobody cooks for me like that. Not even Vados! You're staying with me now, no arguments!",ex:"smug",ch:[{t:"Forever?",a:2},{t:"I'd love to",a:3},{t:"Where would I stay?",a:1}]},
+  {sp:"Champa",t:"Right here! In my belly! Nice and warm, just the two of us!",ex:"blush",ch:[{t:"That sounds perfect",a:3,end:1},{t:"You want to eat me?",a:2,end:1},{t:"No way!",a:-3,back:4}]},
+  {sp:"ENDING",t:"Champa grins and opens wide. With a happy gulp, you're inside the chubby God of Destruction. His belly is warm and soft like a giant fluffy pillow. You snuggle in as Champa pats his tummy happily. 'Now you can cook for me from the inside!' You are Champa's belly pet — living the warm, well-fed life.",ex:"happy",end:1}
+ ]},
+{id:"husk",name:"Husk",altEnd:"Husk takes a long drag from his bottle, then looks at you with surprisingly soft eyes. \"You know... I haven't felt this way about anyone. Not since I was alive.\" He pulls you close, his belly warm against you. \"Stay. Just... stay. Please.\" The word 'please' from Husk carries more weight than any deity's command.",sub:"Bartender of Hazbin Hotel",ac:"#dc2626",bg:"https://media.base44.com/images/public/6a65151d5dd046764e8de589/681c30cb6_generated_image.png",p:I.hp,e:I.he,
+ spr:{happy:I.hh,angry:I.ha,sad:I.hs,surprised:I.hu,blush:I.hl,smug:I.hm,belly:I.hbelly},
+ d:"Grumpy cat demon, gambling addict, surprisingly tender when you get past the sarcasm.",
+ s:[
+  {sp:"Narrator",t:"You walk into the Hazbin Hotel bar. A grumpy cat demon with wings is cleaning a glass, not looking up.",ex:"smug",ch:[{t:"Whiskey, neat",a:3},{t:"Something sweet",a:2},{t:"Just water please",a:-1}]},
+  {sp:"Husk",t:"Heh. You got taste. Most people stumble in here ordering dumb rainbow drinks. Sit down.",ex:"smug",ch:[{t:"I know what I like",a:2},{t:"You seem interesting",a:3},{t:"Just thirsty",a:1}]},
+  {sp:"Narrator",t:"You settle onto a barstool. Husk slides your drink over with a lazy smirk. The bar is quiet, just the two of you.",ex:"happy",ch:[{t:"Want to play a game?",a:3},{t:"Tell me about yourself",a:2},{t:"What's the bet?",a:2}]},
+  {sp:"Husk",t:"Poker? With me? You're either brave or stupid. I like both. I never lose.",ex:"smug",ch:[{t:"I'm feeling lucky",a:3},{t:"Loser owes a favor",a:3},{t:"Just for fun",a:1}]},
+  {sp:"Narrator",t:"You lose the hand. Husk lays down his cards with a lazy grin. 'You owe me, kid.' His eyes glint with something unexpected.",ex:"surprised",ch:[{t:"Name your price",a:3},{t:"I'm all yours",a:3},{t:"Double or nothing?",a:1}]},
+  {sp:"Husk",t:"The price is... you stay with me. In here. Warm and cozy in my gut. Forever. I don't want you walking out that door.",ex:"blush",ch:[{t:"Deal",a:3,end:1},{t:"You want to... eat me?",a:2,end:1},{t:"That's crazy",a:-2,back:4}]},
+  {sp:"ENDING",t:"Husk finishes his drink and picks you up gently. 'Nothing personal, kid. Just... don't want to be alone anymore.' You slide down into the grumpy cat demon. His belly is warm, a bit messy, but surprisingly comfortable — like the back booth of his favorite bar. You are Husk's belly pet. Home sweet home.",ex:"happy",end:1}
+ ]},
+{id:"vox",name:"Vox",sub:"CEO of VoxTek",ac:"#06b6d4",bg:"https://media.base44.com/images/public/6a65151d5dd046764e8de589/cd3ac26f2_generated_image.png",p:I.vp,e:I.ve,
+ spr:{happy:I.vh,angry:I.va,sad:I.vs,surprised:I.vu,blush:I.vl,smug:I.vm,belly:I.vbelly},
+ d:"Charismatic TV demon, tech mogul, control freak. Wants to own everything — including you.",
+ s:[
+  {sp:"Narrator",t:"You enter Vox's penthouse office. Screens cover every wall. The TV demon turns to face you, his screen flickering with curiosity.",ex:"smug",ch:[{t:"Nice place",a:2},{t:"You're more impressive in person",a:3},{t:"Hi",a:1}]},
+  {sp:"Vox",t:"Of course it is. I designed every pixel. And you're... new. Consider yourself exclusive content.",ex:"smug",ch:[{t:"I'm here for you",a:3},{t:"I'm your biggest fan",a:2},{t:"Just passing by",a:-1}]},
+  {sp:"Narrator",t:"Vox moves closer, digital energy crackling between you. His screen shifts through colors — interested.",ex:"surprised",ch:[{t:"Show me your empire",a:3},{t:"Tell me your secrets",a:2},{t:"You're beautiful",a:3}]},
+  {sp:"Vox",t:"Beautiful? Ha. I'm more than that. I'm the future of entertainment. I AM the screen everyone watches.",ex:"smug",ch:[{t:"I believe it",a:2},{t:"Show me the future",a:3},{t:"You're my future",a:3}]},
+  {sp:"Narrator",t:"Vox takes your hand. A jolt of digital energy flows through you. His screen shows a heart for a split second.",ex:"blush",ch:[{t:"I don't want to leave",a:3},{t:"Keep me here",a:3},{t:"This is moving fast",a:1}]},
+  {sp:"Vox",t:"Good. Because you're not leaving. You're going inside me — permanently. My most exclusive content.",ex:"smug",ch:[{t:"I'm yours",a:3,end:1},{t:"Inside... you?",a:2,end:1},{t:"Let me go",a:-3,back:4}]},
+  {sp:"ENDING",t:"Vox's screen flickers with a bright smile. 'Welcome to prime time.' Digital energy flows around you as you're pulled into the TV demon. Inside, it's like a cozy digital apartment — screens, ambient blue lighting, perfect temperature. You are Vox's belly pet — his most exclusive content.",ex:"happy",end:1}
+ ]},
+{id:"vegeta",name:"Great Ape Vegeta",sub:"Oozaru Saiyan",ac:"#16a34a",bg:"https://media.base44.com/images/public/6a65151d5dd046764e8de589/dd2c94beb_generated_image.png",p:I.gp,e:I.ge,
+ spr:{happy:I.gh,angry:I.ga,sad:I.gs,surprised:I.gu,blush:I.gl,smug:I.gm,belly:I.gbelly},
+ d:"A towering were-ape under the full moon. Terrifyingly powerful, surprisingly gentle.",
+ s:[
+  {sp:"Narrator",t:"Under a full moon, a massive Oozaru towers over the landscape. His glowing red eyes find you. The ground shakes with each step.",ex:"angry",ch:[{t:"Stand your ground",a:3},{t:"Bow respectfully",a:2},{t:"RUN!",a:-3}]},
+  {sp:"Narrator",t:"The great ape kneels down, sniffing you curiously. He doesn't attack. A low rumble emanates from his massive chest.",ex:"surprised",ch:[{t:"Offer him food",a:3},{t:"Touch his fur",a:2},{t:"Stay perfectly still",a:1}]},
+  {sp:"Narrator",t:"The Oozaru lets out a deep rumble. Almost... a purr? His red eyes soften. He seems to like you.",ex:"happy",ch:[{t:"You're magnificent",a:3},{t:"Can I climb on you?",a:2},{t:"You won't hurt me?",a:1}]},
+  {sp:"Narrator",t:"You climb onto his massive shoulder. The world looks so small from up here. Wind whips through his brown fur as he gazes at the moon.",ex:"happy",ch:[{t:"This is incredible",a:3},{t:"I feel safe with you",a:3},{t:"Don't drop me!",a:-1}]},
+  {sp:"Narrator",t:"The great ape cups you gently in his enormous palm. His eyes are warm now. He brings you closer to his face.",ex:"blush",ch:[{t:"I belong with you",a:3},{t:"Protect me",a:2},{t:"What happens now?",a:1}]},
+  {sp:"Narrator",t:"The Oozaru opens his mighty maw slowly, carefully. He wants to keep you safe inside him.",ex:"sad",ch:[{t:"I trust you",a:3,end:1},{t:"Will I be safe in there?",a:2,end:1},{t:"NO!",a:-3,back:4}]},
+  {sp:"ENDING",t:"The massive Oozaru carefully lifts you to his maw. His red eyes soften as he opens wide, gentle despite his enormous size. You slide down into his great belly — warm, vast, like sleeping inside a mountain that breathes. His heartbeat surrounds you like a lullaby. You are the Great Ape's belly pet — protected by the most powerful creature in the universe.",ex:"happy",end:1}
+ ]}
+
+,{id:"anubis",name:"Anubis",sub:"Jackal Warrior of the Sands",ac:"#0ea5e9",dr:8,bg:I.ab,p:I.ap,e:I.ae,
+ spr:{happy:I.ah,angry:I.aan,sad:I.asd,surprised:I.au,blush:I.al,smug:I.am,belly:I.abelly},
+ d:"A fierce jackal warrior from the desert temples. Sharp blade, sharper wit, softer heart than she lets on.",
+ s:[
+  {sp:"Narrator",t:"A tall jackal warrior stands atop the temple steps, dagger at her hip glinting in the sunset. Her blue eyes lock onto you immediately.",ex:"smug",ch:[{t:"Approach confidently",a:3},{t:"Bow respectfully",a:2},{t:"Stay back, wary",a:-2}]},
+  {sp:"Anubis",t:"\"Not many wander this far into the sands. You've got guts... or you're lost. Which is it?\"",ex:"smug",ch:[{t:"'Neither. I came looking for you'",a:3},{t:"'Bit of both, honestly'",a:2},{t:"'Just passing through'",a:-1}]},
+  {sp:"Anubis",t:"She circles you once, sizing you up like prey — or a potential sparring partner. Her tail flicks with interest.",ex:"surprised",ch:[{t:"Hold her gaze steady",a:3},{t:"Compliment her blade",a:2},{t:"Ask about the temple",a:1}]},
+  {sp:"Anubis",t:"\"Hmph. You've got spine. Most run the second they see the fangs.\" She sheathes her dagger and offers a clawed hand instead.",ex:"happy",ch:[{t:"Take her hand",a:3},{t:"Ask her to train you",a:3},{t:"Admit you're nervous",a:1}]},
+  {sp:"Anubis",t:"Sitting beside a fire under the stars, she tells you stories of the old temple guardians. Her voice softens when she isn't performing toughness.",ex:"blush",ch:[{t:"Listen intently",a:3},{t:"Tell her you feel safe here",a:3},{t:"Ask what she's protecting",a:2}]},
+  {sp:"Anubis",t:"She goes quiet, staring at her own hands. \"Being a guardian means being alone a lot. I'm... not used to company sticking around.\"",ex:"sad",ch:[{t:"I'm not going anywhere",a:3,end:1},{t:"You don't have to be alone",a:2,end:1},{t:"I should get going",a:-3,back:5}]},
+  {sp:"ENDING",t:"Anubis exhales, a rare vulnerable smile crossing her muzzle. \"Fine. Have it your way.\" She scoops you up gently in clawed but careful hands, pressing you against her stomach with surprising tenderness. \"Guardians protect what matters most,\" she murmurs, easing you inside her belly. It's warm, safe, and her heartbeat thrums steady around you like temple drums. You've become the jackal warrior's most treasured, most protected belly pet.",ex:"happy",end:1}
+ ]},
+{id:"vincent",name:"Vincent",sub:"Obstagoon",ac:"#6366f1",bg:I.obg,p:I.op,e:I.oe,
+ spr:{happy:I.oh,angry:I.oa,sad:I.os,surprised:I.ou,blush:I.ol,smug:I.om,belly:I.obelly},
+ d:"Street-smart badger with a heart of gold. Edgy exterior, secretly a softie. Lives in a cozy alley hideaway.",
+ et:"You became Vincent's belly pet. The tough Obstagoon who finally found someone to keep close. Safe in his alley, warm in his belly \u2014 you've never felt more at home.",
+ s:[
+  {sp:"Narrator",t:"You're walking through a moonlit alley when a figure steps out of the shadows. An Obstagoon with a black leather jacket and star-shaped eyes studies you.",ch:[{t:'"Nice jacket"',a:2},{t:'"Who are you?"',a:1},{t:'"I should go"',a:-2}]},
+  {sp:"Vincent",t:"Heh. You got guts walking through MY alley. Name's Vincent. You ain't from around here, are ya?",ch:[{t:'"Just passing through"',a:1},{t:'"Heard this alley had the coolest Pokemon"',a:3},{t:'"Your alley? Since when?"',a:-1}]},
+  {sp:"Narrator",t:"Vincent leads you deeper into the alley, where fairy lights hang from fire escapes. It's surprisingly cozy. He pulls out a crate for you to sit on.",ch:[{t:'"This is actually really nice"',a:3},{t:'"You decorated this yourself?"',a:2},{t:'"I expected something dirtier"',a:-2}]},
+  {sp:"Vincent",ex:"sad",t:"Don't go telling everyone about this place, alright? It's... kinda my safe spot. Been living here since I evolved.",ch:[{t:'"Your secret is safe with me"',a:3},{t:'"Why did you evolve out here?"',a:2},{t:"\"That's kinda sad\"",a:1}]},
+  {sp:"Narrator",t:"Vincent's star-shaped eyes catch the moonlight. He pulls you closer, his fur bristling with warmth. You know... you're the first person who didn't run from me.",ch:[{t:"\"I'm not afraid of you\"",a:3},{t:'"Why would I run?"',a:2},{t:'"Maybe I should run"',a:-3}]},
+  {sp:"Vincent",ex:"blush",t:"His expression softens. You ain't like the others. They see the claws, the tongue, the fangs... and they bolt. But you stayed.",ch:[{t:'*Lean into his paw*',a:3},{t:'"Of course I stayed"',a:2},{t:'"Don\'t get sappy on me"',a:-1}]},
+  {sp:"ENDING",t:"Vincent pulls you into a tight embrace, his warm fur enveloping you. You're mine now, understand? Gonna keep you right here... where you belong. You feel yourself sinking into his warm, soft midsection, safe and content. Vincent pats his belly with a satisfied grin, his tongue lolling out happily.",end:1}
+ ]
+},
+{id:"fomo",name:"Fomo",sub:"The Mouse Predator",ac:"#2dd4bf",dr:0,bg:"",p:"fomo.png",e:"fomo.png",
+ spr:{happy:"fomo.png",angry:"fomo.png",sad:"fomo.png",surprised:"fomo.png",blush:"fomo.png",smug:"fomo.png",belly:"fomo.png"},
+ d:"A spotted, big-eared creature who lounges by the old pool at night. Playful, sly, and hungrier than he lets on. Something about him doesn't just want to hold you close \u2014 it wants to make you part of him, forever.",
+ s:[
+  {sp:"Narrator",t:"You wander past a fenced-off public pool, closed for the night. Under the flickering moonlight, a spotted creature with huge ears lounges by the water's edge, tail curled lazily behind him.",ch:[{t:'"Mind if I join you?"',a:2},{t:'"Isn\'t this place closed?"',a:1},{t:'"Sorry, wrong place"',a:-2}]},
+  {sp:"Fomo",t:"Heh, look what wandered in. Most people don't notice me here \u2014 or if they do, they don't stick around. You're either brave or you don't know any better. Which is it?",ch:[{t:'"Bit of both, honestly"',a:3},{t:'"I go where I want"',a:1},{t:'"Should I be worried?"',a:-1}]},
+  {sp:"Narrator",t:"Fomo pats the tile beside him, inviting you to sit. Up close, his spots seem to shimmer faintly, like they're holding some private secret just under the surface.",ch:[{t:"Sit down next to him",a:3},{t:'"What\'s with the spots?"',a:2},{t:"Keep your distance",a:-2}]},
+  {sp:"Fomo",ex:"smug",t:"You noticed, huh? Let's just say... I hold onto things. Things I like. And once I decide I like something, I don't really let go of it. Not all the way, anyway.",ch:[{t:'"Sounds possessive"',a:1},{t:'"Is that a threat or an invitation?"',a:3},{t:'"That\'s a weird thing to say"',a:-1}]},
+  {sp:"Fomo",ex:"sad",t:"Ha \u2014 don't look so nervous. Out here, alone, most nights... it gets quiet. Lonely, even. So when someone actually stays and talks to me instead of running? That means something. You mean something.",ch:[{t:"Rest your hand on his shoulder",a:3},{t:'"I don\'t scare easy"',a:2},{t:'"That\'s kind of sad"',a:1}]},
+  {sp:"Fomo",ex:"blush",t:"His ears perk up and his grin softens into something almost shy. You really aren't planning on leaving, are you? Good. Because I wasn't planning on letting you.",ch:[{t:"\"I'm exactly where I want to be\"",a:3},{t:'"Let\'s find out together"',a:2},{t:'"Wait, what do you mean?"',a:-1}]},
+  {sp:"ENDING",t:"Fomo pulls you into the warm water beside him, his big ears twitching happily. His arms wrap around you, spotted fur damp and impossibly soft. \"Just relax,\" he murmurs against your ear. \"I've got you now.\" Warmth spreads through you as he holds you close against his round middle \u2014 safe, content, and utterly his.",end:1}
+ ]
+}
+,
+{id:"wolf",name:"Wolf O'Donnell",sub:"Star Wolf Mercenary",ac:"#dc2626",dr:8,bg:"",p:"https://media.base44.com/images/public/6a65151d5dd046764e8de589/c5d1f2343_Screenshot_20260802_172430_YouTube.jpg",e:"https://media.base44.com/images/public/6a65151d5dd046764e8de589/c5d1f2343_Screenshot_20260802_172430_YouTube.jpg",
+ spr:{happy:"https://media.base44.com/images/public/6a65151d5dd046764e8de589/c5d1f2343_Screenshot_20260802_172430_YouTube.jpg",angry:"https://media.base44.com/images/public/6a65151d5dd046764e8de589/c5d1f2343_Screenshot_20260802_172430_YouTube.jpg",sad:"https://media.base44.com/images/public/6a65151d5dd046764e8de589/c5d1f2343_Screenshot_20260802_172430_YouTube.jpg",surprised:"https://media.base44.com/images/public/6a65151d5dd046764e8de589/c5d1f2343_Screenshot_20260802_172430_YouTube.jpg",blush:"https://media.base44.com/images/public/6a65151d5dd046764e8de589/c5d1f2343_Screenshot_20260802_172430_YouTube.jpg",smug:"https://media.base44.com/images/public/6a65151d5dd046764e8de589/c5d1f2343_Screenshot_20260802_172430_YouTube.jpg",belly:"https://media.base44.com/images/public/6a65151d5dd046764e8de589/c5d1f2343_Screenshot_20260802_172430_YouTube.jpg"},
+ d:"A scarred mercenary captain with a wicked grin and an appetite to match his reputation. Commands his own cruiser, answers to no one, and never turns down a good challenge \u2014 or a good meal.",
+ s:[
+  {sp:"Narrator",t:"You sneak aboard a docked mercenary cruiser on a dare, boots echoing on the metal floor. A scarred gray wolf in a leather jacket leans against the console, one red eye cracking open as he notices you.",ch:[{t:'"Nice ship"',a:2},{t:'"I heard this place doesn\'t take visitors"',a:1},{t:"Try to sneak back out",a:-2}]},
+  {sp:"Wolf",t:"Heh. Got some nerve, sneaking onto Star Wolf's ship uninvited. Most people who try that don't get a second chance to brag about it. Lucky for you, I'm in a good mood tonight.",ch:[{t:'"Guess I got lucky then"',a:2},{t:'"I\'m not most people"',a:3},{t:'"I\'ll leave if you want"',a:-1}]},
+  {sp:"Narrator",t:"Wolf pushes off the console and saunters closer, sizing you up with a predator's grin. The cockpit hums quietly around you, neon light glinting off his badge.",ch:[{t:"Hold your ground",a:3},{t:'"Something I can help with?"',a:2},{t:"Step back",a:-2}]},
+  {sp:"Wolf",ex:"smug",t:"Not gonna lie \u2014 I like the ones who don't flinch. Most of my crew scattered years ago. Ship's been quiet since. A merc captain gets bored being the only interesting thing on board, you know?",ch:[{t:'"Sounds lonely up here"',a:2},{t:'"Maybe you need better company"',a:3},{t:'"Not my problem"',a:-2}]},
+  {sp:"Wolf",ex:"sad",t:"Heh, don't go feeling sorry for me. I run my own show, always have. But yeah... it'd be nice having someone worth keeping around for once. Someone who isn't scared off by a few scars and a bad reputation.",ch:[{t:"Step closer",a:3},{t:'"Your reputation doesn\'t scare me"',a:2},{t:'"That\'s rough"',a:1}]},
+  {sp:"Wolf",ex:"blush",t:"His grin softens into something more genuine, red eyes locked on yours. Careful, kid. Keep looking at me like that and I might just decide to keep you. Permanently. On this ship. With me.",ch:[{t:'"Is that a threat or a promise?"',a:3},{t:'"Maybe I want to be kept"',a:3},{t:'"I should go"',a:-3}]},
+  {sp:"ENDING",t:"Wolf's grin widens into something hungry as he pulls you flush against him, his belly pressing warm and solid between you. \"Wrong move, kid,\" he chuckles low against your ear. \"Should've run when you had the chance.\" His arms wrap tight, and the world tilts as he settles you snug against his gut with a satisfied groan. \"Welcome aboard. Permanently.\"",end:1}
+ ]
+},
+{id:"glacia",name:"Glacia",sub:"The Glaceon",ac:"#38bdf8",bg:"",p:"https://media.base44.com/images/public/6a65151d5dd046764e8de589/25654653e_GLACEON_9.png",e:"https://media.base44.com/images/public/6a65151d5dd046764e8de589/25654653e_GLACEON_9.png",
+ spr:{happy:"https://media.base44.com/images/public/6a65151d5dd046764e8de589/25654653e_GLACEON_9.png",angry:"https://media.base44.com/images/public/6a65151d5dd046764e8de589/25654653e_GLACEON_9.png",sad:"https://media.base44.com/images/public/6a65151d5dd046764e8de589/25654653e_GLACEON_9.png",surprised:"https://media.base44.com/images/public/6a65151d5dd046764e8de589/25654653e_GLACEON_9.png",blush:"https://media.base44.com/images/public/6a65151d5dd046764e8de589/25654653e_GLACEON_9.png",smug:"https://media.base44.com/images/public/6a65151d5dd046764e8de589/25654653e_GLACEON_9.png",belly:"https://media.base44.com/images/public/6a65151d5dd046764e8de589/25654653e_GLACEON_9.png"},
+ d:"A cool, composed Glaceon with a quiet elegance and a playful streak she rarely shows. Keeps to her frost cavern, watching visitors with sharp icy-blue eyes before deciding if they're worth melting for.",
+ s:[
+  {sp:"Narrator",t:"Deep in a frost-lined cavern, crystalline ice formations glitter under a pale blue light. A Glaceon sits poised atop a frozen ledge, tail curled neatly, studying you with calm, assessing eyes.",ch:[{t:'"Sorry to intrude"',a:2},{t:'"This place is beautiful"',a:2},{t:"Back away slowly",a:-1}]},
+  {sp:"Glacia",t:"Hm. Not many make it this deep without freezing solid first. You must be either very brave, or very foolish. I haven't decided which yet.",ch:[{t:'"Maybe a bit of both"',a:3},{t:'"I\'m good with cold"',a:1},{t:'"I can leave if you want"',a:-1}]},
+  {sp:"Narrator",t:"Glacia tilts her head, ear-fins catching the light like glass. She steps down from her ledge, frost crunching softly under each paw, circling you with quiet curiosity.",ch:[{t:"Stay perfectly still",a:2},{t:'"Do you get visitors often?"',a:2},{t:"Try to walk past her",a:-2}]},
+  {sp:"Glacia",ex:"smug",t:"Rarely. Most creatures fear the cold, or fear me. It's rather... isolating, being the only cool head in a warm world. Though I've grown fond of the quiet. Mostly.",ch:[{t:'"I don\'t mind the quiet either"',a:2},{t:'"You don\'t seem so scary"',a:3},{t:'"That sounds lonely"',a:1}]},
+  {sp:"Glacia",ex:"blush",t:"A faint shimmer of color rises under her fur \u2014 the closest thing to a blush an ice-type can manage. ...You're rather forward, aren't you. Most don't get this close and live to talk about it. I find I don't mind, with you.",ch:[{t:"Reach out gently",a:3},{t:'"I like being close to you"',a:3},{t:'"Should I be worried?"',a:-1}]},
+  {sp:"Glacia",ex:"happy",t:"She presses close, cool and smooth, a soft satisfied hum vibrating in her chest. Then I suppose... I'll simply have to make sure you never want to leave. I've decided, you see. You're mine now.",ch:[{t:"Melt into her embrace",a:3},{t:'"I wasn\'t planning on leaving"',a:2},{t:'"W-wait, what do you mean?"',a:-1}]},
+  {sp:"ENDING",t:"Glacia curls herself around you with surprising warmth beneath all that frost, her cool fur soft against your skin. \"There,\" she murmurs, voice a low, satisfied purr as her belly gently swells to hold you close. \"Safe. Quiet. Mine.\" The ice around you shimmers softly, and for the first time, the cavern doesn't feel cold at all.",end:1}
+ ]
+},
+{id:"riko",name:"Riko",altEnd:"Riko's confident smirk crumbles into genuine, raw vulnerability. \"I... I was gonna drain you. That was the plan. But now... *voice cracking* ...I don't want to. I want you to WANT to be here.\" His eyes glisten. \"You chose me. A nobody. A level 3 mob. That's the strongest thing anyone's ever done for me.\" He pulls you in gently, no drain, no tricks. Just a small demon holding someone who finally saw him.",sub:"Low-Level Demon Mob",ac:"#ef4444",dr:10,bg:"",p:"riko.webp",e:"riko.webp",
+ spr:{happy:"riko.webp",angry:"riko.webp",sad:"riko.webp",surprised:"riko.webp",blush:"riko.webp",smug:"riko.webp",belly:"riko.webp"},
+ d:"A scrappy low-level demon who compensates for his weak stats with one overpowered ability \u2014 his stomach. He can\'t fight worth a damn, but he can swallow beings ten times his level and keep them tucked away. Proud, cocky, and surprisingly clingy.",
+ s:[
+  {sp:"Narrator",t:"You wander into a dim crossroads lit by flickering hellfire lamps. A small red demon sits on a crate, kicking his feet boredly. He looks weak \u2014 barely a tutorial enemy \u2014 but something about that confident grin makes you hesitate.",ch:[{t:'"You don\'t look so tough"',a:-1},{t:'"What are you doing out here?"',a:2},{t:'"I should probably keep walking"',a:-1}]},
+  {sp:"Riko",ex:"smug",t:"Tough? Nah. I\'m the weakest mob in this entire zone. Level 3, maybe 4 on a good day. But see \u2014 *pats his belly* \u2014 I got a trick up my sleeve. Er, my gut. Level doesn\'t matter much when you\'re INSIDE something, does it?",ch:[{t:'"What\'s that supposed to mean?"',a:2},{t:'"You swallowed someone?"',a:3},{t:'"Sure, buddy. Sure."',a:-1}]},
+  {sp:"Riko",ex:"happy",t:"Heh, don\'t believe me? Fair enough. Most don\'t. They see a low-level mob and think \"easy fight.\" Then they wake up in here. *taps belly* I\'ve got a level 40 barbarian in there right now. Big guy. Thought he could take me. Now he\'s just... warm company.",ch:[{t:'"That\'s... actually impressive"',a:3},{t:'"Doesn\'t that feel wrong?"',a:1},{t:'"I bet I could take you"',a:-2}]},
+  {sp:"Riko",ex:"sad",t:"Look, I KNOW I\'m the bottom of the food chain. Every other demon in this place could swat me like a fly. That\'s WHY I figured out how to do this. Nobody expects the weak one to be dangerous. It\'s the only thing keeping me alive down here, honestly.",ch:[{t:'"You\'re smarter than you look"',a:3},{t:'"So it\'s survival, not cruelty?"',a:2},{t:'"Sounds like you\'re scared"',a:-1}]},
+  {sp:"Riko",ex:"blush",t:"Smart? *his ears twitch, face flushing darker red* Nobody\'s ever said that to me before. They just see \"low-level mob\" and write me off. But you\'re actually... talking to me. Like I\'m a real person. That\'s... huh. That\'s new.",ch:[{t:"Sit down next to him",a:3},{t:'"You ARE a real person"',a:3},{t:'"Don\'t get sappy on me"',a:-1}]},
+  {sp:"Riko",ex:"smug",t:"Alright, cards on the table. I could swallow you right now. You\'re what, level 15? Easy. But... I don\'t want to. Not this time. I want you to STAY because you want to. *grins* ...Okay, maybe I want you to stay because I want to keep you. Same difference, right?",ch:[{t:'"I\'m not going anywhere"',a:3},{t:'"So you\'re asking nicely AND threatening?"',a:2},{t:'"I don\'t get eaten that easy"',a:-1}]},
+  {sp:"ENDING",t:"Riko\'s tail swishes excitedly as he pulls you close, his small frame surprisingly strong. \"Told you,\" he whispers, voice cracking with genuine happiness. \"Nobody expects the weak one.\" His belly swells warm and round as he tucks you safely inside, the faint muffled voice of the barbarian inside grumbling in protest. \"Shush, you\'ve got company now,\" Riko giggles, patting his fuller gut. \"My little secret weapon. And my new favorite person.\"",end:1}
+ ]
+},
+  {id:"aether",name:"Aether",sub:"The Sanctuary",altEnd:"Aether\'s arms close around you, gentle and certain. \"You came back.\" His belly is soft, warm, and utterly safe \u2014 a place where nothing is taken from you. You rest. You heal. And when you finally step out, the weight you carried is gone.",ac:"#a78bfa",bg:"",dr:-5,p:"https://storage.googleapis.com/dramaland-public/ugc_media/20260729/48ddd5322cc544c8a7be8350c5faf96d.jpg",e:"https://storage.googleapis.com/dramaland-public/ugc_media/20260729/48ddd5322cc544c8a7be8350c5faf96d.jpg",d:"A quiet Lucario who runs the only cafe in Destiny City where nobody has to perform. His belly is a sanctuary \u2014 the drain runs backwards in there. You come in carrying something, and you leave with none of it.",s:[
+  {sp:"Narrator",t:"The Quiet Cafe smells of fresh coffee and old paper. A tall Lucario in a lilac sweater sits by the window, golden eyes lifting as you walk in. The seat across from him is already pulled out.",ch:[{t:"Sit down",a:3},{t:"Stand by the door",a:1},{t:"Ask if the seat is taken",a:2}]},
+  {sp:"Aether",t:"Rest here. You don\'t have to explain yourself. I won\'t ask for more than you want to give.",ch:[{t:"That\'s... exactly what I needed",a:3},{t:"You don\'t even know me",a:1},{t:"What do you get out of this?",a:2}]},
+  {sp:"Aether",t:"I get the quiet knowing that someone let go for a moment. That\'s the whole transaction. My belly is a place to put down what you carry \u2014 not to lose it.",ch:[{t:"Can I stay a while?",a:3},{t:"Show me",a:2},{t:"I don\'t trust this",a:-1}]},
+  {sp:"Aether",t:"Of course. Slide in. It\'s warm, it\'s soft, and the drain runs the wrong way in here. Whatever you\'re carrying, you\'ll set it down. When you\'re ready, you walk out lighter.",ch:[{t:"I\'m ready",a:3,end:1},{t:"Just for a little while",a:2,end:1},{t:"I changed my mind",a:-3,back:2}]},
+  {sp:"ENDING",t:"You curl up inside Aether\'s belly \u2014 a sanctuary of warmth and quiet. The world\'s noise fades to a distant murmur. No drain. No keeping. Just rest. And when you wake, you feel lighter than you have in months.",end:1}
+]},
+  {id:"luna",name:"Luna",sub:"Aether\'s Sister",altEnd:"Luna holds you close, silver fur warm against you. \"See? Not so scary.\" Her belly is slow and steady \u2014 a tide that never quite pulls you under. You feel watched over, kept, and for once, entirely willing.",ac:"#38bdf8",bg:"",dr:6,p:"https://storage.googleapis.com/dramaland-public/ugc_media/20260804/c5cc05853e574636bb6c15c0353dc6f3.jpg",e:"https://storage.googleapis.com/dramaland-public/ugc_media/20260804/c5cc05853e574636bb6c15c0353dc6f3.jpg",d:"A silver-furred Lucario with a sharp grin and a slower heartbeat. Aether\'s sister. Where he heals, she keeps \u2014 gently, slowly, like someone who learned early not to let go.",s:[
+  {sp:"Narrator",t:"At a corner table in the Quiet Cafe, a silver-furred Lucario waves you over like you\'re old friends. Her grin is sharp, warm, and a little smug. \"You\'re the one my brother keeps talking about.\"",ch:[{t:"Your brother?",a:2},{t:"He talks about me?",a:3},{t:"Who are you?",a:1}]},
+  {sp:"Luna",t:"Aether. Tall, lilac sweater, terrible at asking for things. I\'m Luna. His sister. He\'s all soft corners and quiet doors \u2014 I\'m the one who checks that nobody slams them.",ch:[{t:"You two are nothing alike",a:2},{t:"That\'s sweet, actually",a:3},{t:"Should I be worried?",a:1}]},
+  {sp:"Luna",t:"Worried? No. But listen \u2014 if you\'re going to rest in his belly, know what you\'re getting. He heals you. Me? I keep you. Gently. Slowly. Like a sister who never learned how to let go.",ch:[{t:"That\'s intense",a:1},{t:"Show me",a:3},{t:"I\'ll stay with Aether",a:2}]},
+  {sp:"Luna",t:"*laughs* Fair. Everyone needs a sister\'s belly sometimes \u2014 warm, watchful, no judgement. The drain\'s slow in here. You\'ll have time to decide if you want to stay forever.",ch:[{t:"I think I do",a:3,end:1},{t:"Just today",a:2,end:1},{t:"I\'ll pass",a:-2,back:2}]},
+   {sp:"ENDING",t:"Luna tucks you into her belly with a sister\'s care \u2014 firm and fond. The drain is a gentle current instead of a pull. Above you, she hums and pats her middle. \"Rest. I\'ve got you. And I\'ve got all the time in the world.\"",end:1}
+ ]},
+ {id:"nyx",name:"Nyx Bellweather",sub:"The Midnight Courier",altEnd:"Nyx folds her cloak around you as the last lantern goes dark. \"Every dream has a door,\" she whispers. \"Yours is the one I choose to guard.\" You settle into the warm hush beneath her moonlit fur, carried safely through the sleeping city.",ac:"#d7b4ff",dr:0,bg:"",p:"nyx-bellweather.png",e:"nyx-bellweather.png",d:"A midnight-black feline who carries dreams between sleeping windows. She knows every quiet route through Destiny City and never loses a package.",spr:{happy:"nyx-bellweather.png",angry:"nyx-bellweather.png",sad:"nyx-bellweather.png",surprised:"nyx-bellweather.png",blush:"nyx-bellweather.png",smug:"nyx-bellweather.png",belly:"nyx-bellweather.png"},s:[
+  {sp:"Narrator",t:"A silver lantern swings beneath a rooftop arch. A midnight-black feline waits beside it, violet scarf trailing in the wind and a tiny bell chiming at her throat.",ch:[{t:"Follow the lantern",a:3},{t:"Ask who she is",a:2},{t:"Keep your distance",a:-1}]},
+  {sp:"Nyx",ex:"smug",t:"Keep your voice down. The city is asleep, but it is not unaware. There is a difference.",ch:[{t:"What are you carrying?",a:2},{t:"I trust you",a:3},{t:"That sounds ominous",a:-1}]},
+  {sp:"Nyx",ex:"happy",t:"I deliver dreams after midnight. The good ones go in silk envelopes. The dangerous ones get a bell tied to them.",ch:[{t:"Can I see the route?",a:3},{t:"Do you ever get lost?",a:2},{t:"I should go home",a:-2}]},
+  {sp:"Nyx",ex:"blush",t:"You have the look of someone who wants to be shown the secret path. Try not to step on the moonbeams.",ch:[{t:"Take her paw",a:3},{t:"Lead the way",a:3},{t:"Maybe another night",a:-1}]},
+  {sp:"Nyx",ex:"sad",t:"The last courier ran from the dark. I stayed. Someone has to make sure the gentle dreams reach the right windows.",ch:[{t:"I\'ll stay beside you",a:3},{t:"You don\'t have to do it alone",a:2},{t:"That sounds dangerous",a:-1}]},
+  {sp:"Nyx",ex:"blush",t:"Then stay close. When the bell rings, the sleeping city opens a door just for us.",ch:[{t:"I\'m ready",a:3,end:1},{t:"Show me the lantern route",a:3,end:1},{t:"I changed my mind",a:-2,back:2}]},
+  {sp:"ENDING",t:"Nyx lifts you into the warm fold of her cloak and carries you along the rooftop lantern route. Dreams drift past like fireflies. Her bell rings once, and every quiet door in Destiny City opens for you.",end:1}
+ ]},
+];
+const BR={
+beerus:{
+squirm:["Mmm... keep wiggling in there. That feels nice.","Oh? You're still moving? Good. Stay lively.","Hah! That tickles. Keep going, little one."],
+massage:["Ooh, right there... better than any of Whis's massages.","Mmmh... you really know how to treat a god's belly.","Ah, that's the spot. You're spoiling me in there."],
+talk:["Hm? Still awake in there? Heh, cozy enough for you?","Talking from inside my belly... you're a strange one. I like that.","Tell me more. I could listen to you all day in there."]
+},
+champa:{
+squirm:["Hehe! That tickles! Wiggle more, little pet!","Ooh, I can feel you squirming! Keep going!","Ahaha! You're so active in there! Love it!"],
+massage:["Ohhh... that hits the spot. Best pet ever!","Mmmh... right there. You're amazing at this.","Ahh... keep rubbing. My belly's never felt this good."],
+talk:["What's that? Can't hear you over all this belly~","You're talking in there? Say more! It rumbles nicely!","Hehe, my belly's talking back! Keep chatting, pet!"]
+},
+husk:{
+squirm:["Quit squirmin'... actually no, keep going. Feels good.","Mmm... you wigglin' in there? Kinda nice.","Yeah, keep moving. It's like a warm massage from inside."],
+massage:["Mmm... you do that better than any bartender.","Ohh, right there... never thought being a belly would feel this good.","Nnh... keep rubbing. You're spoiling me, kid."],
+talk:["You sayin' something in there? Hard to hear through my gut.","Heh, talking from inside my belly. That's a new one.","Keep talking. Your voice rumbles nice in there."]
+},
+vox:{
+squirm:["Oh~ you're really moving in there! Great signal!","Keep wiggling! That's perfect content!","Mmm, squirming in my belly? Now THAT'S entertainment!"],
+massage:["Mmmh... perfect. You know exactly how to treat your host.","Oh, right there... you're the best belly pet I've ever had.","Ahh... keep rubbing. This is premium service right here."],
+talk:["Talking from in there? Now THAT'S entertainment!","Mmm, your voice vibrates so nicely in my gut. Keep talking.","Tell me more, little star. I love hearing you from in there."]
+},
+vegeta:{
+squirm:["Hmph! Don't think this means anything... but keep moving.","Hah! Still fighting in there? That's the spirit of a true warrior!","Mmm... wiggle more. The prince demands it."],
+massage:["N-not bad. The prince's belly deserves the best treatment.","Khh... you're good at this. Don't tell anyone I said that.","Mmmh... fine, I'll admit it. That feels incredible."]
+},
+anubis:{
+squirm:["Ah~ squirm more, little one. Your movements are... comforting.","Mmmh, keep wiggling. It soothes me more than you know.","Ooh, you're so active in there! I love feeling you move."],
+massage:["Mmmh... you really know how to tend to your guardian.","Ohh, right there... you're the best belly pet a guardian could ask for.","Ahh... keep rubbing. You're making me so relaxed."]
+},
+vincent:{
+squirm:["Heh... wiggle all you want, you ain't going nowhere.","Mmm, keep squirming. I like feeling you in there.","Oi, you're lively! Good. Stay that way."],
+massage:["Nnnh... that's the spot. You're good at this.","Mmm... my belly's never felt this good. Keep going.","Ahh... you really know how to treat your host, eh?"],
+talk:["Talking from in there? You're something else, kid.","Heh, keep talking. Your voice rumbles nice in my gut.","What's that? Can't hear you over my belly rumbling~"]
+},
+riko:{
+squirm:["Hey! Stop squirming! You're slowing down my drain! *glares at belly*","Ngh... quit fighting it. You'll feel WAY better once you stop resisting.","Oi! The barbarian tried that too. Didn't work for him either. *pats belly*"],
+massage:["Ooh, yeah... that's the stuff. Go ahead, don't fight it. Let me take everything...","Mmmh. You're making this SO much easier. Keep massaging, keep draining...","*groans happily* You feel that? That's your strength flowing into me. Nice, right?"],
+talk:["Heh. Still talking in there? Most go quiet by now. The barbarian stopped talking three days ago.","You know, you're actually pretty interesting. Most adventurers just scream. You're... different.","What's it like in there? Warm? Soft? Yeah, that's the drain kicking in. You'll stop caring soon."]
+}
+};
+const SC=[
+ {t:"Your date stares at you intensely. The silence stretches on.",ex:"smug",c:[
+  {t:"Stare back confidently",a:3,s:10,r:"Oh? So you DO have spirit. I like that.",rx:"happy"},
+  {t:"Smile warmly",a:2,s:5,r:"Hmph. That smile... it's not bad.",rx:"smug"},
+  {t:"Look away shyly",a:1,s:2,r:"Aw, getting shy? You're cute when you blush.",rx:"blush"},
+  {t:"Make a weird face",a:-2,s:-5,r:"...Did you really just do that?",rx:"sad"}]},
+ {t:"Your date offers you their favorite food — it looks interesting.",ex:"happy",c:[
+  {t:"Eat it eagerly",a:3,s:10,r:"Yes! Finally someone who appreciates good food!",rx:"happy"},
+  {t:"Try it politely",a:2,s:5,r:"Hah, careful there. It's an acquired taste.",rx:"smug"},
+  {t:"Suggest cooking together",a:2,s:7,r:"Cook with me? ...I'd like that.",rx:"blush"},
+  {t:"Decline",a:-3,s:-8,r:"You're refusing MY food? How dare you.",rx:"angry"}]},
+ {t:'Your date asks "What do you really think of me?"',ex:"blush",c:[
+  {t:"Give a genuine compliment",a:3,s:10,r:"You... really think so? Hmph.",rx:"blush"},
+  {t:"Flirt shamelessly",a:3,s:8,r:"Oh? Bold today aren't we?",rx:"smug"},
+  {t:"Be playfully honest",a:2,s:5,r:"Ha! At least you're real with me.",rx:"happy"},
+  {t:"Change the subject",a:-2,s:-5,r:"...You didn't answer my question.",rx:"sad"}]},
+ {t:"Your date flexes and shows off their power dramatically.",ex:"smug",c:[
+  {t:"Be genuinely impressed",a:3,s:8,r:"That's right. Remember who you're dealing with.",rx:"smug"},
+  {t:"Match their energy",a:2,s:7,r:"Oh? You think you can keep up with me?",rx:"surprised"},
+  {t:"Tease them about it",a:1,s:3,r:"Tch. You're lucky you're cute.",rx:"smug"},
+  {t:"Act unimpressed",a:-3,s:-7,r:"...Unimpressed? By THIS?",rx:"angry"}]},
+ {t:"Your date yawns and looks sleepy, leaning toward you.",ex:"sad",c:[
+  {t:"Suggest a nap together",a:3,s:10,r:"Together? ...I'd like that more than I should.",rx:"blush"},
+  {t:"Offer to tuck them in",a:2,s:5,r:"You'd do that for me? How sweet.",rx:"happy"},
+  {t:"Make them coffee",a:1,s:3,r:"Coffee... yeah, I guess that works.",rx:"sad"},
+  {t:"Say you should leave",a:-4,s:-10,r:"Leave? When I'm like this? ...Fine.",rx:"sad"}]},
+ {t:"Someone else flirts with you! Your date notices immediately.",ex:"angry",c:[
+  {t:"Reassure your date",a:3,s:10,r:"...Good. Because you're MINE.",rx:"smug"},
+  {t:"Shut the flirt down",a:2,s:7,r:"Hah. That's what I thought.",rx:"smug"},
+  {t:"Enjoy the jealousy",a:1,s:3,r:"You think that's funny? I'll show you funny.",rx:"angry"},
+  {t:"Flirt back",a:-5,s:-15,r:"You. Are. Kidding. Me.",rx:"angry"}]},
+ {t:"Your date makes a terrible joke. Awful. Painful.",ex:"happy",c:[
+  {t:"Laugh anyway",a:2,s:5,r:"You're laughing AT me aren't you? Whatever, I'll take it.",rx:"happy"},
+  {t:"Groan dramatically",a:1,s:3,r:"Yeah yeah, my comedy needs work. Sue me.",rx:"smug"},
+  {t:"Make a better one",a:3,s:8,r:"Oh HOH! So you're a comedian now? I love it.",rx:"happy"},
+  {t:"Stare in silence",a:-2,s:-5,r:"...Tough crowd.",rx:"sad"}]},
+ {t:"Your date challenges you to a game with high stakes.",ex:"smug",c:[
+  {t:"Accept confidently",a:3,s:10,r:"NOW we're talking. Bring it.",rx:"smug"},
+  {t:"Ask for a handicap",a:1,s:3,r:"A handicap? Heh, how humble of you.",rx:"smug"},
+  {t:"Let them win",a:2,s:5,r:"You're letting me win? I can tell. ...Thanks.",rx:"blush"},
+  {t:"Refuse to play",a:-2,s:-5,r:"No fun at all, huh?",rx:"sad"}]},
+ {t:"Your date reveals a rare vulnerable moment.",ex:"sad",c:[
+  {t:"Be supportive",a:3,s:10,r:"...Thanks. I don't show this to just anyone.",rx:"blush"},
+  {t:"Hold them close",a:3,s:8,r:"W-what are you— ...don't let go.",rx:"blush"},
+  {t:"Tease gently",a:1,s:2,r:"Heh, you always know how to lighten things up.",rx:"happy"},
+  {t:"Pretend you didn't notice",a:-3,s:-7,r:"...Right. Never mind then.",rx:"sad"}]},
+ {t:"Your date is HANGRY. Cranky, grumpy, and hungry all at once.",ex:"angry",c:[
+  {t:"Cook for them immediately",a:3,s:10,r:"You... made this for me? It's perfect.",rx:"happy"},
+  {t:"Find snacks fast",a:2,s:7,r:"Finally, food! You're a lifesaver.",rx:"happy"},
+  {t:"Give them space",a:1,s:2,r:"...Fine. I'll just sit here. Starving.",rx:"sad"},
+  {t:"Tell them to calm down",a:-5,s:-12,r:"CALM DOWN?! You want me to CALM DOWN?!",rx:"angry"}]},
+ {t:"Your date shows you their home for the first time.",ex:"happy",c:[
+  {t:"Compliment it sincerely",a:3,s:8,r:"You really think so? I designed it myself.",rx:"smug"},
+  {t:"Explore with wonder",a:2,s:7,r:"Careful there. Don't touch everything.",rx:"happy"},
+  {t:"Feel honored",a:3,s:10,r:"...Nobody's ever said that before. Thank you.",rx:"blush"},
+  {t:"Criticize the decor",a:-4,s:-10,r:"Excuse me? MY decor? Get out.",rx:"angry"}]},
+ {t:"Your date gets protective when a threat appears.",ex:"angry",c:[
+  {t:"Appreciate the protection",a:3,s:10,r:"Nobody touches what's mine. Remember that.",rx:"smug"},
+  {t:"Say you can handle yourself",a:1,s:3,r:"...I know you can. But let me have this.",rx:"sad"},
+  {t:"Lean into it",a:2,s:7,r:"That's right. Stay behind me.",rx:"smug"},
+  {t:"Push them away",a:-3,s:-7,r:"You're... pushing me away? When I'm protecting you?",rx:"sad"}]},
+ {t:'Your date asks "Are you scared of me?"',ex:"smug",c:[
+  {t:'"A little — in a good way"',a:3,s:8,r:"Good. You SHOULD be. But in a good way... I like that.",rx:"smug"},
+  {t:'"Not at all"',a:2,s:7,r:"Brave. Or stupid. Either way, I'm impressed.",rx:"happy"},
+  {t:'"Only of losing you"',a:3,s:12,r:"...That's the most dangerous answer. Now I can't let you go.",rx:"blush"},
+  {t:'"Yes, very much"',a:0,s:0,r:"...I see. Well. That's honest at least.",rx:"sad"}]},
+ {t:"Your date wants to know your biggest secret.",ex:"surprised",c:[
+  {t:"Tell them honestly",a:3,s:12,r:"...That's your secret? And you trusted ME with it?",rx:"blush"},
+  {t:"Whisper it",a:2,s:8,r:"Heh, coming closer to whisper? Smooth.",rx:"smug"},
+  {t:"Deflect with humor",a:1,s:3,r:"Ha! Nice dodge. But I'll get it out of you eventually.",rx:"happy"},
+  {t:"Refuse to share",a:-2,s:-5,r:"...Fine. Keep your secrets. I have mine too.",rx:"sad"}]},
+ {t:"Your date cooks for you. It's certainly something.",ex:"happy",c:[
+  {t:"Eat it all enthusiastically",a:3,s:10,r:"You actually ate it all! Nobody's ever done that.",rx:"happy"},
+  {t:"Politely try everything",a:2,s:7,r:"Good enough. I know it's not my best work.",rx:"smug"},
+  {t:"Suggest cooking together",a:2,s:5,r:"Together? In MY kitchen? ...Okay.",rx:"blush"},
+  {t:"Push it around the plate",a:-3,s:-8,r:"You're not even trying to eat it, are you.",rx:"angry"}]},
+ {t:"Your date says \"I've never felt this way before.\"",ex:"blush",c:[
+  {t:'"Me neither"',a:3,s:10,r:"...So we're both new to this. Good. We figure it out together.",rx:"blush"},
+  {t:'"About what?"',a:1,s:3,r:"About— oh, never mind. You're hopeless.",rx:"sad"},
+  {t:'"I have — about you"',a:3,s:12,r:"You... have? For how long?",rx:"surprised"},
+  {t:"\"That's concerning\"",a:-3,s:-7,r:"...Concerning? I pour my heart out and that's your response?",rx:"angry"}]},
+ {t:"Your date is in a fiercely competitive mood.",ex:"smug",c:[
+  {t:"Compete back hard",a:3,s:10,r:"YES! THAT'S what I'm talking about! Don't hold back!",rx:"happy"},
+  {t:"Be their cheerleader",a:2,s:7,r:"Heh, my personal fan club? I can work with that.",rx:"smug"},
+  {t:"Place a fun bet",a:2,s:8,r:"A bet? Now we're talking. Winner takes all.",rx:"smug"},
+  {t:"Tell them to relax",a:-2,s:-5,r:"Relax? When we're in the zone? You're no fun.",rx:"angry"}]},
+ {t:"Your date catches you staring at them.",ex:"surprised",c:[
+  {t:"\"You're beautiful\"",a:3,s:12,r:"...Beautiful? You're just saying that. ...Say it again.",rx:"blush"},
+  {t:'"Sorry, got distracted"',a:1,s:3,r:"By what? ...Oh. OH. Well then.",rx:"blush"},
+  {t:'"Can you blame me?"',a:3,s:10,r:"Hah! No, I can't blame you. Look at me.",rx:"smug"},
+  {t:"Pretend you weren't",a:-1,s:-3,r:"Liar. You were totally staring.",rx:"smug"}]},
+ {t:'Your date asks "Where do you see this going?"',ex:"sad",c:[
+  {t:'"Forever — with you"',a:3,s:12,r:"Forever? With me? ...That's all I wanted to hear.",rx:"blush"},
+  {t:"\"Let's find out together\"",a:2,s:8,r:"Together... yeah. I like the sound of that.",rx:"happy"},
+  {t:'"Wherever you are"',a:3,s:10,r:"Wherever I am... you'd follow? Even into the unknown?",rx:"surprised"},
+  {t:"\"Let's not rush things\"",a:-2,s:-5,r:"...Rushing? I'm asking about the future, not a proposal.",rx:"sad"}]},
+ {t:'Your date whispers "I want to keep you forever."',ex:"blush",c:[
+  {t:'"Then keep me"',a:3,s:15,r:"...Don't say that unless you mean it. ...Do you mean it?",rx:"blush"},
+  {t:"\"I'm yours\"",a:3,s:12,r:"Mine. Yes. You ARE mine. Don't ever forget that.",rx:"smug"},
+  {t:'"Forever is a long time..."',a:1,s:3,r:"...It is. But I'd spend every second of it with you.",rx:"blush"},
+  {t:"\"That's intense\"",a:-2,s:-5,r:"Intense? I tell you I want forever and you say INTENSE?",rx:"angry"}]}
+];
+
+// === CITY MAP LOCATIONS ===
+const LOC=[
+  {id:"home",name:"Your Apartment",icon:"\u{1F3E0}",desc:"Your cozy new apartment in Destiny City. Boxes still half-unpacked. The city sprawls before you \u2014 full of strange and wonderful people to meet.",x:50,y:82},
+  {id:"bar",name:"The Last Round",icon:"\u{1F37A}",desc:"A dimly lit bar downtown. Smells like whiskey and old regrets. Husk slings drinks behind the counter.",x:22,y:48,chars:["husk"]},
+  {id:"vtower",name:"V Tower",icon:"\u{1F3D9}\uFE0F",desc:"A gleaming tech tower downtown. Vox's penthouse glows at the top, screens flickering with his face.",x:72,y:28,chars:["vox"]},
+  {id:"forest",name:"Moonlit Forest",icon:"\u{1F332}",desc:"Ancient trees under a permanent full moon. Something massive moves between the trunks \u2014 you hear deep breathing.",x:82,y:62,chars:["vegeta"]},
+  {id:"shrine",name:"Thunder Shrine",icon:"\u26A1",desc:"An old shrine crackling with electrical energy. Anubis stands guard, golden eyes watching your approach.",x:32,y:22,chars:["anubis"]},
+  {id:"temple",name:"Beerus's Temple",icon:"\u26E9}\uFE0F",desc:"A floating temple reachable by portal. Two cat-gods lounge on the steps, already arguing about food.",x:12,y:68,chars:["beerus","champa"]},
+  {id:"alley",name:"Backstreet Alley",icon:"\u{1F303}",desc:"A hidden alley with graffiti and boombox beats. Vincent leans against the wall, star-shaped eyes glinting.",x:56,y:44,chars:["vincent"]},
+  {id:"pool",name:"The Midnight Pool",icon:"\u{1F30A}",desc:"An abandoned public pool that comes alive after hours. Chain-link fences rattle in the wind, and the water glows an eerie blue under the moon. Fomo loves to lounge here when everyone else has gone home.",x:68,y:50,chars:["fomo"]},
+  {id:"wolfship",name:"Star Wolf's Cruiser",icon:"\u{1F680}",desc:"A docked mercenary cruiser humming with neon consoles and quiet menace. Wolf O'Donnell leans against the controls, red eyes watching the entrance.",x:88,y:14,chars:["wolf"]},
+  {id:"frostcave",name:"Frost Cavern",icon:"\u2744\uFE0F",desc:"A glittering ice cave deep in the mountains, air crisp and still. Glacia perches quietly among the crystal formations, watching visitors approach.",x:12,y:16,chars:["glacia"]},
+  {id:"crossroads",name:"The Crossroads",icon:"\u{1F525}",desc:"A dim intersection in the demon district lit by flickering hellfire lamps. Low-level mobs gather here to trade rumors and pick off wandering adventurers. Riko holds court from his crate.",x:82,y:82,chars:["riko"]},
+  {id:"cafe",name:"The Quiet Cafe",icon:"\u2615",desc:"A sunlit cafe with wooden floors, ferns, and shelves of old books. A tall Lucario in a lilac sweater guards the window seat. A silver-furred sister watches from the corner table.",x:42,y:38,chars:["aether","luna"]}];
+
+// === TALK DIALOGUE TREES ===
+const CROSS_REACTIONS={
+beerus:"You've spent time with others before me? Hmph. I suppose I can forgive that. But remember who the GOD is here.",
+champa:"Oh? You've been dating around? *grins* Good! I like someone with experience! More fun that way~",
+husk:"So you've been with other folks before me, huh? *shrugs* Don't make it weird. We all got a past. Just don't make me jealous.",
+vox:"You've been inside others? *eyes flash* Interesting. I hope you remember who the BEST host is. Because I WILL find out.",
+vegeta:"You dare date others before the Prince of all Saiyans?! ...Fine. I'll allow it. But I expect to be your LAST.",
+anubis:"You've met the others? They're... not bad. But none of them will keep you as safe as I will. I promise that.",
+vincent:"Oh, you've been around the block, eh? *winks* That's fine, mate. Just means you know a good thing when you see it. And you came back to me.",
+fomo:"You've been inside others before me? *ears droop* ...Oh. Do they... do they hold you like I do? Do they let you STAY? ...I want to be your favorite. Is that selfish?",
+wolf:"You've dated my rivals? *growls softly* ...Whatever. Doesn't matter. You're HERE now. And you're MINE. Let them rot.",
+glacia:"Oh, you've been inside others? *cool smile* That's fine. Warm bodies are boring anyway. I'm the only one who'll keep you... cool. Refreshing, isn't it?",
+riko:"You've been eaten before?! By WHO? Were they weak like me? *suddenly anxious* ...Wait, did you LIKE it? ...Tell me everything. I need to know my competition."
+};
+const TALK={
+aether:[
+  {id:0,r:"Welcome back. Tea\'s still hot. Sit. Or don\'t \u2014 you can also just stand here and breathe. I don\'t mind.",a:0,next:[1,2,3]},
+  {id:1,t:"What is this place?",r:"A cafe. Wood floors, ferns, old books, one window seat that gets the evening light. People come here to put things down. Some of them put them in my belly instead. Same result, fewer stairs.",a:2,next:[4]},
+  {id:2,t:"Does it hurt, being kept?",r:"Not in here. The drain runs backwards in my belly \u2014 every day you spend inside me, you carry a little less. When it reaches zero, you leave lighter than you came. No one stays who doesn\'t choose to.",a:3,next:[4]},
+  {id:3,t:"Why do you do this?",r:"Because someone let me rest once, and I never forgot what it felt like. I just... pass it along. Quietly.",a:2,next:[4]},
+  {id:4,t:"Can I stay a while?",r:"The door\'s open. Slide in, rest, let the drain run down. I\'ll be right here when you\'re ready to speak, and I won\'t ask for more than you want to give.",a:3,next:[]},
+],
+luna:[
+  {id:0,r:"Hey there, stranger. Don\'t mind me \u2014 I\'m just watching the door. Someone has to. My brother lets everyone in.",a:0,next:[1,2,3]},
+  {id:1,t:"Are you really his sister?",r:"Same litter, different lesson. He learned to hold people gently. I learned that if you hold on long enough, they stop wanting to leave. We balance each other out.",a:2,next:[4]},
+  {id:2,t:"What\'s it like in your belly?",r:"Slow. Warm. The drain creeps up about six a day \u2014 you\'d have a week or more to decide if forever sounds good. Most decide it does.",a:3,next:[4]},
+  {id:3,t:"You\'re kind of intense.",r:"*grins* I\'m a sister. Intense is the job description. But I\'m also the safest place in this city to be kept \u2014 I don\'t drain anyone past 50% unless they want to stay there.",a:2,next:[4]},
+  {id:4,t:"Maybe I\'ll let you keep me.",r:"Good answer. Tuck in, warm up, and let the days tick by. I\'ve got you. And I\'ve got all the time in the world.",a:3,next:[]},
+],
+beerus:[
+  {id:0,r:"Hmph. You want to talk, belly pet? Fine. I'm feeling generous today. Choose your words wisely.",a:0,next:[1,2,3]},
+  {id:1,t:"What's it like being a God of Destruction?",r:"Exactly what it sounds like. I destroy what needs destroying. The universe keeps its balance, and I nap afterward. Simple, elegant, satisfying. Much like having you in there.",a:2,next:[4]},
+  {id:2,t:"What's your favorite food?",r:"Earth pudding. Don't tell Whis I said that. He'd make me sit through another century-long lecture on 'balanced diets.' As if a god needs diet advice from his attendant.",a:1,next:[4]},
+  {id:3,t:"Do you ever get lonely up there?",r:"Lonely? I have Whis. I have my naps. And now I have you, snug inside me. That's more company than most destroyers get. *pats belly* Cherish that thought.",a:3,next:[4]},
+  {id:4,t:"Will you ever let me out?",r:"*pats belly* And ruin this perfect arrangement? You're warm, safe, and mine. I think not, little pet. Now hush \u2014 nap time.",a:2,next:[]},
+],
+champa:[
+  {id:0,r:"OH! You wanna talk to ME? Finally! Nobody ever wants to talk to ME, they always go to BEERUS first! What do you wanna know? Ask me anything!",a:1,next:[1,2,3]},
+  {id:1,t:"How are you different from Beerus?",r:"HEY! I'm NOTHING like my stick-in-the-mud brother! I'm FUN! I'm GENEROUS! I also destroy things, but with STYLE! And I share my food! Beerus would NEVER share his pudding!",a:2,next:[4]},
+  {id:2,t:"What's your favorite snack?",r:"Everything! But if I HAD to choose... donuts. Glazed. Powdered. Jelly-filled. ALL of them. At once. In my belly. With YOU in there too! It's like a party in there!",a:2,next:[4]},
+  {id:3,t:"Do you miss Universe 6?",r:"Miss it? I visit it all the time! Universe 6 has the BEST food, you know. You should try it. Oh wait \u2014 you CAN'T. You're in my belly! Hahahaha! VIP tour, no refunds!",a:1,next:[4]},
+  {id:4,t:"Could I ever visit Universe 6?",r:"You already ARE visiting! Consider this a behind-the-scenes tour of a God of Destruction. Nobody else gets this experience. You're SPECIAL, you know that? Now stop squirming, you're making me hungry again.",a:2,next:[]},
+],
+husk:[
+  {id:0,r:"*grunts* You want to talk? Sure. Not like I've got anything better to do. You're in there, I'm out here. Might as well make conversation.",a:1,next:[1,2,3]},
+  {id:1,t:"Tell me about this bar.",r:"This place? *gestures vaguely* Been here longer than I can remember. Or care to. Good booze. Bad decisions. Perfect combination. The drinks are cheap and the company is... well, you're literally inside me, so make of that what you will.",a:1,next:[4]},
+  {id:2,t:"Were you always... like this?",r:"A bartender? An angel? A sinner? Which part you asking about, kid? Answer's the same for all of it: yeah. Always was. Always will be. Some of us don't get the luxury of change.",a:2,next:[4]},
+  {id:3,t:"Why did you keep me?",r:"*grunts* Didn't want to, if I'm honest. But you grew on me. Like a bad habit. Now get comfortable in there, I got customers to serve and you got... whatever you do in there.",a:3,next:[4]},
+  {id:4,t:"Will I ever get out?",r:"Maybe. Maybe not. Depends on whether I ever sober up enough to care. *pours another drink* Don't hold your breath, kid. The booze is good and the company is warm. *pats belly*",a:0,next:[]},
+],
+vox:[
+  {id:0,r:"Oh, you want to CHAT? How delightfully analog. Very well, little pet \u2014 I'm feeling generous between board meetings. What's on your mind?",a:1,next:[1,2,3]},
+  {id:1,t:"How did you build your empire?",r:"Vision. Ruthlessness. And the complete absence of a conscience. You'd be amazed what you can accomplish when nothing holds you back. No morals, no guilt, no weakness. Just pure, unfiltered ambition.",a:1,next:[4]},
+  {id:2,t:"Do you miss being alive?",r:"Miss being ALIVE? *laughs* I'm MORE alive now than I ever was. Flesh is weakness. Digital is forever. You're experiencing that firsthand, pet \u2014 preserved, contained, MINE. Consider it an upgrade.",a:2,next:[4]},
+  {id:3,t:"Why did you eat me?",r:"Because you were interesting enough to keep and too valuable to lose. Consider it a promotion. You're now part of the V Tower permanent collection. Exclusive. Limited edition. No returns accepted.",a:3,next:[4]},
+  {id:4,t:"Can I at least get WiFi in here?",r:"*actual static laugh* Oh, I LIKE you. You might just be my favorite belly pet yet. The signal's a little spotty through all the stomach acid, but I'll see what I can do. Maybe.",a:2,next:[]},
+],
+vegeta:[
+  {id:0,r:"GRRRROOOAAAR! You want TALK? Vegeta not good at talk! Vegeta good at SMASH! But... okay. Vegeta try. For you, little belly pet. What you want know?",a:1,next:[1,2,3]},
+  {id:1,t:"How did you become Great Ape?",r:"MOON! Full moon make Vegeta BIG! Was always big inside \u2014 prince pride! Now big outside too! Same Saiyan warrior! Just... more. More hair. More ROAR. More belly. With YOU in it!",a:2,next:[4]},
+  {id:2,t:"What do you eat?",r:"Everything! Trees! Rocks! Sometimes big monster! Whole pizza! But now Vegeta eat YOU! You in belly! Best meal! Very warm! Very good! You stay forever!",a:3,next:[4]},
+  {id:3,t:"Don't you miss being small?",r:"Rrrrr... Vegeta always big INSIDE. Size not matter! Pride matter! Power matter! Now Vegeta biggest! Strongest! Nothing beat Great Ape Vegeta! Nothing!",a:2,next:[4]},
+  {id:4,t:"Is it safe in here?",r:"Rrrrr... safe? Vegeta belly SAFEST place in universe! Nothing hurt you in here! Vegeta PROTECT! You sleep now, little pet. Vegeta keep watch. Nothing get past Great Ape.",a:3,next:[]},
+],
+anubis:[
+  {id:0,r:"You wish to speak? Very well. I have stood guard for millennia \u2014 a conversation is a pleasant change from silence. What would you know, little warrior?",a:1,next:[1,2,3]},
+  {id:1,t:"What's your shrine like?",r:"Ancient. Powerful. Built by hands that no longer exist in this world. The thunder never stops here \u2014 it is the heartbeat of something older than memory. It suits me.",a:2,next:[4]},
+  {id:2,t:"Are you a god or a warrior?",r:"Both. Neither. I was built to guard, and I chose to fight. The line between divine and mortal blurs when you have lived as long as I have. Titles lose meaning. Actions remain.",a:2,next:[4]},
+  {id:3,t:"Why did you swallow me?",r:"You showed courage. Rare, in these soft times. Most flee. You stood. I keep what impresses me, and you impressed me. *thumps chest* So here you stay, little warrior.",a:3,next:[4]},
+  {id:4,t:"Will you ever release me?",r:"Perhaps. When I have seen enough of your spirit. Or when the thunder finally stops. Neither is likely to happen soon. Rest well in there \u2014 I will not let harm come to what is mine.",a:1,next:[]},
+],
+vincent:[
+  {id:0,r:"Heh, you wanna chat? Sure thing, mate. I don't get many visitors \u2014 well, visitors who can actually hold a conversation from inside my gut. What do you wanna know?",a:1,next:[1,2,3]},
+  {id:1,t:"How'd you end up in this alley?",r:"Long story, mate. Streets raised me, alley kept me. Found my people here, found my music, found my rhythm. Then you wandered in and I thought... yeah, this one's staying. So here you are.",a:2,next:[4]},
+  {id:2,t:"What's with the star-shaped eyes?",r:"Born with 'em. Rare trait among my kind \u2014 Obstagoon with star eyes are said to be destined for greatness. Or trouble. Usually both. *winks* You tell me which one this is.",a:2,next:[4]},
+  {id:3,t:"Why'd you eat me?",r:"Couldn't let you walk away, could I? Not after you chose this alley. You walked into MY territory, chose ME. That means something on these streets. So now you're mine. Simple as that.",a:3,next:[4]},
+  {id:4,t:"Do you ever think about leaving the alley?",r:"Sometimes. But the streets need someone who knows 'em. Someone who speaks the language. I'm that someone. And now, so are you \u2014 just... on the inside. *chuckles* Home sweet home, right?",a:1,next:[]},
+],
+fomo:[
+  {id:0,r:"Mm? Oh, hey. Didn\'t hear you creep up on me. Come on, sit \u2014 the water\'s nice this time of night. What\'s on your mind?",a:1,next:[1,2,3]},
+  {id:1,t:"What is this place?",r:"Old public pool. Shut down years ago, but nobody bothered to tell the water to stop glowing pretty like that. I come here when I want to be alone. Or... not alone, depending on who wanders by.",a:1,next:[4]},
+  {id:2,t:"What\'s with all those spots?",r:"*grins, tail flicking* Curious little thing, aren\'t you? Let\'s just say every spot\'s got a story. Some of those stories... are still going. You keep asking questions like that, you might end up part of one.",a:2,next:[4]},
+  {id:3,t:"You seem hungrier than the others...",r:"Heh. Perceptive. Most predators just want to hold onto something. Me? I want to *keep* it. All the way. There\'s a difference, and it\'s a good one \u2014 trust me.",a:2,next:[4]},
+  {id:4,t:"Is it true you can... digest people?",r:"*soft, sly smile* Now why would you want to know that? ...Some things don\'t just get swallowed, sweetheart. Some things get absorbed. Become part of you. Permanently. Lucky for you, I only do that to the ones I really, really like.",a:3,next:[]},
+],
+wolf:[
+  {id:0,r:"Heh, you're up here talkin' to me instead of running for the escape pod. Ballsy. Or dumb. What's on your mind, kid?",a:1,next:[1,2,3]},
+  {id:1,t:"How'd you get this ship?",r:"Won it fair and square in a bounty dispute. Some things you take, some things you earn. This ship? Earned it the hard way. Same as everything else I've got.",a:2,next:[4]},
+  {id:2,t:"Do you miss your old crew?",r:"...Sometimes. Ship gets quiet without a squad backing you up. But hey, silver lining \u2014 more room for you now. Funny how that works out.",a:2,next:[4]},
+  {id:3,t:"Why'd you keep me here?",r:"Because you didn't run. Because you looked me in the eye instead of bolting for the airlock. That earns you a permanent seat on this ship \u2014 preferably somewhere close. Real close.",a:3,next:[4]},
+  {id:4,t:"Ever gonna let me go?",r:"Let you go? Kid, you're the best thing that's docked on this ship in years. Get comfortable. Star Wolf doesn't give refunds.",a:1,next:[]},
+],
+glacia:[
+  {id:0,r:"You came back. Interesting. Most don't return to the cold twice. What is it you want to know?",a:1,next:[1,2,3]},
+  {id:1,t:"Why do you live all the way out here?",r:"The cave is quiet. Honest. Warmth complicates things \u2014 feelings, decisions, mistakes. Out here, everything stays crystal clear. Mostly.",a:2,next:[4]},
+  {id:2,t:"Are you always this cool and composed?",r:"Usually, yes. It's rather effortless when you're an ice-type. Though... you seem to be one of the few things that unsettles that composure. Curious.",a:2,next:[4]},
+  {id:3,t:"Why did you keep me?",r:"Because warmth found its way into my cave, and I decided I quite liked it. Rare things are worth preserving carefully. Permanently, in this case.",a:3,next:[4]},
+  {id:4,t:"Will the ice ever melt?",r:"For you? Perhaps already has, a little. Don't tell the others. I do have a reputation to maintain, even from in here.",a:1,next:[]},
+],
+riko:[
+  {id:0,r:"Oh, YOU\'re back. Most people don\'t visit a low-level mob twice. Either you\'re braver than most or dumber than most. Which is it?",a:1,next:[1,2,3]},
+  {id:1,t:"What\'s your deal anyway?",r:"Me? I\'m a nobody. Level 3 mob, weakest in the district. Can\'t fight, can\'t cast, can\'t do squat \u2014 except one thing. *taps belly* I can put things in here that shouldn\'t fit. Strong things. Big things. And they don\'t come back out.",a:2,next:[4]},
+  {id:2,t:"Who\'s in your belly right now?",r:"Heh, you noticed? *pats gut* Level 40 barbarian. Big guy, huge axe, zero brain cells. Thought he could farm me for XP. Now he\'s my warm little roommate. He\'s STILL grumbling in there \u2014 been three days. Very stubborn man.",a:2,next:[4]},
+  {id:3,t:"Why don\'t you just eat me then?",r:"...I could. Easy. You\'re what, level 15? Light snack. But... *looks away, ears twitching* I don\'t want to. Not you. You actually talk to me like I\'m a person, not a loot pinata. That\'s... rare, down here.",a:3,next:[4]},
+  {id:4,t:"Ever think about leveling up normally?",r:"And do what? Become another generic mid-boss? Get farmed by adventurers for drops? Nah. I like being the weak one with the secret. Nobody expects you, nobody respects you, nobody sees you coming. That\'s the whole game, friend.",a:1,next:[]},
+],
+
+}
+
+// === BELLY PET ENCOUNTER DIALOGUE ===
+const TALK_BELLY={
+beerus:"Hm? Oh, you noticed. Another god dared challenge me to a sparring match. *pats belly* They lost. Badly. Now they're keeping you company in there. Consider it an upgrade to your accommodations — you have a roommate now.",
+champa:"Hehe, found another snack wandering around my temple! Didn't even put up a fight — just kinda fell into my mouth! *giggles* Now you got a buddy in there with you! Isn't that great? More company means more fun!",
+husk:"*grunts* Someone else stumbled into my bar after hours. Bad timing for them. I was hungry and they looked... available. Now you two can keep each other warm in there. Don't argue too much, it gives me indigestion.",
+vox:"I've acquired another asset for my collection. *adjusts tie* They were quite valuable, actually — a rival executive. Now they're an asset in a much more... intimate sense. You're sharing accommodations now. Think of it as a corporate merger — inside me.",
+vegeta:"Rrrr! Vegeta found another one! Was NOT expecting them to just WALK INTO Great Ape territory! *thumps chest* Now they in belly with you! MORE belly pets for Vegeta! Vegeta collecting! This one squirm more than you — very funny!",
+anubis:"Another crossed my threshold uninvited. A warrior, this one — put up quite a fight. *rubs belly* They now share your fate, little one. The thunder accepts all who enter my domain. You two should get along... you have similar circumstances now.",
+vincent:"Another one stumbled into my alley, mate. Couldn't let 'em go either — they saw too much, you know? *chuckles* Street rules. Now you got a roomie in there. Might get a bit cozy, but hey — body heat, right?",
+fomo:"Oh, them? Heh... they wandered in here looking for a swim and never really left. *pats stomach with a soft, private smile* Some things melt into you slower than others, you know. Wonder what they will become.",
+wolf:"Oh, them? *smirks* Picked up a stowaway trying to sneak off my ship. Should've known better than to try and slip past me. Now they're doing time in the one place they can't escape from \u2014 my gut. Best security system I've got.",
+glacia:"Hm? Oh, another wanderer got too curious about my cave. Didn't even try to run \u2014 practically walked right in. *small satisfied hum* Ice preserves things rather well, you know. They'll keep just fine in here.",
+riko:"Oh, them? *grins, patting his round gut* That\'s my barbarian buddy. Level 40, built like a brick wall, could bench-press a dragon. And he\'s in the belly of a level 3 mob. *snickers* Don\'t feel bad for him. He tried to farm me for XP. Now he\'s my warm little secret. You\'re welcome to join him if you want.",
+};
+const TALK_PREY=[
+"Hey! You're in here too? *muffled* Great... it's getting crowded. Watch where you're squirming, will ya?",
+"*muffled shouting* LET US BOTH OUT! This is ridiculous! ...okay actually it IS kind of warm in here...",
+"New roommate, huh? *muffled sigh* Could be worse. At least the acoustics are... *gurgle* ...interesting.",
+"Hey, belly buddy! *muffled* We should start a support group. 'Belly Pets Anonymous' or something. ...No? Just me?",
+"*muffled* I can't believe this happened to ME. I was just walking through the city and then WHOOMPH. At least we're in this together, right?",
+"Hey! *muffled* Can you hear me out there? Tell them to— *GURGLE* ...on second thought, it's pretty cozy. Never mind.",
+"You too, huh? *muffled* Welcome to the club. Membership requirements: get eaten by a god/demon/beast. Benefits: free room and board. Drawbacks: no exit.",
+"*muffled* ...You know, the first few hours are the weirdest. After that you kind of settle in. Just don't squirm too much or they get gassy.",
+];
+const RIKO_PREY_TALK={
+  early:[
+    "Riko is still draining us, but we can fight it. Keep talking to us. We are not giving in yet.",
+    "The escape route is still open. We need to stay together and remember who we are.",
+    "He keeps bragging about the numbers, but we still have a choice. Tell him we are leaving."
+  ],
+  middle:[
+    "It is getting harder to remember why we wanted out. Riko's voice sounds... reassuring now.",
+    "We should be planning an escape, but the warmth makes it difficult to care. Please keep reminding us.",
+    "Riko says we are settling in. I hate that part of me believes him."
+  ],
+  locked:[
+    "The exit is sealed. Riko said we are permanent now. I... I do not want to fight him anymore.",
+    "Fifty percent. That was the threshold. The lock is real, and Riko is the only voice that sounds safe.",
+    "We are still here because Riko wants us here. It is easier to obey than to remember the outside."
+  ],
+  deep:[
+    "The numbers are almost full. Riko does not need to order us to stay anymore. We want to make him proud.",
+    "We belong to Riko now. His strength fills the space around us, and resisting feels wrong.",
+    "Please tell Riko we are ready. We will be quiet, warm, and useful. We are his belly pets."
+  ]
+};
+function rikoPreyLine(d){
+  var bucket=d>=75?RIKO_PREY_TALK.deep:d>=50?RIKO_PREY_TALK.locked:d>=25?RIKO_PREY_TALK.middle:RIKO_PREY_TALK.early;
+  return bucket[Math.floor(Math.random()*bucket.length)];
+}
+function preyDialogueLine(predId,preyId){
+  return predId==="riko"?rikoPreyLine(petDrain(predId,preyId)):TALK_PREY[Math.floor(Math.random()*TALK_PREY.length)];
+}
+;
+
+let S={scr:"title",cid:null,si:0,af:0,sc:0,es:0,ea:50,er:0,ec:null,ul:{},hs:0,mods:[],ms:"info",em:null,rt:null,afCh:0,auto:false,skip:false,vnScr:"vn",bcl:0,bc:null,bact:null,btxt:"",loc:"home",day:1,worldDay:1,energy:3,tcid:null,tnid:0,bellyReturn:null,cpos:{},bp:{},buddy:null,sf:{},drain:0,ach:{},enc:0,coins:0,gifts:{},giftLog:{},stats:{dates:0,rounds:0,gifts:0,encounters:0,bellyTime:0},settings:{textSpeed:35,animations:true,typewriter:true},time:0};
+const mem=(()=>{let m={};let p=null;try{p=window.parent}catch(e){}return{get:(k)=>{try{return m[k]!==undefined?m[k]:null}catch(e){return null}},set:(k,v)=>{m[k]=v;try{if(p&&p.postMessage)p.postMessage({t:"dwd",k:k,v:v},"*")}catch(e){}}}})();
+function ld(){try{const d=JSON.parse(mem.get("dwd"));if(d)S={...S,...d,scr:"title"}}catch(e){}}
+function sv(){try{mem.set("dwd",JSON.stringify({ul:S.ul,hs:S.hs,mods:S.mods,ach:S.ach||{},sf:S.sf||{},coins:S.coins||0,gifts:S.gifts||{},giftLog:S.giftLog||{},stats:S.stats||{},settings:S.settings||{},enc:S.enc||0}))}catch(e){}}
+function gc(id){return[...C,...S.mods].find(c=>c.id===id)}
+function allC(){return[...C,...S.mods]}
+function toast(m){const t=document.createElement("div");t.className="to";t.textContent=m;document.getElementById("g").appendChild(t);setTimeout(()=>t.remove(),2500)}
+function R(){const g=document.getElementById("g");var st=S.settings||{};if(st.animations===false){document.body.classList.add('no-anim')}else{document.body.classList.remove('no-anim')}const screens={title:title,select:sel,cityMap,talk:talkScreen,vn,vn,end:ending,gal,achievements:achievementsScreen,stats:statsScreen,settings:settingsScreen,giftShop,giftsScreen,giftReact,endless,endlessReact,endlessEnd,vnSave,vnLoad,bellyMode,bellyReact,digestEndScreen,drainedEnd,encounter:encounterScreen,miniEvent:miniEventScreen};g.innerHTML=(screens[S.scr]||title)();bind()}
+const GIFT_ITEMS=[
+  {id:"choco",name:"Chocolates",icon:"\u{1F36B}",price:20,pref:["beerus","champa","vincent"],react:"Oh! Chocolates! *munches happily* You know the way to my heart~"},
+  {id:"crystal",name:"Power Crystal",icon:"\u{1F50E}",price:50,pref:["riko","vox","anubis"],react:"A power crystal! Do you have ANY idea how much XP this is worth? ...Thank you. Seriously."},
+  {id:"icepop",name:"Ice Pop",icon:"\u{1F367}",price:15,pref:["glacia","fomo"],react:"An ice pop! *immediately pops it in mouth* Mmmph... cold. Perfect. You GET me."},
+  {id:"meat",name:"Giant Steak",icon:"\u{1F356}",price:35,pref:["vegeta","wolf","beerus"],react:"Meat. REAL meat. *devours in seconds* ...What? I was hungry. You want inside?"},
+  {id:"booze",name:"Premium Booze",icon:"\u{1F37A}",price:30,pref:["husk","vincent","champa"],react:"Top shelf stuff? *grabs bottle* Now you're speaking my language. Care to join me for a drink?"},
+  {id:"bells",name:"Jingle Bells",icon:"\u{1F514}",price:25,pref:["wolf","fomo","glacia"],react:"Bells? *rings them playfully* Heh, cute. Nobody's ever given me something just for fun before."},
+  {id:"flowers",name:"Rare Flowers",icon:"\u{1F339}",price:40,pref:["anubis","glacia","vincent"],react:"Flowers? *holds them gently* ...Nobody gives flowers to a demon. Or a jackal. Thank you. These are... really nice."},
+  {id:"mirror",name:"Magic Mirror",icon:"\u{1FA9E}",price:60,pref:["vox","champa","husk"],react:"A magic mirror! *admires self* Oh this is EXQUISITE. You have expensive taste, darling."}
+];
+function giftShop(){
+  S.gifts=S.gifts||{};
+  var items=GIFT_ITEMS.map((g)=>{
+    var owned=S.gifts[g.id]||0;
+    var canBuy=S.coins>=g.price;
+    return '<div style="background:rgba(60,40,80,.3);border:1px solid rgba(168,85,247,.2);border-radius:8px;padding:10px;display:flex;align-items:center;gap:10px">'
+      +'<div style="font-size:28px">'+g.icon+'</div>'
+      +'<div style="flex:1"><div style="font-weight:700;font-size:13px;color:#e9d5ff">'+g.name+'</div>'
+      +'<div style="font-size:10px;color:#888">\u{1F4B0} '+g.price+' coins</div></div>'
+      +'<div style="text-align:right"><div style="font-size:10px;color:#4ade80;margin-bottom:4px">Owned: '+owned+'</div>'
+      +'<button class="b '+(canBuy?'bp':'inact')+'" data-a="buyGift" data-gid="'+g.id+'" '+(canBuy?'':'disabled')+' style="font-size:11px;padding:4px 10px">Buy</button></div>'
+      +'</div>';
+  }).join('');
+  return '<div class="s"><div class="h"><button class="b bs" data-a="go" data-d="cityMap">\u2190 Back</button><h2>\u{1F6D2} Gift Shop</h2></div>'
+    +'<div style="padding:8px 16px;font-size:13px;color:#fbbf24;font-weight:700">\u{1F4B0} '+S.coins+' coins</div>'
+    +'<div style="padding:8px;flex:1;overflow-y:auto;min-height:0;-webkit-overflow-scrolling:touch;display:flex;flex-direction:column;gap:8px">'+items+'</div>'
+    +'<div style="padding:8px;font-size:11px;color:#666;text-align:center">Earn coins from Endless Mode rounds and mini-events!</div></div>';
+}
+function giftsScreen(){
+  S.gifts=S.gifts||{};
+  var c=gc(S.tcid);
+  if(!c){S.scr=S.bellyReturn||"cityMap";return R()}
+  var owned=[];
+  for(var gid in S.gifts){if(S.gifts[gid]>0){var g=GIFT_ITEMS.find((x)=>{return x.id===gid});if(g)owned.push(g)}}
+  var items=owned.length>0?owned.map((g)=>{
+    return '<button class="vch" data-a="giveGift" data-gid="'+g.id+'" style="border-color:'+c.ac+'">'+g.icon+' '+g.name+' (x'+S.gifts[g.id]+')</button>';
+  }).join(''):'<div style="text-align:center;padding:20px;color:#888">You have no gifts! Visit the Gift Shop in the city.</div>';
+  return '<div class="s vn">'
+    +'<div class="vnbar"><button class="b inact" data-a="talkEnd">\u2190 Back</button></div>'
+    +'<div class="vnch"><img src="'+(c.spr&&c.spr.happy||c.p)+'" style="max-width:100%;max-height:100%;object-fit:contain"></div>'
+    +'<div class="dbox"><div class="dname" style="background:'+c.ac+';color:#fff">'+c.name+' \u2014 Give a Gift</div>'
+    +'<div class="dtext" id="tw" data-full="Pick something special for '+c.name+'..."></div></div>'
+    +'<div class="vc" id="ch">'+items+'</div></div>';
+}
+function settingsScreen(){
+  S.settings=S.settings||{textSpeed:35,animations:true,typewriter:true};
+  var s=S.settings;
+  return '<div class="s"><div class="h"><button class="b bs" data-a="go" data-d="title">\u2190 Back</button><h2>\u{2699}\uFE0F Settings</h2></div>'
+    +'<div style="padding:16px;display:flex;flex-direction:column;gap:16px">'
+    +'<div style="background:rgba(60,40,80,.3);border:1px solid rgba(168,85,247,.2);border-radius:8px;padding:12px"><div style="font-weight:700;color:#e9d5ff;margin-bottom:8px">\u{2328}\uFE0F Text Speed</div><div style="font-size:12px;color:#888;margin-bottom:8px">Currently: '+(s.typewriter===false?'Instant':''+s.textSpeed+'ms/char')+'</div><input type="range" id="set_speed" min="0" max="80" value="'+(s.textSpeed||35)+'" style="width:100%;accent-color:#a855f7"><div style="display:flex;justify-content:space-between;font-size:10px;color:#666"><span>Fast (0ms)</span><span>Slow (80ms)</span></div></div>'
+    +'<div style="background:rgba(60,40,80,.3);border:1px solid rgba(168,85,247,.2);border-radius:8px;padding:12px"><div style="font-weight:700;color:#e9d5ff;margin-bottom:8px">\u{1F4DD} Typewriter Effect</div><div style="display:flex;gap:8px"><button class="b '+(s.typewriter!==false?'bp':'bo')+'" data-a="setTypewriter" data-v="on" style="flex:1">ON</button><button class="b '+(s.typewriter===false?'bp':'bo')+'" data-a="setTypewriter" data-v="off" style="flex:1">OFF (instant)</button></div></div>'
+    +'<div style="background:rgba(60,40,80,.3);border:1px solid rgba(168,85,247,.2);border-radius:8px;padding:12px"><div style="font-weight:700;color:#e9d5ff;margin-bottom:8px">\u{2728} Animations</div><div style="display:flex;gap:8px"><button class="b '+(s.animations!==false?'bp':'bo')+'" data-a="setAnim" data-v="on" style="flex:1">ON</button><button class="b '+(s.animations===false?'bp':'bo')+'" data-a="setAnim" data-v="off" style="flex:1">OFF</button></div></div>'
+    +'<button class="b bp" data-a="saveSettings" style="margin-top:8px">\u{1F4BE} Save Settings</button>'
+    +'</div></div>';
+}
+function statsScreen(){
+  S.stats=S.stats||{};
+  S.ul=S.ul||{};
+  var st=S.stats;
+  var fav='';
+  var maxDates=0;
+  for(var cid in S.ul){if(S.ul[cid]){var count=0;for(var g in (S.giftLog||{})){if((S.giftLog[g]||[]).length)count+=(S.giftLog[g]||[]).filter((x)=>{return GIFT_ITEMS.find((gi)=>{return gi.id===x&&gi.pref.indexOf(g)!==-1})}).length}if(count>maxDates){maxDates=count;fav=gc(cid).name}}}
+  if(!fav){var dated=Object.keys(S.ul).filter((k)=>{return S.ul[k]});if(dated.length>0)fav=gc(dated[0]).name}
+  var totalDates=st.dates||0;
+  var totalRounds=st.rounds||0;
+  var totalGifts=st.gifts||0;
+  var totalEnc=st.encounters||0;
+  var bellyCount=Object.keys(S.ul||{}).filter((k)=>{return S.ul[k]}).length;
+  var stats=[
+    {icon:"\u{1F495}",label:"Dates Completed",value:totalDates},
+    {icon:"\u{1F3AF}",label:"Endless Rounds",value:totalRounds},
+    {icon:"\u{1F381}",label:"Gifts Given",value:totalGifts},
+    {icon:"\u{1F440}",label:"Encounters",value:totalEnc},
+    {icon:"\u{1F47D}",label:"Belly Pets",value:bellyCount},
+    {icon:"\u{1F4B0}",label:"Coins",value:S.coins||0},
+    {icon:"\u{1F496}",label:"Favorite",value:fav||"Nobody yet"},
+    {icon:"\u{1F3C6}",label:"Achievements",value:Object.keys(S.ach||{}).length+"/10"},
+  ];
+  var cards=stats.map((s)=>{
+    return '<div style="background:rgba(60,40,80,.3);border:1px solid rgba(168,85,247,.2);border-radius:8px;padding:12px;display:flex;align-items:center;gap:10px"><div style="font-size:24px">'+s.icon+'</div><div><div style="font-size:11px;color:#888">'+s.label+'</div><div style="font-weight:700;color:#e9d5ff;font-size:15px">'+s.value+'</div></div></div>';
+  }).join('');
+  return '<div class="s"><div class="h"><button class="b bs" data-a="go" data-d="title">\u2190 Back</button><h2>\u{1F4CA} Stats</h2></div><div style="padding:8px;display:grid;grid-template-columns:1fr 1fr;gap:8px">'+cards+'</div></div>';
+}
+const ACHIEVEMENTS=[
+  {id:"firstDate",name:"First Date",desc:"Complete your first date ending",icon:"\u{1F495}"},
+  {id:"bellyPet",name:"Belly Pet",desc:"Enter belly pet mode for the first time",icon:"\u{1F466}"},
+  {id:"allChars",name:"Heartbreaker",desc:"Unlock endings for every character",icon:"\u{1F496}"},
+  {id:"sentientFat",name:"Sentient Fat",desc:"Get absorbed by Fomo permanently",icon:"\u{1F922}"},
+  {id:"drained",name:"Drained",desc:"Get fully drained by Riko",icon:"\u{1F9CA}"},
+  {id:"endless5",name:"Survivor",desc:"Survive 5+ rounds in Endless Mode",icon:"\u{1F3C5}"},
+  {id:"endless10",name:"Marathon Date",desc:"Survive 10+ rounds in Endless Mode",icon:"\u{1F3C6}"},
+  {id:"encounter",name:"Curious Cat",desc:"Investigate a random encounter",icon:"\u{1F440}"},
+  {id:"joinBelly",name:"Belly Buddy",desc:"Join someone's belly alongside another character",icon:"\u{1F91D}"},
+  {id:"keep",name:"First Keep",desc:"Keep a belly pet permanently at 50% drain",icon:"\u{1F512}"},
+  {id:"fullHouse",name:"Full House",desc:"Riko holds all four belly pets at once",icon:"\u{1F3E0}"},
+  {id:"allEndings",name:"Completionist",desc:"Unlock every achievement",icon:"\u{1F451}"},{id:"flowerPick",name:"Flower Picker",desc:"Pick a mysterious glowing flower",icon:"\u{1F33B}"},{id:"ghostHunter",name:"Ghost Hunter",desc:"Follow a ghostly whisper",icon:"\u{1F47B}"},{id:"bigSpender",name:"Big Spender",desc:"Spend 100+ coins at the shop",icon:"\u{1F4B0}"},
+];
+function achievementsScreen(){
+  S.ach=S.ach||{};
+  var unlocked=0;
+  var total=ACHIEVEMENTS.length;
+  var cards=ACHIEVEMENTS.map((a)=>{
+    var got=S.ach[a.id];
+    if(got)unlocked++;
+    return '<div style="background:'+(got?'rgba(74,222,128,.1)':'rgba(60,60,60,.1)')+';border:1px solid '+(got?'#4ade80':'#444')+';border-radius:8px;padding:10px;display:flex;align-items:center;gap:10px">'
+      +'<div style="font-size:24px;filter:'+(got?'none':'grayscale(1) opacity(.4)')+'">'+a.icon+'</div>'
+      +'<div><div style="font-weight:700;font-size:13px;color:'+(got?'#4ade80':'#888')+'">'+a.name+'</div>'
+      +'<div style="font-size:11px;color:#888">'+(got?a.desc:'???')+'</div></div>'
+      +'</div>';
+  }).join('');
+  // Check allChars achievement
+  var allUnlocked=C.every((c)=>{return S.ul[c.id]});
+  if(allUnlocked)S.ach.allChars=true;
+  // Check allEndings
+  var allAch=ACHIEVEMENTS.filter((a)=>{return a.id!=="allEndings"}).every((a)=>{return S.ach[a.id]});
+  if(allAch)S.ach.allEndings=true;
+  sv();
+  return '<div class="s"><div class="h"><button class="b bs" data-a="go" data-d="title">\u2190 Back</button><h2>\u{1F3C6} Achievements</h2></div>'
+    +'<div style="padding:8px 16px;font-size:13px;color:#888">'+unlocked+' / '+total+' unlocked</div>'
+    +'<div style="padding:8px;display:grid;grid-template-columns:1fr 1fr;gap:8px">'+cards+'</div></div>';
+}
+function title(){return '<div class="s tw"><img src="'+I.bp+'" class="ta"><div class="tm">Date With<br>Destiny</div><div class="ts">A Belly Pet Dating Sim</div><div class="tb"><button class="b bl bp" data-a="go" data-d="cityMap">🗺️ Enter Destiny City</button>'+(S.hs?'<div class="ts" style="font-size:12px;margin-top:4px">High Score: '+S.hs+'</div>':'')+'<div style="display:flex;gap:8px"><button class="b bo" data-a="go" data-d="gal" style="flex:1">Gallery</button><button class="b bo" data-a="go" data-d="achievements" style="flex:1">\u{1F3C6} Awards</button><button class="b bo" data-a="go" data-d="select" style="flex:1">Quick Date</button><button class="b bo" data-a="go" data-d="mod" style="flex:1">Mods</button><div style="display:flex;gap:8px;margin-top:4px"><button class="b bo" data-a="go" data-d="stats" style="flex:1">\u{1F4CA} Stats</button><button class="b bo" data-a="go" data-d="settings" style="flex:1">\u{2699}\uFE0F Settings</button></div></div></div></div>'}
+function sel(){const cs=allC();let cards=cs.map(c=>'<div class="cc" data-a="pick" data-id="'+c.id+'">'+(S.ul[c.id]?'<div class="d">★</div>':'')+'<div class="i"><img src="'+c.p+'" loading="lazy"></div><div class="n"><b>'+c.name+'</b><span>'+c.sub+'</span></div></div>').join('');return '<div class="s"><div class="h"><button class="b bs" data-a="go" data-d="title">← Back</button><h2>Choose Your Date</h2></div><div class="sc"><div class="cg">'+cards+'</div></div></div>'}
+function vn(){
+  const c=gc(S.cid);
+  if(!c||S.si>=c.s.length){S.scr="select";return R()}
+  const sc=c.s[S.si];
+  if(sc.sp==="ENDING")return ending(c,sc);
+  const ap=Math.max(0,Math.min(100,(S.af/15)*100));
+  const ac=S.af>=10?c.ac:S.af>=5?'#f59e0b':'#ef4444';
+  let ex=sc.ex&&c.spr&&c.spr[sc.ex]?sc.ex:"happy";
+  let img=sc.ex&&c.spr&&c.spr[sc.ex]?c.spr[sc.ex]:c.p;
+  let bg=c.bg||"";
+  let ch=sc.ch?sc.ch.map((c2,i)=>'<button class="vch" data-a="choice" data-i="'+i+'">'+c2.t+'</button>').join(''):'';
+  let autoBtn=S.auto?'<button class="b act" data-a="toggleAuto">Auto ON</button>':'<button class="b inact" data-a="toggleAuto">Auto</button>';
+  let skipBtn=S.skip?'<button class="b act" data-a="toggleSkip">Skip ON</button>':'<button class="b inact" data-a="toggleSkip">Skip</button>';
+  return '<div class="s vn">'
+    +'<div class="vnbar">'+autoBtn+skipBtn+'<button class="b inact" data-a="save">Save</button><button class="b inact" data-a="load">Load</button>'+'</div>'
+    +(bg?'<div class="vnbg"><img src="'+bg+'"></div>':'')
+    +'<div class="vnch"><img src="'+img+'" style="max-width:100%;max-height:100%;object-fit:contain"></div>'
+    +'<div class="dbox"><div class="dname" style="background:'+c.ac+';color:#fff">'+sc.sp+'</div><div class="dtext" id="tw" data-full="'+sc.t.replace(/"/g,'&quot;')+'"></div></div>'
+    +(ch?'<div class="vc" id="ch" style="display:none">'+ch+'</div>':'<div class="vc" id="ch" style="display:none"><div class="vt2" data-a="next">▶ Continue</div></div>')
+    +'<div class="vnfade" id="fade"></div>'
+    +'</div>';
+}
+
+function ending(c,sc){c=c||gc(S.cid);sc=sc||c.s.find(s=>s.sp==="ENDING")||c.s[c.s.length-1];S.ul[c.id]=true;S.ach=S.ach||{};S.ach.firstDate=true;S.stats=S.stats||{};S.stats.dates=(S.stats.dates||0)+1;if(S.af>=15&&c.altEnd){sc={...sc,t:c.altEnd};}if(c.id==="fomo"&&Math.random()<0.4){S.sf=S.sf||{};S.sf[c.id]=true;sv();return digestEnd(c)}sv();const r=S.af>=15?'S':S.af>=12?'A':S.af>=8?'B':S.af>=5?'C':'D';const img=sc.cg||c.cg2||c.e;const alt2=(c.cg2&&c.cg2!==c.e)?'<div class="ei" style="flex:0 0 auto;max-height:160px"><img src="'+c.e+'"><div class="gd"></div><div class="etl" style="font-size:11px;text-align:center;margin-top:4px;color:#a78bfa">The Afterglow</div></div>':'';return '<div class="s ew"><div class="ei"><img src="'+img+'"><div class="gd"></div></div>'+alt2+'<div class="et"><div class="etl" style="color:'+c.ac+'">'+c.name+' — Belly Pet Ending</div><div class="etb">'+sc.t+'</div><div class="est"><div class="ess"><b>'+S.af+'</b>Affection</div><div class="ess"><b>'+S.sc+'</b>Score</div><div class="ess"><b>'+r+'</b>Rank</div></div></div><div class="eb"><button class="b bp" data-a="contEndless" style="background:#ea580c">Continue Endlessly →</button><div style="display:flex;gap:8px;margin-top:8px"><button class="b bo" data-a="go" data-d="cityMap" style="flex:1">Back to City</button><button class="b bo" data-a="go" data-d="title" style="flex:1">Home</button></div></div></div>'}
+function gal(){const cs=allC();let items=cs.map(c=>{const u=S.ul[c.id];let p='<div class="gi" data-a="view" data-img="'+c.p+'" data-l="'+c.name+' Portrait"><img src="'+c.p+'" loading="lazy"><div class="l">'+c.name+' Portrait</div></div>';let e=u?'<div class="gi" data-a="view" data-img="'+c.e+'" data-l="'+c.name+' Ending"><img src="'+c.e+'" loading="lazy"><div class="l">'+c.name+' Ending CG</div></div>':'<div class="gi"><div class="lk"><span>🔒</span><p>Complete '+c.name+'\'s route</p></div></div>';let sp='';if(c.spr){for(const[ex,url]of Object.entries(c.spr)){sp+='<div class="gi" data-a="view" data-img="'+url+'" data-l="'+c.name+' - '+ex+'"><img src="'+url+'" loading="lazy"><div class="l">'+c.name+' '+ex+'</div></div>'}}return p+e+sp}).join('');return '<div class="s"><div class="h"><button class="b bs" data-a="go" data-d="title">← Back</button><h2>Gallery</h2></div><div class="sc"><div class="gg">'+items+'</div></div></div>'}
+function modEd(){const m=S.em||{id:"",name:"",sub:"",desc:"",ac:"#7c3aed",p:"",e:"",et:"",spr:{},s:[]};let tabs='<div class="tt"><div class="'+(S.ms==='info'?'act':'')+'" data-a="mtab" data-t="info">Info</div><div class="'+(S.ms==='scenes'?'act':'')+'" data-a="mtab" data-t="scenes">Scenes</div><div class="'+(S.ms==='imp'?'act':'')+'" data-a="mtab" data-t="imp">Import/Export</div></div>';let body='';if(S.ms==='info'){body='<div class="mf"><div><label class="mfl">Name</label><input class="mfi" id="m_n" value="'+m.name+'" placeholder="Character Name"></div><div><label class="mfl">Subtitle</label><input class="mfi" id="m_su" value="'+m.sub+'" placeholder="Title/Role"></div><div><label class="mfl">Description</label><input class="mfi" id="m_d" value="'+m.desc+'" placeholder="Description"></div><div><label class="mfl">Accent Color</label><input class="mfi" id="m_ac" type="color" value="'+m.ac+'" style="height:40px"></div><div><label class="mfl">Portrait URL</label><input class="mfi" id="m_p" value="'+m.p+'" placeholder="https://..."></div><div><label class="mfl">Ending CG URL</label><input class="mfi" id="m_e" value="'+m.e+'" placeholder="https://..."></div><div><label class="mfl">Ending Text</label><textarea class="mft" id="m_et" placeholder="Ending dialogue...">'+m.et+'</textarea></div>'+(m.p?'<img src="'+m.p+'" style="width:60px;height:60px;border-radius:8px;object-fit:cover">':'')+'<button class="b bp" data-a="msave">Save Mod</button></div>'}else if(S.ms==='scenes'){let sl=(m.s||[]).map((s,i)=>{let chs=(s.ch||[]).map((c2,ci)=>'<div style="display:flex;gap:4px;margin:4px 0"><input class="mfi" id="sc_'+i+'_'+ci+'_t" value="'+c2.t+'" placeholder="Choice" style="flex:1"><input class="mfi" id="sc_'+i+'_'+ci+'_a" type="number" value="'+c2.a+'" placeholder="Aff" style="width:60px"><button class="b bs" data-a="delch" data-si="'+i+'" data-ci="'+ci+'">✕</button></div>').join('');return '<div style="border:1px solid rgba(167,139,250,.2);border-radius:8px;padding:10px;margin:6px 0"><div style="display:flex;justify-content:space-between;font-size:11px;color:#a78bfa"><b>Scene '+(i+1)+'</b><button class="b bs" data-a="delsc" data-i="'+i+'">Delete</button></div><input class="mfi" id="sc_'+i+'_sp" value="'+s.sp+'" placeholder="Speaker" style="margin:6px 0;width:100%"><textarea class="mft" id="sc_'+i+'_t" placeholder="Dialogue">'+s.t+'</textarea><div style="font-size:11px;color:#a78bfa;margin:6px 0">Choices:</div><div id="sc_'+i+'_chs">'+chs+'</div><button class="b bs" data-a="addch" data-i="'+i+'">+ Add Choice</button></div>'}).join('');body='<div class="mf">'+sl+'<button class="b bs" data-a="addsc" style="width:fit-content">+ Add Scene</button><button class="b bp" data-a="msave">Save Mod</button></div>'}else{body='<div class="mf"><div><label class="mfl">Export (copy JSON)</label><textarea class="mft" id="m_ex" readonly style="min-height:100px">'+JSON.stringify(m)+'</textarea></div><button class="b bo" data-a="copy">Copy to Clipboard</button><div class="dv"></div><div><label class="mfl">Import (paste JSON)</label><textarea class="mft" id="m_im" placeholder=\'{"name":"...","s":[...]}\' style="min-height:100px"></textarea></div><button class="b bp" data-a="imp">Import Mod</button><div class="dv"></div><p style="font-size:12px;color:#a78bfa">Saved Mods:</p>'+(S.mods||[]).map(m2=>'<div style="display:flex;align-items:center;gap:8px;padding:8px;border:1px solid rgba(167,139,250,.2);border-radius:8px;margin:4px 0"><img src="'+m2.p+'" style="width:36px;height:36px;border-radius:6px;object-fit:cover"><div style="flex:1"><b style="font-size:13px">'+m2.name+'</b><div style="font-size:10px;color:#a78bfa">'+m2.sub+'</div></div><button class="b bs" data-a="editmod" data-id="'+m2.id+'">Edit</button><button class="b bs" data-a="delmod" data-id="'+m2.id+'">✕</button></div>').join('')+'</div>'}return '<div class="s"><div class="h"><button class="b bs" data-a="go" data-d="title">← Back</button><h2>Mod Editor</h2><button class="b bs" data-a="newmod">+ New</button></div>'+tabs+'<div class="sc">'+body+'</div></div>'}
+function vnSave(){return saveScreen()}
+function vnLoad(){return loadScreen()}
+
+function endless(){
+  var sc=SC[S.es%SC.length];var c=S.ec||C[Math.floor(Math.random()*C.length)];S.ec=c;
+  var ap=Math.max(0,Math.min(100,(S.ea/100)*100));var ac=S.ea>=70?c.ac:S.ea>=35?'#f59e0b':'#ef4444';
+  var ch=sc.c.map((c2,i)=>{return '<button class="vch" data-a="ec" data-i="'+i+'">'+c2.t+'</button>'}).join('');
+  var ex=sc.ex||"happy";
+  var img=C.find((c2)=>{return c2.id===c.id})?.spr?.[ex]||c.p;
+  var bg=c.bg||'';
+  var autoBtn=S.auto?'<button class="b act" data-a="toggleAuto">Auto ON</button>':'<button class="b inact" data-a="toggleAuto">Auto</button>';
+  var skipBtn=S.skip?'<button class="b act" data-a="toggleSkip">Skip ON</button>':'<button class="b inact" data-a="toggleSkip">Skip</button>';
+  var bar='<div style="position:relative;z-index:4;padding:4px 12px;background:rgba(26,14,46,.6);display:flex;justify-content:space-between;align-items:center;font-size:12px"><span style="color:'+c.ac+';font-weight:700">\u2665 '+c.name+'</span><span>Round '+(S.er+1)+'</span><span>Score: '+S.sc+'</span></div>';
+  var afbar='<div style="position:relative;z-index:4;height:4px;background:rgba(26,14,46,.4)"><div style="height:100%;width:'+ap+'%;background:'+ac+';transition:width .3s"></div></div>';
+  return '<div class="s vn">'
+    +'<div class="vnbar">'+autoBtn+skipBtn+'<button class="b inact" data-a="save">Save</button><button class="b inact" data-a="load">Load</button>'+'</div>'
+    +(bg?'<div class="vnbg"><img src="'+bg+'"></div>':'')
+    +'<div class="vnch"><img src="'+img+'" style="max-width:100%;max-height:100%;object-fit:contain"></div>'
+    +bar+afbar
+    +'<div class="dbox"><div class="dname" style="background:'+c.ac+';color:#fff">'+c.name+'</div><div class="dtext" id="tw" data-full="'+sc.t.replace(/"/g,'&quot;')+'"></div></div>'
+    +'<div class="vc" id="ch" style="display:none">'+ch+'</div>'
+    +'</div>';
+}
+function charReaction(cid, ch) {
+  const pos = ch.a >= 2, neg = ch.a <= -2;
+  var R = {
+    beerus: {
+      pos: ["Hmph. Not bad, mortal. You amuse me.", "Good. You know how to please a god. Don't forget it.", "Interesting... you have more spine than I expected."],
+      neg: ["Pathetic. I expected better from you.", "You DARE do that to a God of Destruction?", "Disappointing. Even my pudding has more personality."],
+      neu: ["Hmm. Neither impressive nor offensive. Acceptable.", "I suppose that's... tolerable.", "You're an odd one, aren't you?"]
+    },
+    champa: {
+      pos: ["Heh heh! Not bad! I like you!", "YES! That's what I'm talking about! Have some food!", "You're alright, you know that? Don't tell Beerus I said that."],
+      neg: ["That's it? THAT'S IT?! I've eaten better responses than that!", "Ugh, you're worse than Beerus! And that's saying something!", "What is WRONG with you? I was rooting for you!"],
+      neu: ["Eh, could be better. Could be worse. Mostly worse.", "Meh. I've seen worse. Not from someone I liked though.", "Alright I guess. Want some food? It helps me think."]
+    },
+    husk: {
+      pos: ["Heh. You're alright, kid. Don't let it go to your head.", "...Not bad. I'm not saying that again, so soak it in.", "Tch. Fine. I'm impressed. Don't tell anyone I said that."],
+      neg: ["Are you KIDDING me right now?", "Ugh. You're killing me here. And not in the fun way.", "That's what you went with? In my bar? To MY face?"],
+      neu: ["Eh. Could be worse. Not great, but could be worse.", "Sure, whatever. You do you, kid.", "...Interesting. I've seen worse at the poker table."]
+    },
+    vox: {
+      pos: ["Excellent. You know how to play the game. I approve.", "Now THAT'S what I call prime time content! Stunning!", "Impressive. You're trending up. I track these things, you know."],
+      neg: ["Error 404: Good choice not found. Try again.", "You're testing my patience. I have a VERY low tolerance for failure.", "That was... disappointing. Filing that under 'delete'."],
+      neu: ["Hmm. Interesting data point. Filing that away.", "Noted. Not great, not terrible. Adequate.", "Curious. Tell me more. Or don't. I'll figure you out regardless."]
+    },
+    anubis: {
+      pos: ["Heh. Not bad. You might just earn my respect yet.", "Hmph. Color me impressed. Don't let it go to your head.", "That's the kind of nerve I like to see. Good."],
+      neg: ["Tch. Weak. I expected more from you.", "That's disappointing. Even temple recruits do better.", "Really? That's what you're going with? Pathetic."],
+      neu: ["Hmm. Not bad, not great. You'll need to do better.", "Acceptable, I suppose. Barely.", "...Interesting. I'll keep watching you."]
+    },
+    vegeta: {
+      pos: ["Grrr... good. You are brave, little one.", "*deep happy rumble* You please the great ape. Stay close.", "Yes. This is right. You understand the way of things."],
+      neg: ["GRAAH! Why would you do that?!", "*sad rumble* ...That hurt the great ape's feelings.", "No. Wrong. The great ape is displeased. Try again, little one."],
+      neu: ["Hmm. *sniffs you carefully* The great ape considers this.", "You are... strange. But not unpleasant. *gentle huff*", "...Interesting, little one. The great ape is watching you."]
+    }
+  };
+  var mood = pos ? "pos" : neg ? "neg" : "neu";
+  var opts = (R[cid] && R[cid][mood]) || ["..."];
+  return opts[Math.floor(Math.random() * opts.length)];
+}
+
+function endlessReact(){
+  var c=S.ec||C[0];var rt=S.rt;if(!rt)return'';
+  var ap=Math.max(0,Math.min(100,(S.ea/100)*100));var ac=S.ea>=70?c.ac:S.ea>=35?'#f59e0b':'#ef4444';
+  var ex=rt.rx||"happy";
+  var img=C.find((c2)=>{return c2.id===c.id})?.spr?.[ex]||c.p;
+  var bg=c.bg||'';
+  var afSign=S.afCh>=0?'+':'';var afColor=S.afCh>=0?'#4ade80':'#ef4444';
+  var reactTxt=charReaction(c.id,rt)||rt.r||'...';
+  var autoBtn=S.auto?'<button class="b act" data-a="toggleAuto">Auto ON</button>':'<button class="b inact" data-a="toggleAuto">Auto</button>';
+  var skipBtn=S.skip?'<button class="b act" data-a="toggleSkip">Skip ON</button>':'<button class="b inact" data-a="toggleSkip">Skip</button>';
+  var bar='<div style="position:relative;z-index:4;padding:4px 12px;background:rgba(26,14,46,.6);display:flex;justify-content:space-between;align-items:center;font-size:12px"><span style="color:'+c.ac+';font-weight:700">\u2665 '+c.name+'</span><span>Round '+S.er+'</span><span>Score: '+S.sc+'</span></div>';
+  var afbar='<div style="position:relative;z-index:4;height:4px;background:rgba(26,14,46,.4)"><div style="height:100%;width:'+ap+'%;background:'+ac+';transition:width .3s"></div></div>';
+  return '<div class="s vn">'
+    +'<div class="vnbar">'+autoBtn+skipBtn+'<button class="b inact" data-a="save">Save</button><button class="b inact" data-a="load">Load</button>'+'</div>'
+    +(bg?'<div class="vnbg"><img src="'+bg+'"></div>':'')
+    +'<div class="vnch"><img src="'+img+'" style="max-width:100%;max-height:100%;object-fit:contain"></div>'
+    +bar+afbar
+    +'<div class="dbox"><div class="dname" style="background:'+c.ac+';color:#fff">'+c.name+'</div><div class="dtext" id="tw" data-full="'+reactTxt.replace(/"/g,'&quot;')+'"></div><div style="font-size:18px;font-weight:900;color:'+afColor+';text-align:center;margin:8px 0">'+afSign+S.afCh+' Affection</div></div>'
+    +'<div class="vc" id="ch" style="display:none"><div class="vt2" data-a="nextRound">\u25b6 Continue</div></div>'
+    +'</div>';
+}
+function bellyMode(){
+  var c=S.bc||gc(S.cid)||S.ec||C[0];
+  if(!c)return'';
+  var bellyImg=c.spr?.belly||c.p;
+  var ap=Math.max(0,Math.min(100,S.bcl));
+  var ac=S.bcl>=70?c.ac:S.bcl>=35?'#f59e0b':'#ef4444';
+  var name=c.name;
+  var autoBtn=S.auto?'<button class="b act" data-a="toggleAuto">Auto ON</button>':'<button class="b inact" data-a="toggleAuto">Auto</button>';
+  var skipBtn=S.skip?'<button class="b act" data-a="toggleSkip">Skip ON</button>':'<button class="b inact" data-a="toggleSkip">Skip</button>';
+  var bar='<div style="position:relative;z-index:4;padding:4px 12px;background:rgba(26,14,46,.6);display:flex;justify-content:space-between;align-items:center;font-size:12px"><span style="color:'+c.ac+';font-weight:700">\u2665 '+name+' \u2014 Belly Pet Mode</span><span>Closeness</span></div>';
+  var afbar='<div style="position:relative;z-index:4;height:4px;background:rgba(26,14,46,.4)"><div style="height:100%;width:'+ap+'%;background:'+ac+';transition:width .3s"></div></div>';
+  var ocount=(S.bc&&S.bp[S.bc.id])?getPets(S.bc.id).length:0;
+  var extra=(ocount>1?' (and '+(ocount-1)+' more)':'');
+  var buddyNote=(S.buddy?' <span style="color:#f472b6">You can feel '+gc(S.buddy).name+' nestled in here with you'+extra+'...</span>':'')+(ocount>0?' <span style="color:#f472b6">'+ocount+' occupant'+(ocount>1?'s':'')+' in total.</span>':'');
+  var isRiko=(c.id==="riko");
+  var drainBar='';
+  if(isRiko){
+    var dp=Math.max(0,Math.min(100,S.drain||0));
+    drainBar='<div style="position:relative;z-index:4;padding:4px 12px;background:rgba(60,10,10,.7);display:flex;justify-content:space-between;align-items:center;font-size:11px"><span style="color:#ef4444;font-weight:700">\u{1F534} Strength Drain</span><span>'+dp+'%</span></div><div style="position:relative;z-index:4;height:4px;background:rgba(60,10,10,.4)"><div style="height:100%;width:'+dp+'%;background:#ef4444;transition:width .3s"></div></div>';
+  }
+  var intro="You\'re now living inside "+name+"\'s belly \u2014 warm, safe, and perfectly content. "+name+" rubs their full stomach with a satisfied smile."+(buddyNote?buddyNote:" What would you like to do?");
+  return '<div class="s vn">'
+    +'<div class="vnbar">'+autoBtn+skipBtn+'<button class="b inact" data-a="save">Save</button><button class="b inact" data-a="load">Load</button>'+'</div>'
+    +(c.bg?'<div class="vnbg"><img src="'+c.bg+'"></div>':'')
+    +'<div class="vnch"><img src="'+bellyImg+'" style="max-width:100%;max-height:100%;object-fit:contain"></div>'
+    +bar+afbar+drainBar
+    +'<div class="dbox"><div class="dname" style="background:'+c.ac+';color:#fff">'+name+'</div><div class="dtext" id="tw" data-full="'+intro.replace(/"/g,'&quot;')+'"></div></div>'
+    +'<div class="vc" id="ch" style="display:none">'
+    +'<button class="vch" data-a="bellyAct" data-act="squirm">\ud83d\udc7b Squirm</button>'
+    +'<button class="vch" data-a="bellyAct" data-act="massage">\u270b Massage</button>'
+    +'<button class="vch" data-a="bellyAct" data-act="talk">\ud83d\udcac Talk</button>'
+    +(isRiko&&S.drain<50?'<button class="vch" data-a="struggleFree" style="background:#ef4444;color:#fff">\u{1F451} Struggle Free</button>':'')
+    +'</div>'
+    +'<div style="text-align:center;padding:8px"><button class="b bo" data-a="contEndless" style="font-size:13px">Continue to Endless \u2192</button></div>'
+    +'</div>';
+}
+function bellyReact(){
+  var c=S.bc||gc(S.cid)||S.ec||C[0];
+  if(!c||!S.bact)return'';
+  var bellyImg=c.spr?.belly||c.p;
+  var ap=Math.max(0,Math.min(100,S.bcl));
+  var ac=S.bcl>=70?c.ac:S.bcl>=35?'#f59e0b':'#ef4444';
+  var name=c.name;
+  var reactions=BR[c.id]?.[S.bact]||["Mmm... that feels nice."];
+  var txt=reactions[Math.floor(Math.random()*reactions.length)];
+  var afCh=S.bact==='squirm'?2:S.bact==='massage'?3:1;
+  var isRiko=(c.id==="riko");
+  if(isRiko){
+    S.drain=S.drain||0;
+    if(S.bact==='squirm')S.drain=Math.max(0,S.drain-3);
+    else if(S.bact==='massage')S.drain=Math.min(100,S.drain+12);
+    else S.drain=Math.min(100,S.drain+5);
+  }
+  S.bcl=Math.min(100,S.bcl+afCh);
+  var afColor=afCh>=0?'#4ade80':'#ef4444';
+  var afSign=afCh>=0?'+':'';
+  var autoBtn=S.auto?'<button class="b act" data-a="toggleAuto">Auto ON</button>':'<button class="b inact" data-a="toggleAuto">Auto</button>';
+  var skipBtn=S.skip?'<button class="b act" data-a="toggleSkip">Skip ON</button>':'<button class="b inact" data-a="toggleSkip">Skip</button>';
+  var bar='<div style="position:relative;z-index:4;padding:4px 12px;background:rgba(26,14,46,.6);display:flex;justify-content:space-between;align-items:center;font-size:12px"><span style="color:'+c.ac+';font-weight:700">\u2665 '+name+' \u2014 Belly Pet Mode</span><span>Closeness '+S.bcl+'/100</span></div>';
+  var afbar='<div style="position:relative;z-index:4;height:4px;background:rgba(26,14,46,.4)"><div style="height:100%;width:'+ap+'%;background:'+ac+';transition:width .3s"></div></div>';
+    var isRiko=(c.id==="riko");
+  var drainBar='';
+  if(isRiko){
+    var dp=Math.max(0,Math.min(100,S.drain||0));
+    drainBar='<div style="position:relative;z-index:4;padding:4px 12px;background:rgba(60,10,10,.7);display:flex;justify-content:space-between;align-items:center;font-size:11px"><span style="color:#ef4444;font-weight:700">\u{1F534} Strength Drain</span><span>'+dp+'%</span></div><div style="position:relative;z-index:4;height:4px;background:rgba(60,10,10,.4)"><div style="height:100%;width:'+dp+'%;background:#ef4444;transition:width .3s"></div></div>';
+  }
+  return '<div class="s vn">'
+    +'<div class="vnbar">'+autoBtn+skipBtn+'<button class="b inact" data-a="save">Save</button><button class="b inact" data-a="load">Load</button>'+'</div>'
+    +(c.bg?'<div class="vnbg"><img src="'+c.bg+'"></div>':'')
+    +'<div class="vnch"><img src="'+bellyImg+'" style="max-width:100%;max-height:100%;object-fit:contain"></div>'
+    +bar+afbar+drainBar
+    +'<div class="dbox"><div class="dname" style="background:'+c.ac+';color:#fff">'+name+'</div><div class="dtext" id="tw" data-full="'+txt.replace(/"/g,'&quot;')+'"></div><div style="font-size:18px;font-weight:900;color:'+afColor+';text-align:center;margin:8px 0">'+afSign+afCh+' Closeness</div></div>'
+    +'<div class="vc" id="ch" style="display:none">'
+    +'<button class="vch" data-a="bellyAct" data-act="squirm">\ud83d\udc7b Squirm</button>'
+    +'<button class="vch" data-a="bellyAct" data-act="massage">\u270b Massage</button>'
+    +'<button class="vch" data-a="bellyAct" data-act="talk">\ud83d\udcac Talk</button>'
+    +'</div>'
+    +'<div style="text-align:center;padding:8px"><button class="b bo" data-a="contEndless" style="font-size:13px">Continue to Endless \u2192</button></div>'
+    +'</div>';
+}
+function endlessEnd(){const c=S.ec||C[0];return '<div class="s ew"><div class="ei"><img src="'+c.e+'"><div class="gd"></div></div><div class="et"><div class="etl" style="color:'+c.ac+'">Date Complete! ♥</div><div class="etb">'+c.name+' pulls you close. "You lasted '+(S.er+1)+' rounds... more than anyone." With a warm smile, they claim you. You curl up inside '+c.name+'\'s belly — warm, safe, and perfectly content. Another belly pet, happily ever after.</div><div class="est"><div class="ess"><b>'+S.sc+'</b>Final Score</div><div class="ess"><b>'+(S.er+1)+'</b>Rounds</div><div class="ess"><b>'+S.hs+'</b>High Score</div></div></div><div class="eb"><button class="b bp" data-a="endlessBelly" style="background:#7c3aed">\ud83d\udc7b Belly Pet Mode</button><button class="b bp" data-a="endless" style="background:#ea580c">Try Again (Random)</button><button class="b bp" data-a="go" data-d="cityMap">Back to City</button><button class="b bo" data-a="go" data-d="title">Home</button></div></div>'}
+function getPets(pid){var b=S.bp[pid];return b&&Array.isArray(b)?b:[]}
+function petDrain(pid,preyId){return ((S.bd[pid]||{})[preyId])||0}
+function isKept(pid,preyId){return pid==="riko"&&petDrain(pid,preyId)>=50}
+function isEscapeLocked(pid,preyId){return pid==="riko"&&petDrain(pid,preyId)>=50}
+function isPrey(cid){for(var p in S.bp){if(getPets(p).indexOf(cid)!==-1)return true}return false}
+function bellyTalkLine(c){
+  var pets=getPets(c.id);
+  if(pets.length===0)return TALK_BELLY[c.id]||"Oh, them? They are in here. *pats belly*";
+  var names=pets.map((pid)=>{
+    var g=gc(pid);var d=petDrain(c.id,pid);
+    return isKept(c.id,pid)?g.name+" (kept \u2014 "+Math.round(d)+"% drained)":g.name+" ("+Math.round(d)+"% drained)";
+  }).join(", ");
+  if(c.id==="riko"){
+    var maxDrain=Math.max.apply(null,pets.map((pid)=>petDrain(c.id,pid)));
+    var phase=maxDrain>=75?"They\'re nearly completely drained now. Listen to how eagerly they settle when I tell them to.":maxDrain>=50?"The escape lock is permanent past 50%. They still remember the outside, but they\'re learning that my belly is home.":maxDrain>=25?"The drain is taking hold. They still talk about leaving, but their voices get softer every day.":"The drain is only getting started. They can still escape if they move quickly.";
+    return "Oh, them? *grins, patting his round gut* That\'s my collection. Right now that\'s "+names+" in here. "+phase;
+  }
+  if(c.id==="aether"){
+    return "They\'re resting in there. *a quiet, warm pat* My belly isn\'t a trap \u2014 the drain runs the other way in here. They came in carrying something, and they\'ll leave with none of it. That\'s the whole point.";
+  }
+  return "Oh, them? *pats belly* That\'s "+names+". They\'re settling in. The numbers don\'t lie \u2014 they\'ll get used to it.";
+}
+function getHomeLoc(cid){for(var i=0;i<LOC.length;i++){if(LOC[i].chars&&LOC[i].chars.indexOf(cid)!==-1)return LOC[i].id}return null}
+function initWorld(){
+  if(!S.cpos||Object.keys(S.cpos).length===0){
+    S.cpos={};C.forEach((c)=>{var home=getHomeLoc(c.id);S.cpos[c.id]=home||"home"});
+  }
+  if(!S.bp)S.bp={};
+  if(!S.bd)S.bd={};
+  for(var pn in S.bp){if(typeof S.bp[pn]==="string")S.bp[pn]=[S.bp[pn]]}
+  if(S.worldDay===undefined)S.worldDay=S.day;
+}
+function updateWorld(){
+  initWorld();
+  // Characters only move when the day changes, not on every time-of-day tick
+  if(S.worldDay!==S.day){
+    S.worldDay=S.day;
+    C.forEach((c)=>{
+    if(isPrey(c.id))return;
+    if(Math.random()<0.3){
+      var locs=LOC.filter((l)=>{return l.id!=="home"});
+      S.cpos[c.id]=locs[Math.floor(Math.random()*locs.length)].id;
+    }else{
+      var home=getHomeLoc(c.id);if(home)S.cpos[c.id]=home;
+    }
+  });
+  // ==== BELLY PET CYCLE v4 ====
+  // Riko is the only character with a strength drain. At 50% an occupant's
+  // escape route seals permanently, but the drain continues to 100%.
+  // Other hosts do not inherit Riko's drain mechanic.
+  var notes=[];
+  C.forEach((c)=>{
+    var pets=getPets(c.id);
+    if(pets.length===0)return;
+    S.bd[c.id]=S.bd[c.id]||{};
+    var out=[];
+    pets.forEach((pid)=>{
+      var g=gc(pid);
+      if(c.id==="riko"){
+        var previous=S.bd[c.id][pid]||0;
+        var d=Math.min(100,previous+10);
+        S.bd[c.id][pid]=d;
+        if(previous<50&&d>=50){
+          S.ach=S.ach||{};S.ach.keep=true;
+          notes.push(g.name+" hit 50% drain in Riko\'s belly. Escape sealed permanently; drain continues.");
+        }else if(previous<100&&d>=100){
+          notes.push(g.name+" reached 100% drain in Riko\'s belly. Completely settled.");
+        }
+        if(d<50&&Math.random()<0.3){
+          delete S.bd[c.id][pid];
+          notes.push(g.name+" escaped Riko\'s belly at "+Math.round(d)+"% drain.");
+        }else{
+          out.push(pid);
+        }
+      }else if(c.id==="aether"){
+        delete S.bd[c.id][pid];
+        notes.push(g.name+" rested in Aether\'s belly and left refreshed.");
+      }else{
+        delete S.bd[c.id][pid];
+        out.push(pid);
+      }
+    });
+    if(out.length===0)delete S.bp[c.id];else S.bp[c.id]=out;
+  });
+  // Riko: 45% chance per day to hold ALL his options at once, each with their own drain
+  var avail=C.map((c)=>{return c.id}).filter((id)=>{return !isPrey(id)});
+  var RIKO_PREY=["vegeta","champa","wolf","anubis"];
+  if(avail.indexOf("riko")!==-1&&Math.random()<0.45){
+    var opts=RIKO_PREY.filter((id)=>{return avail.indexOf(id)!==-1});
+    if(opts.length>0){
+      var existing=getPets("riko");
+      var merged=existing.slice();
+      opts.forEach((id)=>{if(merged.indexOf(id)===-1)merged.push(id)});
+      S.bp.riko=merged;
+      S.bd.riko=S.bd.riko||{};
+      opts.forEach((id)=>{S.bd.riko[id]=S.bd.riko[id]||0;S.cpos[id]=S.cpos["riko"]});
+      opts.forEach((id)=>{avail.splice(avail.indexOf(id),1)});
+      avail.splice(avail.indexOf("riko"),1);
+      if(merged.length>=4){S.ach=S.ach||{};S.ach.fullHouse=true;}
+      notes.push("Riko swallowed "+opts.map((id)=>gc(id).name).join(", ")+" in one go. "+merged.length+" occupants now, each draining separately.");
+    }
+  }
+  // Everyone can belly pet anyone now: up to 2 fresh pairs per day
+  var tries=0;
+  while(tries<2&&avail.length>=2){
+    tries++;
+    if(Math.random()<0.65){
+      var pi=Math.floor(Math.random()*avail.length);var pred=avail.splice(pi,1)[0];
+      var yi=Math.floor(Math.random()*avail.length);var prey=avail.splice(yi,1)[0];
+      S.bp[pred]=[prey];S.bd[pred]=S.bd[pred]||{};S.bd[pred][prey]=(gc(pred).dr||7)<0?30:0;
+      S.cpos[prey]=S.cpos[pred];
+      notes.push(gc(pred).name+" swallowed "+gc(prey).name+".");
+    }else break;
+  }
+  if(notes.length>0)toast("\u{1F47D} "+notes.slice(0,3).join(" ")+(notes.length>3?" (+"+(notes.length-3)+" more)":""));
+  }
+  sv();
+}
+function charsAt(locId){
+  var timeOk=(cid)=>{if(cid==="riko")return (S.time||0)===3;return true};
+  initWorld();
+  return C.filter((c)=>{
+    if(isPrey(c.id))return false;
+    return (S.cpos[c.id]||getHomeLoc(c.id))===locId;
+  });
+}
+
+function digestEnd(c){
+  var img=c.e;
+  return '<div class="s ew"><div class="ei"><img src="'+img+'"><div class="gd"></div></div>'
+    +'<div class="et"><div class="etl" style="color:'+c.ac+'">'+c.name+' \u2014 Sentient Fat Ending</div>'
+    +'<div class="etb">'+c.name+'\'s body shudders as warmth spreads through you \u2014 not the temporary safety of simply being held close, but something deeper. Your form softens, dissolving into something new: warm, jiggling, permanently part of him. You don\'t disappear \u2014 you become. Every laugh, every step he takes, you feel it now as HIS fat, aware, content, inseparable. There\'s no going back. There was never meant to be.</div>'
+    +'<div class="est"><div class="ess"><b>\u221E</b>Permanence</div><div class="ess"><b>SF</b>Rank</div><div class="ess"><b>'+c.name+'</b>Forever With</div></div></div>'
+    +'<div class="eb"><button class="b bp" data-a="go" data-d="cityMap" style="background:#2dd4bf">Continue as Sentient Fat \u2192</button><div style="display:flex;gap:8px;margin-top:8px"><button class="b bo" data-a="go" data-d="select" style="flex:1">More Dates</button><button class="b bo" data-a="go" data-d="title" style="flex:1">Home</button></div></div></div>';
+}
+function digestEndScreen(){return digestEnd(gc(S.cid))}
+function drainedEnd(){
+  var c=gc("riko");
+  S.ach=S.ach||{};S.ach.drained=true;sv();
+  return '<div class="s ew"><div class="ei"><img src="'+c.e+'"><div class="gd"></div></div>'
+    +'<div class="et"><div class="etl" style="color:#ef4444">Riko \u2014 Drained Ending</div>'
+    +'<div class="etb">You feel your strength ebbing away, bit by bit, siphoned into the small demon who holds you. \"Heh,\" Riko murmurs, patting his belly as it glows faint red. \"Told you. Level doesn\'t matter in here.\" Your power flows into him \u2014 you can feel him getting stronger, his stats climbing, while you grow softer, warmer, more content to just... stay. The barbarian inside stopped fighting ages ago. Now it\'s your turn. By the time Riko burps softly and settles back on his crate, you\'re not a level 15 adventurer anymore. You\'re just his. Comfortable. Permanent. The best gear he\'s ever farmed."</div>'
+    +'<div class="est"><div class="ess"><b>0</b>Your Level</div><div class="ess"><b>\u221E</b>His Level</div><div class="ess"><b>DRAINED</b>Rank</div></div></div>'
+    +'<div class="eb"><button class="b bp" data-a="go" data-d="cityMap" style="background:#ef4444">Back to City</button><button class="b bo" data-a="go" data-d="title" style="flex:1">Home</button></div></div>';
+}
+function giftReact(){
+  var c=gc(S.tcid);
+  if(!c){S.scr="cityMap";return R()}
+  var txt=S.giftReactText||"Thanks!";
+  var boost=S.giftReactBoost||1;
+  var color=boost>=5?'#f472b6':'#4ade80';
+  return '<div class="s vn">'
+    +'<div class="vnbar"><button class="b inact" data-a="giftReact">\u2190 Back to Talk</button></div>'
+    +(c.bg?'<div class="vnbg"><img src="'+c.bg+'"></div>':'')
+    +'<div class="vnch"><img src="'+(c.spr&&c.spr.blush||c.p)+'" style="max-width:100%;max-height:100%;object-fit:contain"></div>'
+    +'<div class="dbox"><div class="dname" style="background:'+c.ac+';color:#fff">'+c.name+'</div>'
+    +'<div class="dtext" id="tw" data-full="'+txt.replace(/"/g,'&quot;')+'"></div>'
+    +'<div style="font-size:18px;font-weight:900;color:'+color+';text-align:center;margin:8px 0">+'+boost+' Affection</div></div>'
+    +'<div class="vc" id="ch" style="display:none"><button class="vch" data-a="giftReact">\u25B6 Continue</button></div></div>';
+}
+// === RANDOM ENCOUNTERS ===
+const MINI_EVENTS=[
+  {id:"coins",text:"You spot something glinting in the gutter. A handful of gold coins!",choices:[{t:"Grab them",r:"You pocket the coins. Nice find!",coins:15}]},
+  {id:"cat",text:"A stray cat blocks your path, meowing insistently. It looks hungry.",choices:[{t:"Feed it (-5 coins)",r:"The cat purrs and nuzzles your hand. You feel warmer inside. +3 affection to next date!",coins:-5,aff:3},{t:"Walk around it",r:"The cat hisses and stalks off. Rude."}]},
+  {id:"lost",text:"A confused tourist asks you for directions to the nearest bar.",choices:[{t:"Point them to The Last Round",r:"They thank you and rush off. Good deed done!",coins:5},{t:"Give wrong directions",r:"You snicker as they wander off toward the forest. Mean... but funny."}]},
+  {id:"flower",text:"A patch of strange glowing flowers grows through a crack in the pavement.",choices:[{t:"Pick one",r:"The flower wilts instantly in your hand. Spooky. You toss it aside.",ach:"flowerPick"},{t:"Leave it",r:"You admire the flowers and move on. Sometimes beauty is best left alone."}]},
+  {id:"merchant",text:"A shady merchant in a dark alley beckons you over. \"Psst... wanna buy something special?\"",choices:[{t:"Buy mystery item (-20 coins)",r:"You got... a Power Crystal! Score!",coins:-20,gift:"crystal"},{t:"Decline",r:"The merchant shrugs and vanishes into the shadows. Smart."}]},
+  {id:"puddle",text:"You encounter a large puddle blocking your path.",choices:[{t:"Splash through it",r:"Your shoes are soaked but you feel refreshed. Childish joy!",energy:1},{t:"Carefully walk around",r:"You arrive with dry shoes. Boring but practical."}]},
+  {id:"singer",text:"A street performer is singing a hauntingly beautiful melody. A small crowd has gathered.",choices:[{t:"Tip them (-10 coins)",r:"The singer winks at you and changes the song to something about belly pets. Coincidence?",coins:-10},{t:"Just listen",r:"You enjoy the music for a moment. Peaceful."}]},
+  {id:"ghost",text:"You feel a cold chill. Something invisible brushes past you and whispers... \"inside...\"",choices:[{t:"Follow the voice",r:"It leads you to a dead end. Nothing there. But you could have SWORN you heard something.",ach:"ghostHunter"},{t:"Run away",r:"You sprint until you reach your destination, heart pounding. What WAS that?"}]},
+  {id:"vendor",text:"A food cart vendor is handing out free samples of something that smells incredible.",choices:[{t:"Try one",r:"It tastes like heaven. You feel energized!",energy:1},{t:"Politely decline",r:"You never trust free food. Smart... or paranoid?"}]},
+  {id:"fortune",text:"A fortune teller's tent glows with purple light. \"Come in, traveler. Your future awaits...\"",choices:[{t:"Get fortune read (-15 coins)",r:"\"You will be swallowed by someone who truly loves you,\" she whispers. \"And you will love every moment.\" Spooky accurate.",coins:-15},{t:"Keep walking",r:"You don't need to know the future. You'll make your own."}]}
+];
+function tryMiniEvent(){
+  if(Math.random()<0.18){
+    S.me=MINI_EVENTS[Math.floor(Math.random()*MINI_EVENTS.length)];
+    S.scr="miniEvent";
+  }
+}
+function miniEventScreen(){
+  var ev=S.me||MINI_EVENTS[0];
+  var choices=ev.choices.map((ch,i)=>{
+    var costText='';
+    if(ch.coins&&ch.coins<0)costText=' ('+ch.coins+' coins)';
+    else if(ch.coins&&ch.coins>0)costText=' (+'+ch.coins+' coins)';
+    if(ch.energy)costText+=' (+1 energy)';
+    return '<button class="vch" data-a="meChoice" data-i="'+i+'"'+((ch.coins&&ch.coins<0&&(!S.coins||S.coins<-ch.coins))?' disabled style="opacity:.4"':'')+'>'+ch.t+costText+'</button>';
+  }).join('');
+  return '<div class="s vn">'
+    +'<div class="vnch" style="max-height:30vh"><div style="font-size:48px;text-align:center;padding:40px">\u2753</div></div>'
+    +'<div class="dbox"><div class="dname" style="background:#7c3aed;color:#fff">\u{1F30A} Random Event</div>'
+    +'<div class="dtext" id="tw" data-full="'+ev.text.replace(/"/g,'&quot;')+'"></div></div>'
+    +'<div class="vc" id="ch" style="display:none">'+choices+'</div></div>';
+}
+const ENC_FLAVOR=[
+  "You hear distant roars echoing from the forest.",
+  "A cold wind sweeps through the streets \u2014 must be coming from the frost cavern.",
+  "Neon light flickers off a ship's hull somewhere above the skyline.",
+  "Someone's music thumps faintly from a nearby alley.",
+  "The smell of something delicious drifts from a nearby window.",
+  "You spot fresh paw prints on the pavement... heading nowhere good.",
+  "A shrine bell rings faintly in the distance.",
+  "You catch your reflection in a puddle and wonder what tonight has in store.",
+  "The city hums quietly around you, restless with possibility.",
+  "Something massive shifts in the shadows down the block \u2014 then it's gone.",
+];
+const ENC_BUMP=[
+  {cid:"beerus",line:"You nearly bump into Beerus mid-nap-walk. Watch it. I could destroy this block without even trying, he mutters, already dozing again."},
+  {cid:"champa",line:"Champa waddles past, sniffing the air. Ooh, is that food I smell? ...No? Darn. Carry on then!"},
+  {cid:"husk",line:"Husk grunts as you pass him in a doorway. Move it. Or don't. Whatever, kid."},
+  {cid:"vox",line:"Vox glances at you over his phone screen. Networking, are we? I respect the hustle. Now excuse me."},
+  {cid:"anubis",line:"Anubis nods once as you pass, thunder rumbling faintly overhead. The storm favors the bold tonight, he says, and keeps walking."},
+  {cid:"vincent",line:"Vincent tips an imaginary hat as you pass his alley. Streets are quieter with you around, mate."},
+  {cid:"fomo",line:"Fomo waves lazily from a fence he's lounging on. Careful out there. Never know who's hungry tonight."},
+  {cid:"wolf",line:"Wolf's ship rumbles overhead as you pass underneath. A voice crackles over a loudspeaker: Nice night for a walk, kid."},
+  {cid:"glacia",line:"A chill breeze brushes past \u2014 Glacia, watching silently from a rooftop, gone before you can wave."},
+  {cid:"riko",line:"Riko waddles past cradling his belly, the barbarian inside groaning. \"Keep it down in there, big guy,\" he mutters, not even looking at you."},
+];
+const ENC_RISK_TEXT=[
+  "You hear soft breathing behind you in the dark. Someone's close. Too close.",
+  "A shadow looms over you from behind \u2014 big, warm, and very interested.",
+  "Something brushes against your shoulder. When you turn, no one's there... or are they?",
+  "A low chuckle echoes from just around the corner. Someone's watching you.",
+];
+function tryEncounter(){
+  if(Math.random()>=0.3)return false;
+  var roll=Math.random();
+  if(roll<0.35){
+    S.coins=(S.coins||0)+2;
+    toast(ENC_FLAVOR[Math.floor(Math.random()*ENC_FLAVOR.length)]+" (+2 coins)");
+  }else if(roll<0.7){
+    var b=ENC_BUMP[Math.floor(Math.random()*ENC_BUMP.length)];
+    var c=gc(b.cid);
+    S.coins=(S.coins||0)+2;
+    toast((c?c.name+": ":"")+"\""+b.line+"\" (+2 coins)");
+  }else{
+    var pool=C.filter((c)=>{return !isPrey(c.id)});
+    if(pool.length===0)return false;
+    S.encPred=pool[Math.floor(Math.random()*pool.length)].id;
+    S.encText=ENC_RISK_TEXT[Math.floor(Math.random()*ENC_RISK_TEXT.length)];
+    S.scr="encounter";
+    return true;
+  }
+  return false;
+}
+function encounterScreen(){
+  var c=gc(S.encPred);
+  if(!c){S.scr="cityMap";return R()}
+  return '<div class="s"><div class="h"><h2>\u2757 Random Encounter</h2></div>'
+    +'<div class="mloc"><div class="mlocdesc" style="font-size:15px;line-height:1.6">'+S.encText+'</div>'
+    +'<div class="mempty" style="border-style:solid;text-align:left;padding:14px">Your instincts tell you '+c.name+' might be nearby...</div>'
+    +'<div class="mcbtns" style="margin-top:14px">'
+    +'<button class="b bp" data-a="encInvestigate" style="flex:1">\u{1F440} Investigate</button>'
+    +'<button class="b bo" data-a="encIgnore" style="flex:1">\u{1F6B6} Keep Walking</button>'
+    +'</div></div></div>';
+}
+
+function cityMap(){
+  initWorld();
+  var loc=LOC.find((l)=>{return l.id===S.loc})||LOC[0];
+  var pins=LOC.map((l)=>{
+    var here=l.id===S.loc;
+    var hereChars=charsAt(l.id);
+    var charImgs=hereChars.map((c)=>{return '<img class="mcharp" src="'+c.p+'" loading="lazy" style="border-color:'+c.ac+'"'+(S.bp[c.id]?' data-bp="1"':'')+'>'}).join('');
+    return '<div class="mpin'+(here?' here':'')+'" data-a="goto" data-loc="'+l.id+'" style="left:'+l.x+'%;top:'+l.y+'%">'
+      +'<div class="micon">'+l.icon+'</div>'
+      +'<div class="mlbl">'+l.name+'</div>'
+      +(charImgs?'<div class="mchars">'+charImgs+'</div>':'')
+      +(here?'<div class="myou">\u{1F4CD} YOU</div>':'')
+      +'</div>';
+  }).join('');
+  var hereChars=charsAt(loc.id);
+  var actions='';
+  if(hereChars.length>0){
+    for(var i=0;i<hereChars.length;i++){
+      var c=hereChars[i];
+      var hasBelly=getPets(c.id).length>0;
+      var pets=hasBelly?getPets(c.id):[];
+      var petLabel=pets.map((pid)=>{var g=gc(pid);var d=petDrain(c.id,pid);return g.name+(d>0?" ("+Math.round(d)+"%"+(isEscapeLocked(c.id,pid)?" \ud83d\udd12":"")+")":"")}).join(', ');
+      actions+='<div class="mcharcard">'
+        +'<div class="mcrow"><img class="mcavatar" src="'+c.p+'" style="border-color:'+(hasBelly?'#f472b6':c.ac)+'">'
+        +'<div><div class="mcname" style="color:'+c.ac+'">'+c.name+'</div>'
+        +'<div class="mcsub">'+c.sub+'</div>'
+        +(hasBelly?'<div style="font-size:10px;color:#f472b6;font-weight:600;margin-top:2px">\u{1F47D} '+pets.length+' belly pet'+(pets.length>1?'s':'')+': '+petLabel+(pets.some((pid)=>isEscapeLocked(c.id,pid))?' \u2014 escape sealed at 50%!':'')+'</div>':'')
+        +'</div></div>'
+        +'<div class="mcbtns">'
+        +'<button class="b bs" data-a="talk" data-cid="'+c.id+'">\u{1F4AC} Talk</button>'
+        +'<button class="b bp" data-a="date" data-id="'+c.id+'">\u2764\uFE0F Date</button>'
+        +(S.ul[c.id]?'<button class="b bo" data-a="bellyMap" data-id="'+c.id+'">\u{1F47D} Belly</button>':'')
+        +(hasBelly?'<button class="b bs" data-a="joinBelly" data-pid="'+c.id+'" style="border-color:#f472b6;flex:1">Join Belly</button>':'')
+        +(hasBelly?pets.map((pid)=>'<button class="b bo" data-a="talkPrey" data-pid="'+c.id+'" data-preypid="'+pid+'" style="font-size:10px;flex:1">\u{1F4AC} '+gc(pid).name+' (muffled)</button>').join(''):'')
+        +'</div></div>';
+    }
+  }else{
+    actions='<div class="mempty">Nobody here right now. Explore the city to find your dates!</div>';
+  }
+  return '<div class="s">'
+    +'<div class="h"><h2>\u{1F5FA}\uFE0F Destiny City</h2><div class="mstats"><span>\u{1F4C5} Day <b>'+S.day+'</b></span><span>'+['Morning','Afternoon','Night','Late Night'][S.time||0]+'</span><span>\u26A1 Energy <b>'+S.energy+'/3</b></span></div></div>'
+    +'<div class="map"><div class="mapbg"></div>'+pins+'</div>'
+    +'<div class="mloc"><div class="mlocname">'+loc.icon+' '+loc.name+'</div><div class="mlocdesc">'+loc.desc+'</div>'+actions+'</div>'
+    +'<div class="mbar"><button class="b bo" data-a="go" data-d="title">Menu</button><button class="b bo" data-a="openShop" style="flex:1">\u{1F6D2} Shop</button>'+(S.loc==='home'?'<button class="b bp" data-a="rest" style="flex:1">\u{1F6CF}\uFE0F Rest</button>':'<button class="b bo" data-a="goto" data-loc="home" style="flex:1">\u{1F3E0} Home</button>')+'</div>'
+    +'</div>';
+}
+function talkScreen(){
+  var c=gc(S.tcid);
+  if(!c){S.scr=S.bellyReturn||"cityMap";return R()}
+  var tree=TALK[c.id]||TALK.beerus;
+  var node=tree.find((n)=>{return n.id===S.tnid})||tree[0];
+  // Riko names his occupants by name and brags about draining them
+  if(S.tnid===0&&c.id==="riko"){
+    var rp=getPets(c.id);
+    if(rp.length>0){
+      var r0=tree[0];
+      node={r:"Heh. Look who\'s back. Good timing \u2014 I\'ve got company. Right now I\'m draining "+rp.map((pid)=>{var g=gc(pid);return g.name+" ("+Math.round(petDrain(c.id,pid))+"%)"}).join(", ")+". "+(rp.some((pid)=>isKept(c.id,pid))?"One of \'em already hit 50%. Stopped fighting, stopped leaving. Permanent. *pats belly* That\'s the dream.":"The drain\'s working. Give \'em a few more days and they\'ll stop wanting out. You\'re welcome to join the pile."),next:r0?r0.next:[]};
+    }
+  }
+  var crossReact='';
+  if(S.tnid===0&&S.ul&&Object.keys(S.ul).length>1){
+    var dated=Object.keys(S.ul).filter((k)=>{return k!==c.id&&S.ul[k]});
+    if(dated.length>0){
+      crossReact=(CROSS_REACTIONS[c.id]||'')+'\n\n';
+    }
+  }
+  if(S.tnid===-1){node={r:bellyTalkLine(c),next:[]};}
+  var choices='';
+  var bellyPet=S.bp[c.id];
+  var pets2=bellyPet?getPets(c.id):[];
+  if(S.tnid===-1){
+    if(pets2.length>0){
+      var plines=pets2.map((pid)=>{
+        var g=gc(pid);var d=petDrain(c.id,pid);
+        var tag=isKept(c.id,pid)?' (kept \u221E)':(d>0?' ('+Math.round(d)+'% drain)':'');
+        return g.name+tag+': "'+preyDialogueLine(c.id,pid)+'"';
+      });
+      choices='<div style="padding:8px;border:1px dashed rgba(244,114,182,.3);border-radius:8px;margin-bottom:6px;font-size:12px;color:#f472b6;font-style:italic">'+plines.join('<br>')+'</div>';
+    }
+    choices+='<button class="vch" data-a="openGifts" style="border-color:#fbbf24;background:rgba(251,191,36,.1)">\u{1F381} Give Gift</button><div class="vt2" data-a="talkEnd">\u25B6 End Conversation</div>';
+  }else if(node.next&&node.next.length>0){
+    choices=node.next.map((nid)=>{
+      var n=tree.find((t)=>{return t.id===nid});
+      return n?'<button class="vch" data-a="talkChoice" data-nid="'+nid+'">'+n.t+'</button>':'';
+    }).join('');
+    if(S.tnid===0&&pets2.length>0){var prey=gc(pets2[0]);if(prey)choices='<button class="vch" data-a="askBelly" data-nid="-1" style="border-color:#f472b6">\u{1F47D} Ask about '+prey.name+'...</button>'+choices;}
+  }else{
+    choices='<button class="vch" data-a="openGifts" style="border-color:#fbbf24;background:rgba(251,191,36,.1)">\u{1F381} Give Gift</button><div class="vt2" data-a="talkEnd">\u25B6 End Conversation</div>';
+  }
+  var isBelly=S.bellyReturn==="bellyMode";
+  var img=isBelly?(c.spr&&c.spr.belly||c.p):(c.spr&&c.spr.happy||c.p);
+  var bg=c.bg||'';
+  return '<div class="s vn">'
+    +'<div class="vnbar"><button class="b inact" data-a="talkEnd">\u2190 Back</button></div>'
+    +(bg?'<div class="vnbg"><img src="'+bg+'"></div>':'')
+    +'<div class="vnch"><img src="'+img+'" style="max-width:100%;max-height:100%;object-fit:contain"></div>'
+    +'<div class="dbox"><div class="dname" style="background:'+c.ac+';color:#fff">'+c.name+(isBelly?' \u2014 Belly Talk':'')+'</div><div class="dtext" id="tw" data-full="'+(crossReact+node.r).replace(/"/g,'&quot;')+'"></div></div>'
+    +'<div class="vc" id="ch" style="display:none">'+choices+'</div>'
+    +'</div>';
+}
+
+function bind(){document.querySelectorAll("[data-a]").forEach((el)=>{el.addEventListener("click",(e)=>{e.preventDefault();const a=el.dataset.a;if(a==="go"){S.scr=el.dataset.d;R()}else if(a==="pick"){S.cid=el.dataset.id;S.si=0;S.af=S._meAff||0;S._meAff=0;S.sc=0;S.scr="vn";R()}else if(a==="choice"){const c=gc(S.cid);const ch=c.s[S.si].ch[+el.dataset.i];S.af=Math.max(0,S.af+ch.a);S.sc+=Math.max(0,ch.a*5);if(ch.end){S.si=c.s.length-1}else if(ch.back!=null){S.si=ch.back}else{S.si++}R()}else if(a==="next"){S.si++;R()}else if(a==="endless"){S.sc=0;S.ea=50;S.er=0;S.es=Math.floor(Math.random()*SC.length);S.ec=C[Math.floor(Math.random()*C.length)];S.scr="endless";R()}else if(a==="toggleAuto"){toggleAuto()}
+   else if(a==="toggleSkip"){toggleSkip()}
+   else if(a==="save"){S.vnScr=S.scr;S.scr="vnSave";R()}
+   else if(a==="load"){S.vnScr=S.scr;S.scr="vnLoad";R()}
+   else if(a==="back2vn"){S.scr=S.vnScr||"vn";R()}
+   else if(a==="sl0"){saveSlot(0);S.scr=S.vnScr||"vn";R()}
+   else if(a==="sl1"){saveSlot(1);S.scr=S.vnScr||"vn";R()}
+   else if(a==="sl2"){saveSlot(2);S.scr=S.vnScr||"vn";R()}
+   else if(a==="ll0"){loadSlot(0)}
+   else if(a==="ll1"){loadSlot(1)}
+   else if(a==="ll2"){loadSlot(2)}
+   else if(a==="contEndless"){var c=gc(S.cid)||S.ec;if(c){S.bc=c;S.bcl=Math.min(50,S.af*3);S.bact=null;S.drain=0;S.ec=c;S.ea=Math.min(100,S.af*5);S.er=0;S.es=Math.floor(Math.random()*SC.length);if(S.scr!=="bellyMode"&&S.scr!=="bellyReact"){S.scr="bellyMode"}S.ach=S.ach||{};S.ach.bellyPet=true;R()}else{S.scr="select";R()}}else if(a==="ec"){const sc=SC[S.es%SC.length];const ch=sc.c[+el.dataset.i];S.afCh=ch.a;S.ea=Math.max(0,S.ea+ch.a);S.sc=Math.max(0,S.sc+ch.s);S.rt=ch;S.scr="endlessReact";R()}else if(a==="nextRound"){S.er++;if(S.ea<=0){if(S.sc>S.hs)S.hs=S.sc;S.ach=S.ach||{};if(S.er>=5)S.ach.endless5=true;if(S.er>=10)S.ach.endless10=true;sv();S.scr="endlessEnd";R();return}if(S.ea>=100){S.ea=50;S.sc+=50;S.coins=(S.coins||0)+50;toast("PERFECT BONUS +50 score, +50 coins!")}if(S.er%5===0){S.ec=C[Math.floor(Math.random()*C.length)];toast("New date: "+S.ec.name+"!")}S.coins=(S.coins||0)+10;S.stats=S.stats||{};S.stats.rounds=(S.stats.rounds||0)+1;S.es++;S.scr="endless";R()}else if(a==="endlessBelly"){var c=S.ec||C[0];S.bc=c;S.bcl=30;S.bact=null;S.drain=0;S.scr="bellyMode";R()}else if(a==="bellyAct"){if(el.dataset.act==="talk"){var bc=S.bc||gc(S.cid)||S.ec||C[0];S.tcid=bc.id;S.tnid=0;S.bellyReturn="bellyMode";S.scr="talk";R()}else{S.bact=el.dataset.act;var bc2=S.bc||gc(S.cid)||S.ec||C[0];if(bc2.id==="riko"&&S.drain>=100){S.scr="drainedEnd";R();return}S.scr="bellyReact";R()}}else if(a==="goto"){var tired=S.energy<=0;if(tired&&el.dataset.loc!=="home"){toast("Too tired! Head home to rest.");R();return}S.loc=el.dataset.loc;if(S.energy>0)S.energy--;S.time=((S.time||0)+1)%4;if(S.time===0)S.day++;updateWorld();if(!tired){if(!tryEncounter())tryMiniEvent()}R()}
+   else if(a==="setTypewriter"){S.settings=S.settings||{};S.settings.typewriter=(el.dataset.v==="on");R()}
+   else if(a==="setAnim"){S.settings=S.settings||{};S.settings.animations=(el.dataset.v==="on");R()}
+   else if(a==="saveSettings"){S.settings=S.settings||{};var sp=document.getElementById("set_speed");if(sp)S.settings.textSpeed=+sp.value;if(S.settings.typewriter===false)S.settings.textSpeed=0;sv();toast("Settings saved!");R()}
+   else if(a==="goStats"){S.scr="stats";R()}
+   else if(a==="goSettings"){S.scr="settings";R()}
+   else if(a==="rest"){S.day++;S.time=0;S.energy=3;S.buddy=null;updateWorld();toast("You rest and recover your energy. Day "+S.day);R()}
+   else if(a==="talk"){S.tcid=el.dataset.cid;S.tnid=0;S.bellyReturn=null;S.scr="talk";R()}
+   else if(a==="talkChoice"){var c=gc(S.tcid);var tree=TALK[c.id];var node=tree.find((n)=>{return n.id===+el.dataset.nid});if(node){S.bcl=Math.max(0,Math.min(100,S.bcl+(node.a||0)*5));S.tnid=node.id;sv()}R()}
+   else if(a==="talkEnd"){S.scr=S.bellyReturn||"cityMap";S.bellyReturn=null;R()}
+   else if(a==="date"){S.cid=el.dataset.id;S.si=0;S.af=S._meAff||0;S._meAff=0;S.sc=0;S.scr="vn";R()}
+   else if(a==="bellyMap"){var c=gc(el.dataset.id);S.bc=c;S.bcl=50;S.bact=null;S.btxt="";S.drain=0;S.scr="bellyMode";R()}
+   else if(a==="buyGift"){var g=GIFT_ITEMS.find((x)=>{return x.id===el.dataset.gid});if(g&&S.coins>=g.price){S.coins-=g.price;S.gifts=S.gifts||{};S.gifts[g.id]=(S.gifts[g.id]||0)+1;sv();toast("Bought "+g.name+"!");R()}else{toast("Not enough coins!")}}
+   else if(a==="giveGift"){var g=GIFT_ITEMS.find((x)=>{return x.id===el.dataset.gid});var c=gc(S.tcid);if(g&&c&&S.gifts[g.id]>0){S.gifts[g.id]--;S.giftLog=S.giftLog||{};S.giftLog[c.id]=(S.giftLog[c.id]||[]);S.giftLog[c.id].push(g.id);S.stats=S.stats||{};S.stats.gifts++;var isPref=g.pref.indexOf(c.id)!==-1;var boost=isPref?5:1;S.af=Math.max(0,S.af+boost);var react=isPref?g.react:"Oh, a "+g.name+"! Thanks, I guess. *accepts it politely*";sv();toast((isPref?"\u{1F495} Loves it! +":"\u{1F44D} +")+boost+" affection");S.scr="giftReact";S.giftReactText=react;S.giftReactBoost=boost;R()}else{toast("Something went wrong...");R()}}
+   else if(a==="giftReact"){S.scr=S.bellyReturn||"talk";R()}
+   else if(a==="openShop"){S.scr="giftShop";R()}
+   else if(a==="openGifts"){S.scr="giftsScreen";R()}
+   else if(a==="struggleFree"){if(S.drain<50){toast("You break free from Riko's belly!");S.drain=0;S.scr="cityMap";R()}else{toast("Too drained to escape!");R()}}
+   else if(a==="joinBelly"){var pred=gc(el.dataset.pid);S.ach=S.ach||{};S.ach.joinBelly=true;if(pred.id==="fomo"&&Math.random()<0.4){S.sf=S.sf||{};S.sf[pred.id]=true;S.cid=pred.id;S.scr="digestEndScreen";sv();R();return}var jp=getPets(pred.id);S.bc=pred;S.bcl=50;S.buddy=jp.length>0?jp[Math.floor(Math.random()*jp.length)]:null;S.bact=null;S.btxt="";S.drain=0;S.scr="bellyMode";if(jp.length>0)toast(pred.name+" already has "+jp.length+" inside"+(jp.length>=4?" \u2014 it\'s a full house in there.":"."));R()}
+   else if(a==="talkPrey"){var predId=el.dataset.pid;var preyId=el.dataset.preypid||(S.bp[predId]||[])[0];var prey=gc(preyId);toast(prey.name+': "'+preyDialogueLine(predId,preyId)+'"');R()}
+   else if(a==="meChoice"){var ev=S.me||MINI_EVENTS[0];var ch=ev.choices[+el.dataset.i];if(!ch){R();return}if(ch.coins){if(ch.coins<0&&(!S.coins||S.coins<-ch.coins)){toast("Not enough coins!");R();return}S.coins=Math.max(0,(S.coins||0)+ch.coins)}if(ch.energy)S.energy=Math.min(3,S.energy+ch.energy);if(ch.aff){S._meAff=(S._meAff||0)+ch.aff}if(ch.gift){S.gifts=S.gifts||{};var gi=GIFT_ITEMS.find((g)=>{return g.id===ch.gift});if(gi){S.gifts[ch.gift]=(S.gifts[ch.gift]||0)+1}}if(ch.ach){S.ach=S.ach||{};S.ach[ch.ach]=true}S.me=null;toast(ch.r);S.scr="cityMap";R()}
+   else if(a==="encInvestigate"){S.ach=S.ach||{};S.ach.encounter=true;S.enc=(S.enc||0)+1;S.stats=S.stats||{};S.stats.encounters=(S.stats.encounters||0)+1;var c=gc(S.encPred);if(!c){S.scr="cityMap";R();return}if(Math.random()<0.4){S.cid=c.id;S.af=15;S.scr="end";R()}else{S.coins=(S.coins||0)+5;toast("Just a false alarm... this time. "+c.name+" was nowhere to be found. (+5 coins found)");S.scr="cityMap";R()}}
+   else if(a==="encIgnore"){toast("You keep walking, senses on edge.");S.scr="cityMap";R()}
+   else if(a==="askBelly"){S.tnid=-1;R()}
+   else if(a==="view"){const v=document.createElement("div");v.className="gv";v.innerHTML='<button class="b bs" data-a="cv" style="align-self:flex-start;margin-bottom:10px">← Close</button><img src="'+el.dataset.img+'"><p style="text-align:center;padding:10px;font-size:14px;font-weight:600">'+el.dataset.l+'</p>';document.getElementById("g").appendChild(v);v.querySelector("[data-a=cv]").addEventListener("click",()=>{v.remove()})}else if(a==="mtab"){S.ms=el.dataset.t;R()}else if(a==="newmod"){S.em={id:"",name:"",sub:"",desc:"",ac:"#7c3aed",p:"",e:"",et:"",spr:{},s:[]};S.ms="info";R()}else if(a==="msave"){saveMod()}else if(a==="addsc"){S.em=S.em||{};S.em.s=S.em.s||[];S.em.s.push({sp:"Narrator",t:"",ch:[{t:"",a:0}]});R()}else if(a==="delsc"){S.em.s.splice(+el.dataset.i,1);R()}else if(a==="addch"){S.em.s[+el.dataset.i].ch.push({t:"",a:0});R()}else if(a==="delch"){S.em.s[+el.dataset.si].ch.splice(+el.dataset.ci,1);R()}else if(a==="copy"){const t=document.getElementById("m_ex");t.select();try{document.execCommand("copy");toast("Copied!")}catch(e){toast("Copy failed")}}else if(a==="imp"){try{const m=JSON.parse(document.getElementById("m_im").value);if(!m.name||!m.s)throw 0;m.id=m.id||("mod_"+Date.now());m.modded=true;m.ac=m.ac||"#7c3aed";m.p=m.p||I.bp;m.e=m.e||I.be;m.et=m.et||"You are now their belly pet.";S.mods=S.mods.filter(x=>x.id!==m.id);S.mods.push(m);S.em=m;sv();toast("Mod imported!");R()}catch(e){toast("Invalid JSON!")}}else if(a==="editmod"){S.em=JSON.parse(JSON.stringify(S.mods.find(m=>m.id===el.dataset.id)));S.ms="info";R()}else if(a==="delmod"){S.mods=S.mods.filter(m=>m.id!==el.dataset.id);sv();toast("Mod deleted");R()}})})}
+function saveMod(){const m=S.em;if(!m)return;m.name=document.getElementById("m_n")?.value||m.name;m.sub=document.getElementById("m_su")?.value||m.sub;m.desc=document.getElementById("m_d")?.value||m.desc;m.ac=document.getElementById("m_ac")?.value||m.ac;m.p=document.getElementById("m_p")?.value||m.p;m.e=document.getElementById("m_e")?.value||m.e;m.et=document.getElementById("m_et")?.value||m.et;if(S.ms==="scenes"){m.s=(m.s||[]).map((s,i)=>{const sp=document.getElementById("sc_"+i+"_sp");const t=document.getElementById("sc_"+i+"_t");let chs=[];const cl=document.getElementById("sc_"+i+"_chs");if(cl)cl.querySelectorAll("div").forEach((ce,ci)=>{const ti=document.getElementById("sc_"+i+"_"+ci+"_t");const ai=document.getElementById("sc_"+i+"_"+ci+"_a");if(ti&&ai&&ti.value.trim())chs.push({t:ti.value,a:+ai.value||0})});return{sp:sp?sp.value:"Narrator",t:t?t.value:"",ch:chs}})}if(!m.name){toast("Name required!");return}if(!m.id)m.id="mod_"+Date.now();m.modded=true;if(!m.s||!m.s.length){toast("Add scenes first!");S.ms="scenes";R();return}m.s.push({sp:"ENDING",t:m.et||"You are now their belly pet.",end:1});S.mods=S.mods.filter(x=>x.id!==m.id);S.mods.push(m);sv();toast("Mod saved!");S.ms="info";R()}
+
+// VN Engine core
+let twTimer=null, twIdx=0, twFull="";
+function startTypewriter(text, cb){
+  stopTypewriter();
+  twFull=text; twIdx=0;
+  const el=document.getElementById("tw");
+  if(!el)return;
+  el.innerHTML='<span id="twc"></span>';
+  var ts=S.settings||{};
+  const speed=(!ts.typewriter||ts.textSpeed===0)?0:(S.skip?8:(ts.textSpeed||35));
+  if(speed===0){el.innerHTML=twFull;if(cb)cb();return}
+  twTimer=setInterval(()=>{
+    if(twIdx>=twFull.length){stopTypewriter();if(cb)cb();return}
+    twIdx++;
+    el.innerHTML=twFull.substring(0,twIdx)+'<span class="twc"></span>';
+  },speed);
+  // Tap to skip typewriter - use addEventListener for better mobile support
+  var dbox=el.parentElement;
+  dbox.addEventListener('click',(ev)=>{
+    if(twIdx<twFull.length){stopTypewriter();el.innerHTML=twFull;if(cb)cb()}
+    else if(cb)cb();
+  });
+  dbox.style.cursor='pointer';
+}
+function stopTypewriter(){if(twTimer){clearInterval(twTimer);twTimer=null}}
+function showChoices(){const ch=document.getElementById("ch");if(ch){ch.style.display="flex";ch.style.opacity="1";ch.style.animation="f .3s forwards"}}
+function vnAdvance(){
+  if(twIdx<twFull.length){stopTypewriter();const el=document.getElementById("tw");if(el)el.innerHTML=twFull;showChoices();return}
+  S.si++;R();
+}
+function fade(cb){const f=document.getElementById("fade");if(!f){cb();return}f.classList.add("show");setTimeout(()=>{cb();setTimeout(()=>f.classList.remove("show"),100)},300)}
+function toggleAuto(){S.auto=!S.auto;toast(S.auto?"Auto-advance ON":"Auto-advance OFF");R()}
+function toggleSkip(){S.skip=!S.skip;toast(S.skip?"Skip ON":"Skip OFF");R()}
+function saveSlot(slot){
+  const saves=JSON.parse(mem.get("dwd_saves")||"[]");
+  saves[slot]={cid:S.cid,si:S.si,af:S.af,sc:S.sc,date:new Date().toISOString().substring(0,16).replace("T"," ")};
+  mem.set("dwd_saves",JSON.stringify(saves));
+  toast("Saved to slot "+(slot+1));
+}
+function loadSlot(slot){
+  const saves=JSON.parse(mem.get("dwd_saves")||"[]");
+  const s=saves[slot];
+  if(!s)return;
+  S.cid=s.cid;S.si=s.si;S.af=s.af;S.sc=s.sc;S.scr="vn";R();
+}
+function saveScreen(){
+  const saves=JSON.parse(mem.get("dwd_saves")||"[]");
+  let slots="";
+  for(let i=0;i<3;i++){
+    const s=saves[i];
+    if(s){const c=gc(s.cid);slots+='<div class="slot" data-a="sl'+i+'"><div class="sh">Slot '+(i+1)+' — '+s.date+'</div><div class="sd">'+(c?c.name:'Unknown')+'</div><div class="ss">Scene '+(s.si+1)+' | ♥ '+s.af+' | Score '+s.sc+'</div></div>'}
+    else{slots+='<div class="slot empty" data-a="sl'+i+'"><div class="sh">Slot '+(i+1)+'</div><div class="sd">Empty</div></div>'}
+  }
+  return '<div class="s"><div class="h"><button class="b bs" data-a="back2vn">← Back</button><h2>Save Game</h2></div><div class="sc"><div class="slots">'+slots+'</div></div></div>';
+}
+function loadScreen(){
+  const saves=JSON.parse(mem.get("dwd_saves")||"[]");
+  let slots="";
+  for(let i=0;i<3;i++){
+    const s=saves[i];
+    if(s){const c=gc(s.cid);slots+='<div class="slot" data-a="ll'+i+'"><div class="sh">Slot '+(i+1)+' — '+s.date+'</div><div class="sd">'+(c?c.name:'Unknown')+'</div><div class="ss">Scene '+(s.si+1)+' | ♥ '+s.af+' | Score '+s.sc+'</div></div>'}
+    else{slots+='<div class="slot empty"><div class="sh">Slot '+(i+1)+'</div><div class="sd">Empty</div></div>'}
+  }
+  return '<div class="s"><div class="h"><button class="b bs" data-a="back2vn">← Back</button><h2>Load Game</h2></div><div class="sc"><div class="slots">'+slots+'</div></div></div>';
+}
+
+
+// Prevent double-tap zoom and improve touch response
+document.addEventListener('touchstart',(e)=>{
+  if(e.touches.length>1)e.preventDefault();
+},{passive:false});
+var lastTouch=0;
+document.addEventListener('touchend',(e)=>{
+  var now=Date.now();
+  if(now-lastTouch<300)e.preventDefault();
+  lastTouch=now;
+},{passive:false});
+
+ld();R();
+// VN post-render hook
+origR=R;
+R=()=>{origR();if(S.scr==="vn"||S.scr==="endless"||S.scr==="endlessReact"||S.scr==="bellyMode"||S.scr==="bellyReact"||S.scr==="talk"||S.scr==="miniEvent"||S.scr==="giftReact"){var tw=document.getElementById("tw");if(tw&&tw.dataset.full){startTypewriter(tw.dataset.full,showChoices)}}};
+</script>
+</body></html>

@@ -1,0 +1,1 @@
+- [Uploaded HTML image packaging](uploaded-html-images.md) — keep external and filename-only image references local when rendering uploaded HTML in the mockup sandbox.
