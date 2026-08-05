@@ -1027,6 +1027,7 @@ function petDrain(pid,preyId){return ((S.bd[pid]||{})[preyId])||0}
 function isKept(pid,preyId){return pid==="riko"&&petDrain(pid,preyId)>=50}
 function isEscapeLocked(pid,preyId){return pid==="riko"&&petDrain(pid,preyId)>=50}
 function isPrey(cid){for(var p in S.bp){if(getPets(p).indexOf(cid)!==-1)return true}return false}
+function isBellyHost(cid){return getPets(cid).length>0}
 function bellyTalkLine(c){
   var pets=getPets(c.id);
   if(pets.length===0)return TALK_BELLY[c.id]||"Oh, them? They are in here. *pats belly*";
@@ -1110,7 +1111,7 @@ function updateWorld(){
   var avail=C.map((c)=>{return c.id}).filter((id)=>{return !isPrey(id)});
   var RIKO_PREY=["vegeta","champa","wolf","anubis"];
   if(avail.indexOf("riko")!==-1&&Math.random()<0.45){
-    var opts=RIKO_PREY.filter((id)=>{return avail.indexOf(id)!==-1});
+      var opts=RIKO_PREY.filter((id)=>{return avail.indexOf(id)!==-1&&!isBellyHost(id)});
     if(opts.length>0){
       var existing=getPets("riko");
       var merged=existing.slice();
@@ -1126,11 +1127,17 @@ function updateWorld(){
   }
   // Everyone can belly pet anyone now: up to 2 fresh pairs per day
   var tries=0;
-  while(tries<2&&avail.length>=2){
+  var preyAvail=avail.filter((id)=>{return !isBellyHost(id)});
+  while(tries<2&&avail.length>=2&&preyAvail.length>0){
     tries++;
     if(Math.random()<0.65){
       var pi=Math.floor(Math.random()*avail.length);var pred=avail.splice(pi,1)[0];
-      var yi=Math.floor(Math.random()*avail.length);var prey=avail.splice(yi,1)[0];
+      var predPreyIndex=preyAvail.indexOf(pred);
+      if(predPreyIndex!==-1)preyAvail.splice(predPreyIndex,1);
+      if(preyAvail.length===0)break;
+      var yi=Math.floor(Math.random()*preyAvail.length);var prey=preyAvail.splice(yi,1)[0];
+      var preyAvailIndex=avail.indexOf(prey);
+      if(preyAvailIndex!==-1)avail.splice(preyAvailIndex,1);
       S.bp[pred]=[prey];S.bd[pred]=S.bd[pred]||{};S.bd[pred][prey]=(gc(pred).dr||7)<0?30:0;
       S.cpos[prey]=S.cpos[pred];
       notes.push(gc(pred).name+" swallowed "+gc(prey).name+".");
@@ -1258,7 +1265,7 @@ function tryEncounter(){
     S.coins=(S.coins||0)+2;
     toast((c?c.name+": ":"")+"\""+b.line+"\" (+2 coins)");
   }else{
-    var pool=C.filter((c)=>{return !isPrey(c.id)});
+    var pool=C.filter((c)=>{return !isPrey(c.id)&&!isBellyHost(c.id)});
     if(pool.length===0)return false;
     S.encPred=pool[Math.floor(Math.random()*pool.length)].id;
     S.encText=ENC_RISK_TEXT[Math.floor(Math.random()*ENC_RISK_TEXT.length)];
@@ -1311,7 +1318,7 @@ function cityMap(){
         +'<button class="b bs" data-a="talk" data-cid="'+c.id+'">\u{1F4AC} Talk</button>'
         +'<button class="b bp" data-a="date" data-id="'+c.id+'">\u2764\uFE0F Date</button>'
         +(S.ul[c.id]?'<button class="b bo" data-a="bellyMap" data-id="'+c.id+'">\u{1F47D} Belly</button>':'')
-        +(hasBelly?'<button class="b bs" data-a="joinBelly" data-pid="'+c.id+'" style="border-color:#f472b6;flex:1">Join Belly</button>':'')
+        +(hasBelly?'<span style="display:flex;align-items:center;justify-content:center;flex:1;padding:7px 8px;border:1px solid rgba(244,114,182,.35);border-radius:8px;color:#f472b6;font-size:11px;font-weight:700">\u{1F6E1}\uFE0F Belly full \u2014 protected</span>':'')
         +(hasBelly?pets.map((pid)=>'<button class="b bo" data-a="talkPrey" data-pid="'+c.id+'" data-preypid="'+pid+'" style="font-size:10px;flex:1">\u{1F4AC} '+gc(pid).name+' (muffled)</button>').join(''):'')
         +'</div></div>';
     }
@@ -1409,7 +1416,7 @@ function bind(){document.querySelectorAll("[data-a]").forEach((el)=>{el.addEvent
    else if(a==="openShop"){S.scr="giftShop";R()}
    else if(a==="openGifts"){S.scr="giftsScreen";R()}
    else if(a==="struggleFree"){if(S.drain<50){toast("You break free from Riko's belly!");S.drain=0;S.scr="cityMap";R()}else{toast("Too drained to escape!");R()}}
-   else if(a==="joinBelly"){var pred=gc(el.dataset.pid);S.ach=S.ach||{};S.ach.joinBelly=true;if(pred.id==="fomo"&&Math.random()<0.4){S.sf=S.sf||{};S.sf[pred.id]=true;S.cid=pred.id;S.scr="digestEndScreen";sv();R();return}var jp=getPets(pred.id);S.bc=pred;S.bcl=50;S.buddy=jp.length>0?jp[Math.floor(Math.random()*jp.length)]:null;S.bact=null;S.btxt="";S.drain=0;S.scr="bellyMode";if(jp.length>0)toast(pred.name+" already has "+jp.length+" inside"+(jp.length>=4?" \u2014 it\'s a full house in there.":"."));R()}
+   else if(a==="joinBelly"){var pred=gc(el.dataset.pid);if(!pred){S.scr="cityMap";R();return}if(isBellyHost(pred.id)){toast(pred.name+" already has belly pets and cannot eat anyone else.");R();return}S.ach=S.ach||{};S.ach.joinBelly=true;if(pred.id==="fomo"&&Math.random()<0.4){S.sf=S.sf||{};S.sf[pred.id]=true;S.cid=pred.id;S.scr="digestEndScreen";sv();R();return}var jp=getPets(pred.id);S.bc=pred;S.bcl=50;S.buddy=jp.length>0?jp[Math.floor(Math.random()*jp.length)]:null;S.bact=null;S.btxt="";S.drain=0;S.scr="bellyMode";if(jp.length>0)toast(pred.name+" already has "+jp.length+" inside"+(jp.length>=4?" \u2014 it\'s a full house in there.":"."));R()}
    else if(a==="talkPrey"){var predId=el.dataset.pid;var preyId=el.dataset.preypid||(S.bp[predId]||[])[0];var prey=gc(preyId);toast(prey.name+': "'+preyDialogueLine(predId,preyId)+'"');R()}
    else if(a==="meChoice"){var ev=S.me||MINI_EVENTS[0];var ch=ev.choices[+el.dataset.i];if(!ch){R();return}if(ch.coins){if(ch.coins<0&&(!S.coins||S.coins<-ch.coins)){toast("Not enough coins!");R();return}S.coins=Math.max(0,(S.coins||0)+ch.coins)}if(ch.energy)S.energy=Math.min(3,S.energy+ch.energy);if(ch.aff){S._meAff=(S._meAff||0)+ch.aff}if(ch.gift){S.gifts=S.gifts||{};var gi=GIFT_ITEMS.find((g)=>{return g.id===ch.gift});if(gi){S.gifts[ch.gift]=(S.gifts[ch.gift]||0)+1}}if(ch.ach){S.ach=S.ach||{};S.ach[ch.ach]=true}S.me=null;toast(ch.r);S.scr="cityMap";R()}
    else if(a==="encInvestigate"){S.ach=S.ach||{};S.ach.encounter=true;S.enc=(S.enc||0)+1;S.stats=S.stats||{};S.stats.encounters=(S.stats.encounters||0)+1;var c=gc(S.encPred);if(!c){S.scr="cityMap";R();return}if(Math.random()<0.4){S.cid=c.id;S.af=15;S.scr="end";R()}else{S.coins=(S.coins||0)+5;toast("Just a false alarm... this time. "+c.name+" was nowhere to be found. (+5 coins found)");S.scr="cityMap";R()}}
