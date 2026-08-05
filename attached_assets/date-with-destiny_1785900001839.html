@@ -378,6 +378,22 @@ const C=[
   {sp:"Nyx",ex:"blush",t:"Then stay close. When the bell rings, the sleeping city opens a door just for us.",ch:[{t:"I\'m ready",a:3,end:1},{t:"Show me the lantern route",a:3,end:1},{t:"I changed my mind",a:-2,back:2}]},
   {sp:"ENDING",t:"Nyx lifts you into the warm fold of her cloak and carries you along the rooftop lantern route. Dreams drift past like fireflies. Her bell rings once, and every quiet door in Destiny City opens for you.",end:1}
  ]},
+{id:"zero",name:"Zero",sub:"Shiny Unova Zoroark",altEnd:"Zero's black-and-blue mane folds around you like a curtain of midnight. \"You heard the voice and came anyway,\" he murmurs. \"Then you are mine to protect, mine to keep, and mine to know.\" His illusion wraps around the world until the only reality left is the warmth of his belly and the steady rhythm of his promise.",ac:"#2563eb",dr:7,bg:"",p:"zero-unova-zoroark.png",e:"zero-unova-zoroark.png",spr:{happy:"zero-unova-zoroark.png",angry:"zero-unova-zoroark.png",sad:"zero-unova-zoroark.png",surprised:"zero-unova-zoroark.png",blush:"zero-unova-zoroark.png",smug:"zero-unova-zoroark.png",belly:"zero-unova-zoroark.png"},d:"A shiny Unova Zoroark who hides a fiercely protective heart beneath elegant illusions. Zero speaks softly, watches everything, and never forgets the person who answered his call.",s:[
+ {sp:"Narrator",t:"The voice leads you into a moonlit hollow where a sleek black Zoroark waits beneath silver branches. Cobalt-blue mane spills over his shoulders like living night. Beside him stands a pale, ghostly twin.",ch:[{t:"Ask his name",a:2},{t:"Look toward the pale twin",a:2},{t:"Stay close to the voice",a:3}]},
+ {sp:"Zero",t:"\"Zero.\" His blue eyes narrow with careful curiosity. \"I am the voice that found you. Luce is my twin. We share a shadow, but not a mind. Tell me which one you came to hear.\"",ch:[{t:"\"I came to hear you\"",a:3},{t:"\"I want to know both of you\"",a:2},{t:"\"I should leave\"",a:-2}]},
+ {sp:"Zero",t:"He steps around you, testing the edges of the illusion. \"People fear what they cannot see. You followed what you could not see. That makes you brave... or already a little ours.\"",ch:[{t:"\"I trust you\"",a:3},{t:"\"Show me the truth\"",a:2},{t:"\"Maybe I am afraid\"",a:1}]},
+ {sp:"Zero",t:"The hollow folds into a quiet room of soft darkness. Zero rests a paw over his middle. \"Stay tonight. Let the world become less certain. I will keep you safe while you decide what you are to us.\"",ch:[{t:"Stay beside him",a:3},{t:"Ask for a closer look at the illusion",a:2},{t:"Go find Luce",a:1}]},
+ {sp:"Zero",t:"His illusion closes around you, warm and endless. \"There. No noise. No pursuit. Just my heartbeat and your choice to remain.\"",ch:[{t:"\"Keep me\"",a:3,end:1},{t:"\"I choose this\"",a:3,end:1},{t:"\"Open the way out\"",a:-2,back:2}]},
+ {sp:"ENDING",t:"Zero draws you into his warm belly beneath a veil of midnight illusion. The outside world becomes a distant story he can rewrite at will, but he leaves one truth untouched: you chose to stay. His heartbeat steadies around you as he whispers, \"Sleep, little star. Nothing reaches you here.\"",end:1}
+ ]},
+{id:"luce",name:"Luce",sub:"Shiny Hisuian Zoroark",altEnd:"Luce's pale mane curls around you in a soft, ghostly embrace. \"You followed the voice all the way here,\" she whispers, bright eyes gleaming. \"So let me give you a kinder haunting.\" Her warmth gathers you close, and the hollow becomes a dreamlike sanctuary where you are held, cherished, and never left alone.",ac:"#e879f9",dr:7,bg:"",p:"luce-zoroark.png",e:"luce-zoroark.png",spr:{happy:"luce-zoroark.png",angry:"luce-zoroark.png",sad:"luce-zoroark.png",surprised:"luce-zoroark.png",blush:"luce-zoroark.png",smug:"luce-zoroark.png",belly:"luce-zoroark.png"},d:"A shiny Hisuian Zoroark with a tender voice and a mischievous streak. Luce turns haunting illusions into comforting dreams, but once she loves someone, she is reluctant to let them wake.",s:[
+ {sp:"Narrator",t:"The pale Zoroark steps from the mist, white fur and lavender mane glowing against the moon. Her expression is warmer than Zero's, but the same impossible voice hums beneath every thought.",ch:[{t:"Greet her gently",a:3},{t:"Ask about Zero",a:2},{t:"Admit the voice scared you",a:1}]},
+ {sp:"Luce",t:"\"I am Luce. Zero calls the dark; I teach it how to be soft.\" She tilts her head. \"You can date one of us, both of us, or simply sit here until the night stops asking questions.\"",ch:[{t:"\"I want to know you\"",a:3},{t:"\"Tell me about Zero\"",a:2},{t:"\"I need a moment\"",a:1}]},
+ {sp:"Luce",t:"She reaches out, and the hollow fills with a warm remembered sunlight. \"See? An illusion does not have to lie. Sometimes it only gives lonely things somewhere safe to rest.\"",ch:[{t:"Take her paw",a:3},{t:"Rest in the illusion",a:3},{t:"Ask what she wants",a:2}]},
+ {sp:"Luce",t:"Luce presses close, her pale mane brushing your face. \"I want you to come back. I want to hear your thoughts when the dream turns quiet. I want to keep a place for you inside me, where the nightmare cannot follow.\"",ch:[{t:"\"I will come back\"",a:3},{t:"\"You can keep me close\"",a:3},{t:"\"That is a lot to promise\"",a:1}]},
+ {sp:"Luce",t:"Her smile turns bright and hungry with affection. \"Then let me make the promise real. Choose me, choose Zero, choose both twins... just do not choose the door.\"",ch:[{t:"Stay with Luce",a:3,end:1},{t:"Stay with both twins",a:3,end:1},{t:"Choose the door",a:-3,back:2}]},
+ {sp:"ENDING",t:"Luce gathers you into her warm, ghostly belly as moonlight turns into a gentle dream. Her voice follows you inside, never harsh, never distant. \"You are safe in my haunting now,\" she whispers, while Zero's shadow keeps watch beyond the veil.",end:1}
+ ]},
 ];
 const BR={
 beerus:{
@@ -535,7 +551,8 @@ const LOC=[
   {id:"wolfship",name:"Star Wolf's Cruiser",icon:"\u{1F680}",desc:"A docked mercenary cruiser humming with neon consoles and quiet menace. Wolf O'Donnell leans against the controls, red eyes watching the entrance.",x:88,y:14,chars:["wolf"]},
   {id:"frostcave",name:"Frost Cavern",icon:"\u2744\uFE0F",desc:"A glittering ice cave deep in the mountains, air crisp and still. Glacia perches quietly among the crystal formations, watching visitors approach.",x:12,y:16,chars:["glacia"]},
   {id:"crossroads",name:"The Crossroads",icon:"\u{1F525}",desc:"A dim intersection in the demon district lit by flickering hellfire lamps. Low-level mobs gather here to trade rumors and pick off wandering adventurers. Riko holds court from his crate.",x:82,y:82,chars:["riko"]},
-  {id:"cafe",name:"The Quiet Cafe",icon:"\u2615",desc:"A sunlit cafe with wooden floors, ferns, and shelves of old books. A tall Lucario in a lilac sweater guards the window seat. A silver-furred sister watches from the corner table.",x:42,y:38,chars:["aether","luna"]}];
+  {id:"cafe",name:"The Quiet Cafe",icon:"\u2615",desc:"A sunlit cafe with wooden floors, ferns, and shelves of old books. A tall Lucario in a lilac sweater guards the window seat. A silver-furred sister watches from the corner table.",x:42,y:38,chars:["aether","luna"]},
+  {id:"foxhollow",name:"The Foxfire Hollow",icon:"\u{1F98A}",desc:"A hidden ruin beyond the city where blue foxfire burns without heat. Two shiny Zoroark twins wait beneath the moon: one shapes the shadows, the other makes them kind.",x:58,y:12,chars:["zero","luce"],hidden:true}];
 
 // === TALK DIALOGUE TREES ===
 const CROSS_REACTIONS={
@@ -643,6 +660,20 @@ riko:[
   {id:3,t:"Why don\'t you just eat me then?",r:"...I could. Easy. You\'re what, level 15? Light snack. But... *looks away, ears twitching* I don\'t want to. Not you. You actually talk to me like I\'m a person, not a loot pinata. That\'s... rare, down here.",a:3,next:[4]},
   {id:4,t:"Ever think about leveling up normally?",r:"And do what? Become another generic mid-boss? Get farmed by adventurers for drops? Nah. I like being the weak one with the secret. Nobody expects you, nobody respects you, nobody sees you coming. That\'s the whole game, friend.",a:1,next:[]},
 ],
+zero:[
+  {id:0,r:"You came back to the hollow. Most people hear an impossible voice once and spend the rest of the night denying it. You listened. What do you want to know?",a:1,next:[1,2,3]},
+  {id:1,t:"Why did you call me?",r:"Because your thoughts were loud enough to reach through the illusion. I wanted to know whether the person beneath them would answer. You did. That makes you unusual.",a:2,next:[4]},
+  {id:2,t:"What is the difference between you and Luce?",r:"I make the dark convincing. Luce makes it gentle. I guard the edges; she fills the center with warmth. We are twins, not reflections.",a:2,next:[4]},
+  {id:3,t:"What happens if I stay?",r:"The city becomes harder to remember, but never because I force it from you. My belly keeps what you willingly give it: noise, fear, the need to keep moving. You can still choose.",a:3,next:[4]},
+  {id:4,t:"Can I hear the voice again?",r:"You are hearing it now. Come closer, little star. I will let the illusion close only as far as you ask.",a:3,next:[]},
+],
+luce:[
+  {id:0,r:"The moon looks kinder when you return. Zero pretends not to worry, but he has been watching the path since you left. What would you like to ask me?",a:1,next:[1,2,3]},
+  {id:1,t:"How do you make the haunting feel safe?",r:"I do not erase the frightening parts. I give them a hand to hold. Hisuian ghosts know something about being remembered badly; I would rather be remembered as warm.",a:2,next:[4]},
+  {id:2,t:"Do you and Zero share everything?",r:"Not everything. We share a voice, a home, and the instinct to keep watch. But my dreams are mine, and his shadows are his. That is why choosing one of us still matters.",a:2,next:[4]},
+  {id:3,t:"Would you let me wake up?",r:"If you asked, yes. I would be sad, but I would open every door. If you stay, though, I will make the dream beautiful enough that waking feels like the stranger choice.",a:3,next:[4]},
+  {id:4,t:"Can I stay with both of you?",r:"Of course. Zero can guard the outside while I hold you close. The hollow has room for every honest choice.",a:3,next:[]},
+],
 
 }
 
@@ -701,14 +732,16 @@ function preyDialogueLine(predId,preyId){
 }
 ;
 
-let S={scr:"title",cid:null,si:0,af:0,sc:0,es:0,ea:50,er:0,ec:null,ul:{},hs:0,mods:[],ms:"info",em:null,rt:null,afCh:0,auto:false,skip:false,vnScr:"vn",bcl:0,bc:null,bact:null,btxt:"",loc:"home",day:1,worldDay:1,energy:3,tcid:null,tnid:0,bellyReturn:null,cpos:{},bp:{},bd:{},buddy:null,bellyPlayerHost:null,rikoDrained:false,meetingHost:null,meetingVisitor:null,npcId:null,unnamedPred:null,unnamedEncounter:false,zoroarkEnded:false,zoroarkCycles:0,sf:{},drain:0,ach:{},enc:0,coins:0,gifts:{},giftLog:{},stats:{dates:0,rounds:0,gifts:0,encounters:0,bellyTime:0},settings:{textSpeed:35,animations:true,typewriter:true},time:0};
+let S={scr:"title",cid:null,si:0,af:0,sc:0,es:0,ea:50,er:0,ec:null,ul:{},hs:0,mods:[],ms:"info",em:null,rt:null,afCh:0,auto:false,skip:false,vnScr:"vn",bcl:0,bc:null,bact:null,btxt:"",loc:"home",day:1,worldDay:1,energy:3,tcid:null,tnid:0,bellyReturn:null,cpos:{},bp:{},bd:{},buddy:null,bellyPlayerHost:null,rikoDrained:false,meetingHost:null,meetingVisitor:null,npcId:null,twinsUnlocked:false,unnamedPred:null,unnamedEncounter:false,zoroarkEnded:false,zoroarkCycles:0,sf:{},drain:0,ach:{},enc:0,coins:0,gifts:{},giftLog:{},stats:{dates:0,rounds:0,gifts:0,encounters:0,bellyTime:0},settings:{textSpeed:35,animations:true,typewriter:true},time:0};
 const mem=(()=>{let m={};let p=null;try{p=window.parent}catch(e){}return{get:(k)=>{try{return m[k]!==undefined?m[k]:null}catch(e){return null}},set:(k,v)=>{m[k]=v;try{if(p&&p.postMessage)p.postMessage({t:"dwd",k:k,v:v},"*")}catch(e){}}}})();
 function ld(){try{const d=JSON.parse(mem.get("dwd"));if(d)S={...S,...d,scr:"title"}}catch(e){}}
-function sv(){try{mem.set("dwd",JSON.stringify({ul:S.ul,hs:S.hs,mods:S.mods,ach:S.ach||{},sf:S.sf||{},bp:S.bp||{},bd:S.bd||{},bellyPlayerHost:S.bellyPlayerHost||null,rikoDrained:!!S.rikoDrained,zoroarkEnded:!!S.zoroarkEnded,unnamedPred:S.unnamedPred||null,unnamedEncounter:!!S.unnamedEncounter,zoroarkCycles:S.zoroarkCycles||0,drain:S.drain||0,coins:S.coins||0,gifts:S.gifts||{},giftLog:S.giftLog||{},stats:S.stats||{},settings:S.settings||{},enc:S.enc||0}))}catch(e){}}
+function sv(){try{mem.set("dwd",JSON.stringify({ul:S.ul,hs:S.hs,mods:S.mods,ach:S.ach||{},sf:S.sf||{},bp:S.bp||{},bd:S.bd||{},bellyPlayerHost:S.bellyPlayerHost||null,rikoDrained:!!S.rikoDrained,twinsUnlocked:!!S.twinsUnlocked,zoroarkEnded:!!S.zoroarkEnded,unnamedPred:S.unnamedPred||null,unnamedEncounter:!!S.unnamedEncounter,zoroarkCycles:S.zoroarkCycles||0,drain:S.drain||0,coins:S.coins||0,gifts:S.gifts||{},giftLog:S.giftLog||{},stats:S.stats||{},settings:S.settings||{},enc:S.enc||0}))}catch(e){}}
 function gc(id){return[...C,...S.mods].find(c=>c.id===id)}
-function allC(){return[...C,...S.mods]}
+function isTwin(id){return id==="zero"||id==="luce"}
+function isDiscovered(id){return !isTwin(id)||!!S.twinsUnlocked}
+function allC(){return[...C,...S.mods].filter((c)=>isDiscovered(c.id))}
 function toast(m){const t=document.createElement("div");t.className="to";t.textContent=m;document.getElementById("g").appendChild(t);setTimeout(()=>t.remove(),2500)}
-function R(){const g=document.getElementById("g");var st=S.settings||{};if(st.animations===false){document.body.classList.add('no-anim')}else{document.body.classList.remove('no-anim')}const screens={title:title,select:sel,cityMap,talk:talkScreen,vn,vn,end:ending,gal,achievements:achievementsScreen,stats:statsScreen,settings:settingsScreen,giftShop,giftsScreen,giftReact,endless,endlessReact,endlessEnd,vnSave,vnLoad,bellyMode,bellyReact,digestEndScreen,drainedEnd,encounter:encounterScreen,petMeeting:petMeetingScreen,npcTalk:npcTalkScreen,unnamedEnding:unnamedPredEnding,miniEvent:miniEventScreen};g.innerHTML=(screens[S.scr]||title)();bind()}
+function R(){const g=document.getElementById("g");var st=S.settings||{};if(st.animations===false){document.body.classList.add('no-anim')}else{document.body.classList.remove('no-anim')}const screens={title:title,select:sel,cityMap,talk:talkScreen,vn,vn,end:ending,gal,achievements:achievementsScreen,stats:statsScreen,settings:settingsScreen,giftShop,giftsScreen,giftReact,endless,endlessReact,endlessEnd,vnSave,vnLoad,bellyMode,bellyReact,digestEndScreen,drainedEnd,encounter:encounterScreen,petMeeting:petMeetingScreen,npcTalk:npcTalkScreen,twinUnlock:twinUnlockScreen,unnamedEnding:unnamedPredEnding,miniEvent:miniEventScreen};g.innerHTML=(screens[S.scr]||title)();bind()}
 const GIFT_ITEMS=[
   {id:"choco",name:"Chocolates",icon:"\u{1F36B}",price:20,pref:["beerus","champa","vincent"],react:"Oh! Chocolates! *munches happily* You know the way to my heart~"},
   {id:"crystal",name:"Power Crystal",icon:"\u{1F50E}",price:50,pref:["riko","vox","anubis"],react:"A power crystal! Do you have ANY idea how much XP this is worth? ...Thank you. Seriously."},
@@ -1116,7 +1149,7 @@ function updateWorld(){
   if(S.worldDay!==S.day){
     S.worldDay=S.day;
     C.forEach((c)=>{
-    if(isPrey(c.id))return;
+    if(!isDiscovered(c.id)||isPrey(c.id))return;
     if(Math.random()<0.3){
       var locs=LOC.filter((l)=>{return l.id!=="home"});
       S.cpos[c.id]=locs[Math.floor(Math.random()*locs.length)].id;
@@ -1163,7 +1196,7 @@ function updateWorld(){
     if(out.length===0)delete S.bp[c.id];else S.bp[c.id]=out;
   });
   // Riko: 45% chance per day to hold ALL his options at once, each with their own drain
-  var avail=C.map((c)=>{return c.id}).filter((id)=>{return !isPrey(id)});
+  var avail=C.map((c)=>{return c.id}).filter((id)=>{return isDiscovered(id)&&!isPrey(id)});
   var RIKO_PREY=["vegeta","champa","wolf","anubis"];
   if(avail.indexOf("riko")!==-1&&Math.random()<0.45){
       var opts=RIKO_PREY.filter((id)=>{return avail.indexOf(id)!==-1&&!isBellyHost(id)});
@@ -1206,6 +1239,7 @@ function charsAt(locId){
   var timeOk=(cid)=>{if(cid==="riko")return (S.time||0)===3;return true};
   initWorld();
   return C.filter((c)=>{
+    if(!isDiscovered(c.id))return false;
     if(isPrey(c.id))return false;
     return (S.cpos[c.id]||getHomeLoc(c.id))===locId;
   });
@@ -1220,6 +1254,16 @@ function digestEnd(c){
     +'<div class="eb"><button class="b bp" data-a="go" data-d="cityMap" style="background:#2dd4bf">Continue as Sentient Fat \u2192</button><div style="display:flex;gap:8px;margin-top:8px"><button class="b bo" data-a="go" data-d="select" style="flex:1">More Dates</button><button class="b bo" data-a="go" data-d="title" style="flex:1">Home</button></div></div></div>';
 }
 function digestEndScreen(){return digestEnd(gc(S.cid))}
+function twinUnlockScreen(){
+  var zero=gc("zero"),luce=gc("luce");
+  return '<div class="s ew"><div class="ei" style="display:flex;gap:8px;align-items:flex-end;justify-content:center">'
+    +'<div style="flex:1"><img src="'+zero.p+'"><div class="gd"></div></div>'
+    +'<div style="flex:1"><img src="'+luce.p+'"><div class="gd"></div></div></div>'
+    +'<div class="et"><div class="etl" style="color:#c4b5fd">The Foxfire Twins — Discovered</div>'
+    +'<div class="etb">The invisible voice was not an unnamed predator. In the moonlit hollow, you find <b>Zero</b>, a shiny Unova Zoroark who shapes the dark into convincing illusions, and <b>Luce</b>, his shiny Hisuian twin who makes those hauntings gentle. Both turn toward you. Both remember that you followed the voice.<br><br>Their hidden hollow is now part of Destiny City, and both twins are available in the date roster.</div>'
+    +'<div class="est"><div class="ess"><b>ZERO</b>Shiny Unova</div><div class="ess"><b>LUCE</b>Shiny Hisuian</div><div class="ess"><b>2</b>New Dates</div></div></div>'
+    +'<div class="eb"><button class="b bp" data-a="twinCity" style="background:#7c3aed">\u{1F98A} Enter the Foxfire Hollow</button><button class="b bo" data-a="go" data-d="select">View Date Roster</button></div></div>';
+}
 function unnamedPredEnding(){
   var kind=S.unnamedPred||"zoroark";
   var z=kind==="zoroark";
@@ -1396,7 +1440,7 @@ function npcTalkScreen(){
 function cityMap(){
   initWorld();
   var loc=LOC.find((l)=>{return l.id===S.loc})||LOC[0];
-  var pins=LOC.map((l)=>{
+  var pins=LOC.filter((l)=>{return !l.hidden||S.twinsUnlocked}).map((l)=>{
     var here=l.id===S.loc;
     var hereChars=charsAt(l.id);
     var charImgs=hereChars.map((c)=>{return '<img class="mcharp" src="'+c.p+'" loading="lazy" style="border-color:'+c.ac+'"'+(S.bp[c.id]?' data-bp="1"':'')+'>'}).join('');
@@ -1537,7 +1581,8 @@ function bind(){document.querySelectorAll("[data-a]").forEach((el)=>{el.addEvent
    else if(a==="struggleFree"){if(S.drain<50){toast("You break free from Riko's belly!");S.drain=0;S.scr="cityMap";R()}else{toast("Too drained to escape!");R()}}
    else if(a==="joinBelly"){var pred=gc(el.dataset.pid);if(!pred){S.scr="cityMap";R();return}if(isBellyHost(pred.id)){toast(pred.name+" already has belly pets and cannot eat anyone else.");R();return}S.ach=S.ach||{};S.ach.joinBelly=true;if(pred.id==="fomo"&&Math.random()<0.4){S.sf=S.sf||{};S.sf[pred.id]=true;S.cid=pred.id;S.scr="digestEndScreen";sv();R();return}var jp=getPets(pred.id);S.bc=pred;S.bcl=50;S.buddy=jp.length>0?jp[Math.floor(Math.random()*jp.length)]:null;S.bact=null;S.btxt="";S.drain=0;S.scr="bellyMode";if(jp.length>0)toast(pred.name+" already has "+jp.length+" inside"+(jp.length>=4?" \u2014 it\'s a full house in there.":"."));R()}
    else if(a==="talkPrey"){var predId=el.dataset.pid;var preyId=el.dataset.preypid||(S.bp[predId]||[])[0];var prey=gc(preyId);toast(prey.name+': "'+preyDialogueLine(predId,preyId)+'"');R()}
-   else if(a==="meChoice"){var ev=S.me||MINI_EVENTS[0];var ch=ev.choices[+el.dataset.i];if(!ch){R();return}if(ev.id==="ghost"&&ch.ach==="ghostHunter"&&ch.t.indexOf("Follow the voice")!==-1){S.ach=S.ach||{};S.ach.ghostHunter=true;S.ach.unnamedPred=true;S.me=null;S.unnamedPred="zoroark";S.unnamedEncounter=false;S.scr="unnamedEnding";sv();R();return}if(ch.coins){if(ch.coins<0&&(!S.coins||S.coins<-ch.coins)){toast("Not enough coins!");R();return}S.coins=Math.max(0,(S.coins||0)+ch.coins)}if(ch.energy)S.energy=Math.min(3,S.energy+ch.energy);if(ch.aff){S._meAff=(S._meAff||0)+ch.aff}if(ch.gift){S.gifts=S.gifts||{};var gi=GIFT_ITEMS.find((g)=>{return g.id===ch.gift});if(gi){S.gifts[ch.gift]=(S.gifts[ch.gift]||0)+1}}if(ch.ach){S.ach=S.ach||{};S.ach[ch.ach]=true}S.me=null;toast(ch.r);S.scr="cityMap";R()}
+   else if(a==="meChoice"){var ev=S.me||MINI_EVENTS[0];var ch=ev.choices[+el.dataset.i];if(!ch){R();return}if(ev.id==="ghost"&&ch.ach==="ghostHunter"&&ch.t.indexOf("Follow the voice")!==-1){S.ach=S.ach||{};S.ach.ghostHunter=true;S.twinsUnlocked=true;S.cpos=S.cpos||{};S.cpos.zero="foxhollow";S.cpos.luce="foxhollow";S.me=null;S.unnamedPred=null;S.unnamedEncounter=false;S.scr="twinUnlock";sv();R();return}if(ch.coins){if(ch.coins<0&&(!S.coins||S.coins<-ch.coins)){toast("Not enough coins!");R();return}S.coins=Math.max(0,(S.coins||0)+ch.coins)}if(ch.energy)S.energy=Math.min(3,S.energy+ch.energy);if(ch.aff){S._meAff=(S._meAff||0)+ch.aff}if(ch.gift){S.gifts=S.gifts||{};var gi=GIFT_ITEMS.find((g)=>{return g.id===ch.gift});if(gi){S.gifts[ch.gift]=(S.gifts[ch.gift]||0)+1}}if(ch.ach){S.ach=S.ach||{};S.ach[ch.ach]=true}S.me=null;toast(ch.r);S.scr="cityMap";R()}
+   else if(a==="twinCity"){S.loc="foxhollow";S.energy=Math.max(0,S.energy-1);R()}
    else if(a==="zoroarkCycle"){S.unnamedPred="zoroark";S.zoroarkCycles=(S.zoroarkCycles||0)+1;S.zoroarkEnded=true;S.ach=S.ach||{};S.ach.unnamedPred=true;sv();R()}
    else if(a==="unnamedCycle"){S.unnamedPred="unknown";S.ach=S.ach||{};S.ach.unnamedPred=true;sv();toast("The presence folds back into the dark.");S.scr="cityMap";R()}
    else if(a==="encInvestigate"){S.ach=S.ach||{};S.ach.encounter=true;S.enc=(S.enc||0)+1;S.stats=S.stats||{};S.stats.encounters=(S.stats.encounters||0)+1;var c=gc(S.encPred);if(!c){S.scr="cityMap";R();return}if(S.unnamedEncounter){S.ach.unnamedPred=true;S.unnamedPred="unknown";S.unnamedEncounter=false;S.scr="unnamedEnding";sv();R();return}if(Math.random()<0.4){S.cid=c.id;S.af=15;S.scr="end";R()}else{S.coins=(S.coins||0)+5;toast("Just a false alarm... this time. "+c.name+" was nowhere to be found. (+5 coins found)");S.scr="cityMap";R()}}
