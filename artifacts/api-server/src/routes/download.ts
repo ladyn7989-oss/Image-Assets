@@ -18,6 +18,10 @@ const fullSpriteArchivePath = path.resolve(
   import.meta.dirname,
   "../../../wolf-luna-aether-full-sprites.zip",
 );
+const newCharacterSpriteArchivePath = path.resolve(
+  import.meta.dirname,
+  "../../../date-with-destiny-new-character-sprites.zip",
+);
 
 router.get("/download/date-with-destiny-offline.zip", (_req, res) => {
   res.download(
@@ -80,6 +84,25 @@ router.get("/download/wolf-luna-aether-full-sprites.zip", (_req, res) => {
   res.download(
     fullSpriteArchivePath,
     "wolf-luna-aether-full-sprites.zip",
+    {
+      headers: {
+        "Cache-Control": "no-store",
+      },
+    },
+    (error) => {
+      if (error && !res.headersSent) {
+        res.status(404).json({
+          error: "Download not available",
+        });
+      }
+    },
+  );
+});
+
+router.get("/download/date-with-destiny-new-character-sprites.zip", (_req, res) => {
+  res.download(
+    newCharacterSpriteArchivePath,
+    "date-with-destiny-new-character-sprites.zip",
     {
       headers: {
         "Cache-Control": "no-store",
