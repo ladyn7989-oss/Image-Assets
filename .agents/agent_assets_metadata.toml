@@ -126,3 +126,10 @@ uri = "file://date-with-destiny-offline.zip"
 type = "unspecified"
 title = "Date With Destiny — Offline Edition"
 description = "Standalone offline game bundle with all artwork, full Zero and Luce sprite sets, local saves, and README instructions."
+
+[[outputs]]
+id = "GPFFOXWDCSyxW3Rcj16EL"
+uri = "file://luna-new-full-sprites.zip"
+type = "unspecified"
+title = "Luna New Full-Frame Sprite Pack"
+description = "11 newly generated full-frame Luna sprites: 10 expressions plus a dedicated belly pose, with the uploaded Luna reference, README, and manifest included."
