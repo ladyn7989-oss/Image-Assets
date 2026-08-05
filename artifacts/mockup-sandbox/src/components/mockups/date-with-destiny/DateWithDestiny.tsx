@@ -19,7 +19,7 @@ function makePreviewSafe(html: string): string {
     /(["'])(nyx-(?:base|happy|angry|sad|surprised|blush|smug|belly)\.png)\1/gi,
     `$1${imageRoot}$2$1`,
   ).replace(
-    /(["'])(zero-unova-zoroark\.png|luce-zoroark\.png)\1/gi,
+    /(["'])(zero-(?:happy|angry|sad|surprised|blush|smug|belly|unova-zoroark)\.png|luce-(?:happy|angry|sad|surprised|blush|smug|belly|zoroark)\.png)\1/gi,
     `$1${imageRoot}$2$1`,
   ).replace(
     /(["'])(?:fomo\.png|riko\.webp|nyx-bellweather\.png)\1/gi,
