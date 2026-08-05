@@ -7,3 +7,59 @@ uri = "file://attached_assets/generated_images/fomo-belly.png"
 type = "image"
 title = "Fomo Belly Sprite"
 description = "Generated seated belly-pet sprite for Fomo, matched to the uploaded gray-blue spotted character references."
+
+[[outputs]]
+id = "JvHfa245Lv6uIZBj61WMY"
+uri = "file://attached_assets/generated_images/riko-base.png"
+type = "image"
+title = "Riko base Sprite"
+description = "Generated Riko sprite for the Date With Destiny character set."
+
+[[outputs]]
+id = "Lgk64GGtAj8NNfp-qzDPn"
+uri = "file://attached_assets/generated_images/riko-happy.png"
+type = "image"
+title = "Riko happy Sprite"
+description = "Generated Riko sprite for the Date With Destiny character set."
+
+[[outputs]]
+id = "MPK0BB7Qdh0izBCDBLaHb"
+uri = "file://attached_assets/generated_images/riko-angry.png"
+type = "image"
+title = "Riko angry Sprite"
+description = "Generated Riko sprite for the Date With Destiny character set."
+
+[[outputs]]
+id = "pCr-ZbnKEvI_Blt29x7cN"
+uri = "file://attached_assets/generated_images/riko-sad.png"
+type = "image"
+title = "Riko sad Sprite"
+description = "Generated Riko sprite for the Date With Destiny character set."
+
+[[outputs]]
+id = "9liyfsPSgZ6cHVuvGvJyX"
+uri = "file://attached_assets/generated_images/riko-surprised.png"
+type = "image"
+title = "Riko surprised Sprite"
+description = "Generated Riko sprite for the Date With Destiny character set."
+
+[[outputs]]
+id = "DgKfcDMbn6ZBUEBlMKnA_"
+uri = "file://attached_assets/generated_images/riko-blush.png"
+type = "image"
+title = "Riko blush Sprite"
+description = "Generated Riko sprite for the Date With Destiny character set."
+
+[[outputs]]
+id = "FsQkAlyNfhRpuYY6N_7O-"
+uri = "file://attached_assets/generated_images/riko-smug.png"
+type = "image"
+title = "Riko smug Sprite"
+description = "Generated Riko sprite for the Date With Destiny character set."
+
+[[outputs]]
+id = "rwidvevACyILml8vcKYy1"
+uri = "file://attached_assets/generated_images/riko-belly.png"
+type = "image"
+title = "Riko belly Sprite"
+description = "Generated Riko sprite for the Date With Destiny character set."

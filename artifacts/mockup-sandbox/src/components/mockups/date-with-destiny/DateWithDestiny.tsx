@@ -13,6 +13,9 @@ function makePreviewSafe(html: string): string {
     /(["'])(fomo-(?:happy|angry|sad|sad-alt|surprised|blush|smug|belly)\.png)\1/gi,
     `$1${imageRoot}$2$1`,
   ).replace(
+    /(["'])(riko-(?:base|happy|angry|sad|surprised|blush|smug|belly)\.png)\1/gi,
+    `$1${imageRoot}$2$1`,
+  ).replace(
     /(["'])(?:fomo\.png|riko\.webp|nyx-bellweather\.png)\1/gi,
     `$1${fallbackImage}$1`,
   );
