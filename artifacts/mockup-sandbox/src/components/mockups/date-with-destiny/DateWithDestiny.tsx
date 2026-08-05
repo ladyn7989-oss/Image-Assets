@@ -24,6 +24,9 @@ function makePreviewSafe(html: string): string {
   ).replace(
     /(["'])(?:fomo\.png|riko\.webp|nyx-bellweather\.png)\1/gi,
     `$1${fallbackImage}$1`,
+  ).replace(
+    /(["'])((?:(?:aether|luna|wolf)-new-[a-z0-9_-]+|glacia)\.png)\1/gi,
+    `$1${imageRoot}$2$1`,
   );
 }
 
@@ -33,6 +36,18 @@ export function DateWithDestiny() {
   useEffect(() => {
     const root = rootRef.current;
     if (!root) return;
+
+    let serviceWorkerRegistration: ServiceWorkerRegistration | undefined;
+    if ("serviceWorker" in navigator && window.isSecureContext) {
+      void navigator.serviceWorker.register("/__mockup/date-with-destiny-sw.js", {
+        scope: "/__mockup/",
+      }).then((registration) => {
+        serviceWorkerRegistration = registration;
+      }).catch(() => {
+        // Offline play still works through bundled assets and localStorage when
+        // the browser does not permit service workers in the preview frame.
+      });
+    }
 
     const html = makePreviewSafe(sourceHtml);
     const styleText = html.match(/<style[^>]*>([\s\S]*?)<\/style>/i)?.[1] ?? "";
@@ -62,6 +77,7 @@ export function DateWithDestiny() {
     }
 
     return () => {
+      void serviceWorkerRegistration?.update();
       style.remove();
       root.innerHTML = "";
     };
