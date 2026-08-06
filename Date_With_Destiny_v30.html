@@ -822,7 +822,7 @@ function preyDialogueLine(predId,preyId){
 }
 ;
 
-let S={scr:"title",cid:null,si:0,af:0,sc:0,es:0,ea:50,er:0,ec:null,ul:{},hs:0,mods:[],ms:"info",em:null,rt:null,afCh:0,auto:false,skip:false,vnScr:"vn",bcl:0,regressed:false,lunaRegImmune:false,bc:null,bact:null,btxt:"",loc:"home",day:1,worldDay:1,energy:5,tcid:null,tnid:0,bellyReturn:null,cpos:{},bp:{},bd:{},buddy:null,bellyPlayerHost:null,rikoDrained:false,meetingHost:null,meetingVisitor:null,npcId:null,twinsUnlocked:false,foxfireRumor:false,unnamedPred:null,unnamedEncounter:false,zoroarkEnded:false,zoroarkCycles:0,dated:{},rep:0,completed:{},sf:{},dailyDone:{},dailyMod:null,drain:0,ach:{},enc:0,coins:0,gifts:{},giftLog:{},stats:{dates:0,rounds:0,gifts:0,encounters:0,bellyTime:0},settings:{textSpeed:35,animations:true,typewriter:true,offline:true},time:0};
+let S={scr:"title",cid:null,si:0,af:0,sc:0,es:0,ea:50,er:0,ec:null,ul:{},hs:0,mods:[],ms:"info",em:null,rt:null,afCh:0,auto:false,skip:false,vnScr:"vn",bcl:0,regressed:false,lunaRegImmune:false,lunaRegs:{},bc:null,bact:null,btxt:"",loc:"home",day:1,worldDay:1,energy:5,tcid:null,tnid:0,bellyReturn:null,cpos:{},bp:{},bd:{},buddy:null,bellyPlayerHost:null,rikoDrained:false,meetingHost:null,meetingVisitor:null,npcId:null,twinsUnlocked:false,foxfireRumor:false,unnamedPred:null,unnamedEncounter:false,zoroarkEnded:false,zoroarkCycles:0,dated:{},rep:0,completed:{},sf:{},dailyDone:{},dailyMod:null,drain:0,ach:{},enc:0,coins:0,gifts:{},giftLog:{},stats:{dates:0,rounds:0,gifts:0,encounters:0,bellyTime:0},settings:{textSpeed:35,animations:true,typewriter:true,offline:true},time:0};
 const mem=(()=>{let m={};let p=null;try{p=window.parent}catch(e){}return{get:(k)=>{try{if(m[k]!==undefined)return m[k];return window.localStorage.getItem("dwd_"+k)}catch(e){return null}},set:(k,v)=>{m[k]=v;try{window.localStorage.setItem("dwd_"+k,v)}catch(e){}try{if(p&&p.postMessage)p.postMessage({t:"dwd",k:k,v:v},"*")}catch(e){}}}})();
 function ld(){try{const d=JSON.parse(mem.get("dwd"));if(d)S={...S,...d,scr:"title"}}catch(e){}}
 function sv(){if(S.cw){}try{mem.set("dwd",JSON.stringify({ul:S.ul,hs:S.hs,mods:S.mods,ach:S.ach||{},sf:S.sf||{},bp:S.bp||{},bd:S.bd||{},bellyPlayerHost:S.bellyPlayerHost||null,rikoDrained:!!S.rikoDrained,twinsUnlocked:!!S.twinsUnlocked,foxfireRumor:!!S.foxfireRumor,zoroarkEnded:!!S.zoroarkEnded,unnamedPred:S.unnamedPred||null,unnamedEncounter:!!S.unnamedEncounter,zoroarkCycles:S.zoroarkCycles||0,drain:S.drain||0,coins:S.coins||0,gifts:S.gifts||{},giftLog:S.giftLog||{},stats:S.stats||{},settings:S.settings||{},enc:S.enc||0,branches:S.branches||{}}))}catch(e){}}
@@ -1341,7 +1341,16 @@ function bellyMode(){SND.startAmbient('belly');
   var ocount=(S.bc&&S.bp[S.bc.id])?getPets(S.bc.id).length:0;
   var playerHere=S.bellyPlayerHost===c.id;
   var occupantNames=(S.bc?getPets(S.bc.id):[]).map((pid)=>{var g=gc(pid);return g?g.name:"unknown";});
+  var regInfo='';
+  if(c.id==='luna'&&ocount>0){
+    var regs=getPets('luna').filter(function(pid){return isLunaRegressed(pid)});
+    if(regs.length>0){
+      var regNames=regs.map(function(pid){var g=gc(pid);return g?g.name:'?'}).join(', ');
+      regInfo='<div style="color:#7dd3fc;font-size:11px;margin-top:4px">\ud83d\udc3e '+regNames+' '+(regs.length>1?'have':'has')+' been regressed into Riolu kits by Luna.</div>';
+    }
+  }
   var buddyNote=playerHere?'<span style="color:#f472b6">You are sharing this belly with '+(occupantNames.length?occupantNames.join(", "):"no other '+(S.tcid==='luna'?'womb':'belly')+' pets")+'.</span>':(ocount>0?'<span style="color:#f472b6">This belly currently holds '+occupantNames.join(", ")+'.</span>':'');
+  if(regInfo)buddyNote+=regInfo;
   var isRiko=(c.id==="riko");
   var drainBar='';
   if(isRiko){
@@ -1431,6 +1440,9 @@ function bellyReact(){
 }
 function endlessEnd(){const c=S.ec||C[0];return '<div class="s ew"><div class="ei"><img src="'+c.e+'"><div class="gd"></div></div><div class="et"><div class="etl" style="color:'+c.ac+'">Date Complete! ♥</div><div class="etb">'+c.name+' pulls you close. "You lasted '+(S.er+1)+' rounds... more than anyone." With a warm smile, they claim you. You curl up inside '+c.name+'\'s belly — warm, safe, and perfectly content. Another belly pet, happily ever after.</div><div class="est"><div class="ess"><b>'+S.sc+'</b>Final Score</div><div class="ess"><b>'+(S.er+1)+'</b>Rounds</div><div class="ess"><b>'+S.hs+'</b>High Score</div></div></div><div class="eb"><button class="b bp" data-a="endlessBelly" style="background:#7c3aed">\ud83d\udc7b '+(S.tcid==='luna'?'Womb':'Belly')+' Pet Mode</button><button class="b bp" data-a="endless" style="background:#ea580c">Try Again (Random)</button><button class="b bp" data-a="go" data-d="cityMap">Back to City</button><button class="b bo" data-a="go" data-d="title">Home</button></div></div>'}
 function getPets(pid){var b=S.bp[pid];return b&&Array.isArray(b)?b:[]}
+function isLunaRegressed(pid){return S.lunaRegs&&S.lunaRegs[pid]===true}
+function regressedPreyLine(pid){var g=gc(pid);if(!g)return"";return g.name+" has been regressed into a Riolu kit by Luna. Luna Jr. and Sol treat them as a sibling.";}
+
 function petDrain(pid,preyId){return ((S.bd[pid]||{})[preyId])||0}
 function isKept(pid,preyId){return pid==="riko"&&petDrain(pid,preyId)>=50}
 function isEscapeLocked(pid,preyId){return pid==="riko"&&petDrain(pid,preyId)>=50}
@@ -1596,7 +1608,7 @@ function updateWorld(){
       if(preyAvailIndex!==-1)avail.splice(preyAvailIndex,1);
       S.bp[pred]=[prey];S.bd[pred]=S.bd[pred]||{};S.bd[pred][prey]=(gc(pred).dr||7)<0?30:0;
       S.cpos[prey]=S.cpos[pred];
-      notes.push(gc(pred).name+" swallowed "+gc(prey).name+".");
+      var regNote="";if(pred==="luna"&&Math.random()<0.25){S.lunaRegs=S.lunaRegs||{};S.lunaRegs[prey]=true;regNote=" (regressed into a Riolu kit!)"}notes.push(gc(pred).name+" swallowed "+gc(prey).name+"."+regNote);
     }else break;
   }
   if(notes.length>0)toast("\u{1F47D} "+notes.slice(0,3).join(" ")+(notes.length>3?" (+"+(notes.length-3)+" more)":""));
@@ -2011,7 +2023,7 @@ function bind(){document.querySelectorAll("[data-a]").forEach((el)=>{el.addEvent
    else if(a==="saveSettings"){S.settings=S.settings||{};var sp=document.getElementById("set_speed");if(sp)S.settings.textSpeed=+sp.value;if(S.settings.typewriter===false)S.settings.textSpeed=0;sv();toast("Settings saved!");R()}
    else if(a==="goStats"){S.scr="stats";R()}
    else if(a==="goSettings"){S.scr="settings";R()}
-   else if(a==="rest"){S.day++;S.time=0;S.energy=5;S.buddy=null;S.regressed=false;updateWorld();toast("You rest and recover your energy. Day "+S.day);R()}
+   else if(a==="rest"){S.day++;S.time=0;S.energy=5;S.buddy=null;S.regressed=false;S.lunaRegs={};updateWorld();toast("You rest and recover your energy. Day "+S.day);R()}
    else if(a==="talk"){S.tcid=el.dataset.cid;S.tnid=0;S.bellyReturn=null;S.scr="talk";R()}
    else if(a==="talkChoice"){var c=gc(S.tcid);var tree=TALK[c.id];var node=tree.find((n)=>{return n.id===+el.dataset.nid});if(node){S.bcl=Math.max(0,Math.min(100,S.bcl+(node.a||0)*5));S.tnid=node.id;sv()}R()}
    else if(a==="talkEnd"){S.scr=S.bellyReturn||"cityMap";S.bellyReturn=null;R()}
@@ -2033,8 +2045,8 @@ function bind(){document.querySelectorAll("[data-a]").forEach((el)=>{el.addEvent
    else if(a==="openShop"){S.scr="giftShop";R()}
    else if(a==="openGifts"){S.scr="giftsScreen";R()}
    else if(a==="struggleFree"){if(S.drain<50){toast("You break free from Riko's belly!");S.drain=0;S.scr="cityMap";R()}else{toast("Too drained to escape!");R()}}
-   else if(a==="joinBelly"){var pred=gc(el.dataset.pid);if(!pred){S.scr="cityMap";R();return}if(isBellyHost(pred.id)){toast(pred.name+" already has belly pets and cannot eat anyone else.");R();return}S.ach=S.ach||{};S.ach.joinBelly=true;if(pred.id==="fomo"&&Math.random()<0.4){S.sf=S.sf||{};S.sf[pred.id]=true;S.cid=pred.id;S.scr="digestEndScreen";sv();R();return}var jp=getPets(pred.id);S.bc=pred;S.bcl=50;S.buddy=jp.length>0?jp[Math.floor(Math.random()*jp.length)]:null;S.bact=null;S.btxt="";S.drain=0;S.scr="bellyMode";if(jp.length>0)toast(pred.name+" already has "+jp.length+" inside"+(jp.length>=4?" \u2014 it\'s a full house in there.":"."));R()}
-   else if(a==="talkPrey"){var predId=el.dataset.pid;var preyId=el.dataset.preypid||(S.bp[predId]||[])[0];var prey=gc(preyId);toast(prey.name+': "'+preyDialogueLine(predId,preyId)+'"');R()}
+   else if(a==="joinBelly"){var pred=gc(el.dataset.pid);if(!pred){S.scr="cityMap";R();return}if(isBellyHost(pred.id)){toast(pred.name+" already has belly pets and cannot eat anyone else.");R();return}S.ach=S.ach||{};S.ach.joinBelly=true;if(pred.id==="fomo"&&Math.random()<0.4){S.sf=S.sf||{};S.sf[pred.id]=true;S.cid=pred.id;S.scr="digestEndScreen";sv();R();return}var jp=getPets(pred.id);S.bc=pred;S.bcl=50;S.buddy=jp.length>0?jp[Math.floor(Math.random()*jp.length)]:null;S.bact=null;S.btxt="";S.drain=0;if(pred.id==="luna"&&jp.length>0){S.lunaRegs=S.lunaRegs||{};jp.forEach(function(pid){if(Math.random()<0.25){S.lunaRegs[pid]=true}});}S.scr="bellyMode";if(jp.length>0)toast(pred.name+" already has "+jp.length+" inside"+(jp.length>=4?" \u2014 it\'s a full house in there.":"."));R()}
+   else if(a==="talkPrey"){var predId=el.dataset.pid;var preyId=el.dataset.preypid||(S.bp[predId]||[])[0];var prey=gc(preyId);toast(prey.name+": "+preyDialogueLine(predId,preyId)+(isLunaRegressed(preyId)?" [\ud83d\udc3e Regressed Riolu Kit]":""));R()}
    else if(a==="meChoice"){var ev=S.me||MINI_EVENTS[0];var eventChoices=ev.choices.slice();if(ev.id==="ghost"&&S.foxfireRumor&&!S.twinsUnlocked)eventChoices.push({t:"Call out to Zero and Luce",r:"You remember the barista\'s rumor and call the twins by name. The cold answers at once \u2014 not with hunger, but with two voices recognizing that you came looking.",twinCall:true});var ch=eventChoices[+el.dataset.i];if(!ch){R();return}if(ev.id==="ghost"&&((ch.ach==="ghostHunter"&&ch.t.indexOf("Follow the voice")!==-1)||ch.twinCall)){S.ach=S.ach||{};S.ach.ghostHunter=true;S.twinsUnlocked=true;S.cpos=S.cpos||{};S.cpos.zero="foxhollow";S.cpos.luce="foxhollow";S.me=null;S.unnamedPred=null;S.unnamedEncounter=false;S.scr="twinUnlock";sv();R();return}if(ch.coins){if(ch.coins<0&&(!S.coins||S.coins<-ch.coins)){toast("Not enough coins!");R();return}S.coins=Math.max(0,(S.coins||0)+ch.coins)}if(ch.energy)S.energy=Math.min(5,S.energy+ch.energy);if(ch.aff){S._meAff=(S._meAff||0)+ch.aff}if(ch.gift){S.gifts=S.gifts||{};var gi=GIFT_ITEMS.find((g)=>{return g.id===ch.gift});if(gi){S.gifts[ch.gift]=(S.gifts[ch.gift]||0)+1}}if(ch.ach){S.ach=S.ach||{};S.ach[ch.ach]=true}S.me=null;toast(ch.r);S.scr="cityMap";R()}
    else if(a==="twinCity"){S.loc="foxhollow";S.energy=Math.max(0,S.energy-1);R()}
    else if(a==="zoroarkCycle"){S.unnamedPred="zoroark";S.zoroarkCycles=(S.zoroarkCycles||0)+1;S.zoroarkEnded=true;S.ach=S.ach||{};S.ach.unnamedPred=true;sv();R()}
