@@ -1336,17 +1336,17 @@ function bellyMode(){SND.startAmbient('belly');
   var name=c.name;
   var autoBtn=S.auto?'<button class="b act" data-a="toggleAuto">Auto ON</button>':'<button class="b inact" data-a="toggleAuto">Auto</button>';
   var skipBtn=S.skip?'<button class="b act" data-a="toggleSkip">Skip ON</button>':'<button class="b inact" data-a="toggleSkip">Skip</button>';
-  var bar='<div style="position:relative;z-index:4;padding:4px 12px;background:rgba(26,14,46,.6);display:flex;justify-content:space-between;align-items:center;font-size:12px"><span style="color:'+c.ac+';font-weight:700">\u2665 '+name+' \u2014 Belly Pet Mode</span><span>Closeness</span></div>';
+  var bar='<div style="position:relative;z-index:4;padding:4px 12px;background:rgba(26,14,46,.6);display:flex;justify-content:space-between;align-items:center;font-size:12px"><span style="color:'+c.ac+';font-weight:700">\u2665 '+name+' \u2014 '+(c.id==='luna'?'Womb':'Belly')+' Pet Mode</span><span>Closeness</span></div>';
   var afbar='<div style="position:relative;z-index:4;height:4px;background:rgba(26,14,46,.4)"><div style="height:100%;width:'+ap+'%;background:'+ac+';transition:width .3s"></div></div>';
   var ocount=(S.bc&&S.bp[S.bc.id])?getPets(S.bc.id).length:0;
   var playerHere=S.bellyPlayerHost===c.id;
   var occupantNames=(S.bc?getPets(S.bc.id):[]).map((pid)=>{var g=gc(pid);return g?g.name:"unknown";});
-  var buddyNote=playerHere?'<span style="color:#f472b6">You are sharing this belly with '+(occupantNames.length?occupantNames.join(", "):"no other belly pets")+'.</span>':(ocount>0?'<span style="color:#f472b6">This belly currently holds '+occupantNames.join(", ")+'.</span>':'');
+  var buddyNote=playerHere?'<span style="color:#f472b6">You are sharing this belly with '+(occupantNames.length?occupantNames.join(", "):"no other '+(S.tcid==='luna'?'womb':'belly')+' pets")+'.</span>':(ocount>0?'<span style="color:#f472b6">This belly currently holds '+occupantNames.join(", ")+'.</span>':'');
   var isRiko=(c.id==="riko");
   var drainBar='';
   if(isRiko){
     var dp=Math.max(0,Math.min(100,S.drain||0));
-    var petDrainNote=ocount>0?'<div style="position:relative;z-index:4;padding:5px 12px;background:rgba(60,10,10,.5);color:#fca5a5;font-size:11px">\u{1F534} Other belly pets: '+rikoOccupantText()+'</div>':'';
+    var petDrainNote=ocount>0?'<div style="position:relative;z-index:4;padding:5px 12px;background:rgba(60,10,10,.5);color:#fca5a5;font-size:11px">\u{1F534} Other '+(S.tcid==='luna'?'womb':'belly')+' pets: '+rikoOccupantText()+'</div>':'';
     drainBar='<div style="position:relative;z-index:4;padding:4px 12px;background:rgba(60,10,10,.7);display:flex;justify-content:space-between;align-items:center;font-size:11px"><span style="color:#ef4444;font-weight:700">\u{1F534} Your Strength Drain</span><span>'+dp+'%</span></div><div style="position:relative;z-index:4;height:4px;background:rgba(60,10,10,.4)"><div style="height:100%;width:'+dp+'%;background:#ef4444;transition:width .3s"></div></div>'+petDrainNote;
   }
   var intro=playerHere?"You\'re now living inside "+name+"\'s belly \u2014 warm, safe, and perfectly content. "+name+" rubs their full stomach with a satisfied smile. "+buddyNote:"You\'re visiting "+name+"\'s belly. "+(ocount>0?"The occupied space is warm and lively. ":"")+"What would you like to do?";
@@ -1392,7 +1392,7 @@ function bellyReact(){
   var afSign=afCh>=0?'+':'';
   var autoBtn=S.auto?'<button class="b act" data-a="toggleAuto">Auto ON</button>':'<button class="b inact" data-a="toggleAuto">Auto</button>';
   var skipBtn=S.skip?'<button class="b act" data-a="toggleSkip">Skip ON</button>':'<button class="b inact" data-a="toggleSkip">Skip</button>';
-  var bar='<div style="position:relative;z-index:4;padding:4px 12px;background:rgba(26,14,46,.6);display:flex;justify-content:space-between;align-items:center;font-size:12px"><span style="color:'+c.ac+';font-weight:700">\u2665 '+name+' \u2014 Belly Pet Mode</span><span>Closeness '+S.bcl+'/100</span></div>';
+  var bar='<div style="position:relative;z-index:4;padding:4px 12px;background:rgba(26,14,46,.6);display:flex;justify-content:space-between;align-items:center;font-size:12px"><span style="color:'+c.ac+';font-weight:700">\u2665 '+name+' \u2014 '+(c.id==='luna'?'Womb':'Belly')+' Pet Mode</span><span>Closeness '+S.bcl+'/100</span></div>';
   var afbar='<div style="position:relative;z-index:4;height:4px;background:rgba(26,14,46,.4)"><div style="height:100%;width:'+ap+'%;background:'+ac+';transition:width .3s"></div></div>';
     var isRiko=(c.id==="riko");
   var drainBar='';
@@ -1414,7 +1414,7 @@ function bellyReact(){
     +'<div style="text-align:center;padding:8px"><button class="b bo" data-a="contEndless" style="font-size:13px">Continue to Endless \u2192</button></div>'
     +'</div>';
 }
-function endlessEnd(){const c=S.ec||C[0];return '<div class="s ew"><div class="ei"><img src="'+c.e+'"><div class="gd"></div></div><div class="et"><div class="etl" style="color:'+c.ac+'">Date Complete! ♥</div><div class="etb">'+c.name+' pulls you close. "You lasted '+(S.er+1)+' rounds... more than anyone." With a warm smile, they claim you. You curl up inside '+c.name+'\'s belly — warm, safe, and perfectly content. Another belly pet, happily ever after.</div><div class="est"><div class="ess"><b>'+S.sc+'</b>Final Score</div><div class="ess"><b>'+(S.er+1)+'</b>Rounds</div><div class="ess"><b>'+S.hs+'</b>High Score</div></div></div><div class="eb"><button class="b bp" data-a="endlessBelly" style="background:#7c3aed">\ud83d\udc7b Belly Pet Mode</button><button class="b bp" data-a="endless" style="background:#ea580c">Try Again (Random)</button><button class="b bp" data-a="go" data-d="cityMap">Back to City</button><button class="b bo" data-a="go" data-d="title">Home</button></div></div>'}
+function endlessEnd(){const c=S.ec||C[0];return '<div class="s ew"><div class="ei"><img src="'+c.e+'"><div class="gd"></div></div><div class="et"><div class="etl" style="color:'+c.ac+'">Date Complete! ♥</div><div class="etb">'+c.name+' pulls you close. "You lasted '+(S.er+1)+' rounds... more than anyone." With a warm smile, they claim you. You curl up inside '+c.name+'\'s belly — warm, safe, and perfectly content. Another belly pet, happily ever after.</div><div class="est"><div class="ess"><b>'+S.sc+'</b>Final Score</div><div class="ess"><b>'+(S.er+1)+'</b>Rounds</div><div class="ess"><b>'+S.hs+'</b>High Score</div></div></div><div class="eb"><button class="b bp" data-a="endlessBelly" style="background:#7c3aed">\ud83d\udc7b '+(S.tcid==='luna'?'Womb':'Belly')+' Pet Mode</button><button class="b bp" data-a="endless" style="background:#ea580c">Try Again (Random)</button><button class="b bp" data-a="go" data-d="cityMap">Back to City</button><button class="b bo" data-a="go" data-d="title">Home</button></div></div>'}
 function getPets(pid){var b=S.bp[pid];return b&&Array.isArray(b)?b:[]}
 function petDrain(pid,preyId){return ((S.bd[pid]||{})[preyId])||0}
 function isKept(pid,preyId){return pid==="riko"&&petDrain(pid,preyId)>=50}
@@ -1850,13 +1850,13 @@ function cityMap(){SND.startAmbient('map');
         +'<div class="mcrow"><img class="mcavatar" src="'+c.p+'" style="border-color:'+(hasBelly?'#f472b6':c.ac)+'">'
         +'<div><div class="mcname" style="color:'+c.ac+'">'+c.name+'</div>'
         +'<div class="mcsub">'+c.sub+'</div>'
-        +(hasBelly?'<div style="font-size:10px;color:#f472b6;font-weight:600;margin-top:2px">\u{1F47D} '+pets.length+' belly pet'+(pets.length>1?'s':'')+': '+petLabel+(pets.some((pid)=>isEscapeLocked(c.id,pid))?' \u2014 escape sealed at 50%!':'')+'</div>':'')
+        +(hasBelly?'<div style="font-size:10px;color:#f472b6;font-weight:600;margin-top:2px">\u{1F47D} '+pets.length+' '+(c.id==='luna'?'womb':'belly')+' pet'+(pets.length>1?'s':'')+': '+petLabel+(pets.some((pid)=>isEscapeLocked(c.id,pid))?' \u2014 escape sealed at 50%!':'')+'</div>':'')
         +'</div></div>'
         +'<div class="mcbtns">'
         +'<button class="b bs" data-a="talk" data-cid="'+c.id+'">\u{1F4AC} Talk</button>'
         +'<button class="b bp" data-a="date" data-id="'+c.id+'">\u2764\uFE0F Date</button>'
         +(S.ul[c.id]?'<button class="b bo" data-a="bellyMap" data-id="'+c.id+'">\u{1F47D} Belly</button>':'')
-        +(hasBelly?'<button class="b bs" data-a="joinBelly" data-pid="'+c.id+'" style="border-color:#f472b6;flex:1">\u{1F91D} Join Belly ('+pets.length+' inside)</button>':'')
+        +(hasBelly?'<button class="b bs" data-a="joinBelly" data-pid="'+c.id+'" style="border-color:#f472b6;flex:1">\u{1F91D} Join '+(c.id==='luna'?'Womb':'Belly')+' ('+pets.length+' inside)</button>':'')
         +(hasBelly?pets.map((pid)=>'<button class="b bo" data-a="talkPrey" data-pid="'+c.id+'" data-preypid="'+pid+'" style="font-size:10px;flex:1">\u{1F4AC} '+gc(pid).name+' (muffled)</button>').join(''):'')
         +(localHosts.filter((h)=>h.id!==c.id).map((h)=>'<button class="b bo" data-a="askPetHost" data-host="'+h.id+'" data-visitor="'+c.id+'" style="font-size:10px;flex:1;border-color:#f472b6;color:#f9a8d4">\u{1F4AC} Ask '+h.name+' about pets</button>').join(''))
         +'</div></div>';
