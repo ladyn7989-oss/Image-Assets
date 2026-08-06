@@ -1868,7 +1868,7 @@ function updateWorld(){
   var avail=C.map((c)=>{return c.id}).filter((id)=>{return isDiscovered(id)&&!isPrey(id)});
     var PROTECTED=["aether","luna"];
     avail=avail.filter((id)=>{return PROTECTED.indexOf(id)===-1});
-  var RIKO_PREY=["vegeta","champa","wolf","anubis","louis","legoshi","riz","bill","gohin","solene"];
+  var RIKO_PREY=["beerus","champa","fomo"];
   if(avail.indexOf("riko")!==-1&&Math.random()<0.45){
       var opts=RIKO_PREY.filter((id)=>{return avail.indexOf(id)!==-1&&!isBellyHost(id)});
     if(opts.length>0){
