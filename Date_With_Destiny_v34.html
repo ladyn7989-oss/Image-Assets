@@ -1868,7 +1868,7 @@ function updateWorld(){
   var avail=C.map((c)=>{return c.id}).filter((id)=>{return isDiscovered(id)&&!isPrey(id)});
     var PROTECTED=["aether","luna"];
     avail=avail.filter((id)=>{return PROTECTED.indexOf(id)===-1});
-  var RIKO_PREY=["beerus","champa","fomo"];
+  var RIKO_PREY=["vegeta","champa","wolf","anubis","louis","legoshi","riz","bill","gohin","solene"];
   if(avail.indexOf("riko")!==-1&&Math.random()<0.45){
       var opts=RIKO_PREY.filter((id)=>{return avail.indexOf(id)!==-1&&!isBellyHost(id)});
     if(opts.length>0){
@@ -1904,16 +1904,26 @@ function updateWorld(){
     }
   }
   // Everyone can belly pet anyone now: up to 2 fresh pairs per day
+  // Special prey map: Beerus, Champa, and Fomo specifically target Solene
+  var SPECIAL_PREY={beerus:"solene",champa:"solene",fomo:"solene"};
+  var preyAvail=avail.filter((id)=>{return !isBellyHost(id)&&id!=="fomo"&&id!=="solene"});
+  // Solene is prey-only for Beerus, Champa, Fomo - add her to prey pool
+  if(isDiscovered("solene")&&!isBellyHost("solene")){preyAvail.push("solene")}
   var tries=0;
-  var preyAvail=avail.filter((id)=>{return !isBellyHost(id)&&id!=="fomo"});
   while(tries<2&&avail.length>=2&&preyAvail.length>0){
     tries++;
     if(Math.random()<0.65){
       var pi=Math.floor(Math.random()*avail.length);var pred=avail.splice(pi,1)[0];
       var predPreyIndex=preyAvail.indexOf(pred);
       if(predPreyIndex!==-1)preyAvail.splice(predPreyIndex,1);
-      if(preyAvail.length===0)break;
-      var yi=Math.floor(Math.random()*preyAvail.length);var prey=preyAvail.splice(yi,1)[0];
+      // Special prey: Beerus, Champa, Fomo always target Solene
+      var prey;
+      if(SPECIAL_PREY[pred]&&preyAvail.indexOf(SPECIAL_PREY[pred])!==-1){
+        prey=preyAvail.splice(preyAvail.indexOf(SPECIAL_PREY[pred]),1)[0];
+      }else{
+        if(preyAvail.length===0)break;
+        var yi=Math.floor(Math.random()*preyAvail.length);prey=preyAvail.splice(yi,1)[0];
+      }
       var preyAvailIndex=avail.indexOf(prey);
       if(preyAvailIndex!==-1)avail.splice(preyAvailIndex,1);
       S.bp[pred]=[prey];S.bd[pred]=S.bd[pred]||{};S.bd[pred][prey]=(gc(pred).dr||7)<0?30:0;
