@@ -2378,10 +2378,10 @@ document.addEventListener("click",(e)=>{
   }else if(a==="askPetHost"){
     e.preventDefault();e.stopImmediatePropagation();
     var host=gc(el.dataset.host);
-    if(!host){S.scr="cityMap";R();return}else if(a==="rikoOfferAccept"){
+    if(!host){S.scr="cityMap";R();return}
+    S.meetingHost=host.id;S.meetingVisitor=el.dataset.visitor||null;S.scr="petMeeting";R()}else if(a==="rikoOfferAccept"){
     S.rikoDrained=true;S.bellyPlayerHost="riko";S.rikoGone=true;S.rikoGoneDay=S.day;
     S.af=100;S.dated=S.dated||{};S.dated.riko=Math.max(S.dated.riko||0,100);
-    // Check if all 4 permanent prey are kept (drain>=50)
     var keptCount=0;
     getPets("riko").forEach(function(pid){if(pid!=="player"&&petDrain("riko",pid)>=50)keptCount++});
     if(keptCount>=4){
@@ -2394,8 +2394,6 @@ document.addEventListener("click",(e)=>{
   }else if(a==="rikoOfferDecline"){
     toast("Riko nods understandingly. \u201cAnother time, then.\u201d He waddles off, belly swaying.");
     S.scr="cityMap";R();
-  }
-    S.meetingHost=host.id;S.meetingVisitor=el.dataset.visitor||null;S.scr="petMeeting";R();
   }else if(a==="rikoReturnClose"){S.ach=S.ach||{};S.ach.rikoReturn=true;S.rikoReturnScene=false;S.scr="cityMap";R()}
   else if(a==="rikoAmbushAccept"){
     var rc=gc("riko");S.bc=rc;S.bellyPlayerHost="riko";S.drain=0;S.bact=null;S.btxt="";S.energy=5;S.scr="bellyMode";sv();R();
