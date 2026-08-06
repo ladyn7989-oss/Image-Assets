@@ -1089,24 +1089,38 @@ var CHAT_HISTORY = [];
 
 function aiChatScreen() {
   var c = S.bc || gc(S.cid) || S.ec || C[0];
-  var history = CHAT_HISTORY.slice(-6).map(function(m) {
+  var history = CHAT_HISTORY.slice(-8).map(function(m) {
     return '<div style="margin:6px 0;padding:8px 12px;border-radius:12px;max-width:85%;'
       + (m.role === "user"
         ? 'background:rgba(168,85,247,.15);margin-left:auto;text-align:right'
         : 'background:rgba(60,40,80,.4);margin-right:auto')
       + '">' + m.text + '</div>';
   }).join('');
-  return '<div class="s vn"><div class="h"><button class="b bs" data-a="bellyModeReturn">\\u2190 Back</button><h2>\\u{1F4AC} Chat with ' + c.name + '</h2></div>'
+  return '<div class="s vn"><div class="h"><button class="b bs" data-a="bellyModeReturn">\u2190 Back</button><h2>\u{1F4AC} Chat with ' + c.name + '</h2></div>'
     + (c.bg ? '<div class="vnbg"><img src="' + c.bg + '"></div>' : '')
     + '<div class="vnch"><img src="' + ((c.spr && c.spr.happy) || c.p) + '"></div>'
-    + '<div style="padding:12px;overflow-y:auto;max-height:calc(100vh - 220px);-webkit-overflow-scrolling:touch" id="chatLog">'
-    + (history || '<div style="text-align:center;color:#666;padding:20px;font-size:13px">Say something to ' + c.name + '!</div>')
+    + '<div style="padding:12px;overflow-y:auto;max-height:calc(100vh - 240px);-webkit-overflow-scrolling:touch;margin-bottom:70px" id="chatLog">'
+    + (history || '<div style="text-align:center;color:#888;padding:20px;font-size:13px">Say something to ' + c.name + '!</div>')
     + '</div>'
-    + '<div style="padding:12px;display:flex;gap:8px;position:fixed;bottom:0;left:0;right:0;background:rgba(20,15,30,.95);border-top:1px solid rgba(168,85,247,.2)">'
-    + '<input type="text" id="chatInput" placeholder="Type your message..." style="flex:1;padding:10px 14px;border-radius:20px;background:rgba(60,40,80,.5);border:1px solid rgba(168,85,247,.3);color:#fff;font-size:14px;outline:none">'
-    + '<button class="b bp" data-a="aiChatSend" style="flex:0 0 auto;padding:10px 16px;border-radius:20px">\\u{1F680}</button>'
+    + '<div style="position:fixed;bottom:0;left:0;right:0;padding:10px 12px;display:flex;gap:8px;background:rgba(15,10,25,.97);border-top:1px solid rgba(168,85,247,.3);z-index:100">'
+    + '<input type="text" id="chatInput" placeholder="Type your message..." autocomplete="off" style="flex:1;padding:10px 14px;border-radius:20px;background:rgba(60,40,80,.6);border:1px solid rgba(168,85,247,.3);color:#fff;font-size:14px;outline:none" onkeydown="if(event.key===\'Enter\'){window._aiChatSend()}">'
+    + '<button type="button" class="b bp" data-a="aiChatSend" style="flex:0 0 auto;padding:10px 16px;border-radius:20px;font-size:16px">Send</button>'
     + '</div></div>';
 }
+window._aiChatSend=function(){
+  var inp=document.getElementById("chatInput");
+  var txt=inp?inp.value.trim():"";
+  if(!txt){return}
+  CHAT_HISTORY.push({role:"user",text:txt});
+  var c=S.bc||gc(S.cid)||S.ec||C[0];
+  var reply=aiChatRespond(c.id,txt);
+  CHAT_HISTORY.push({role:"ai",text:reply});
+  S.bcl=Math.min(100,(S.bcl||0)+2);sv();
+  if(inp)inp.value="";
+  S.scr="aiChat";R();
+  setTimeout(function(){var cl=document.getElementById("chatLog");if(cl)cl.scrollTop=cl.scrollHeight},50);
+};
+
 
 const screens={title:title,select:sel,cityMap,talk:talkScreen,vn,vn,end:ending,gal,achievements:achievementsScreen,stats:statsScreen,settings:settingsScreen,giftShop,giftsScreen,giftReact,endless,endlessReact,endlessEnd,vnSave,vnLoad,bellyMode,bellyReact,digestEndScreen,drainedEnd,encounter:encounterScreen,petMeeting:petMeetingScreen,npcTalk:npcTalkScreen,twinUnlock:twinUnlockScreen,unnamedEnding:unnamedPredEnding,miniEvent:miniEventScreen,dayEvent:dayEventScreen,charCreator:charCreator,mod:modEd,rikoOffer:rikoOfferScreen,rikoReturn:rikoReturnScreen,rikoAmbush:rikoAmbushScreen,aiChat:aiChatScreen,rikoFullCollection:rikoFullCollectionEnd};g.innerHTML=(screens[S.scr]||title)();bind()}
 const GIFT_ITEMS=[
@@ -2214,7 +2228,7 @@ function bind(){document.querySelectorAll("[data-a]").forEach((el)=>{el.addEvent
    else if(a==="ll0"){loadSlot(0)}
    else if(a==="ll1"){loadSlot(1)}
    else if(a==="ll2"){loadSlot(2)}
-   else if(a==="contEndless"){var c=gc(S.cid)||S.ec;if(c){S.bc=c;S.bcl=Math.min(50,S.af*3);S.bact=null;S.drain=0;S.ec=c;S.ea=Math.min(100,S.af*5);S.er=0;S.es=Math.floor(Math.random()*SC.length);if(S.scr!=="bellyMode"&&S.scr!=="bellyReact"){S.scr="bellyMode"}S.ach=S.ach||{};S.ach.bellyPet=true;R()}else{S.scr="select";R()}}else if(a==="ec"){const sc=SC[S.es%SC.length];const ch=sc.c[+el.dataset.i];S.afCh=ch.a;S.ea=Math.max(0,S.ea+ch.a);S.sc=Math.max(0,S.sc+ch.s);S.rt=ch;S.scr="endlessReact";R()}else if(a==="nextRound"){S.er++;if(S.ea<=0){if(S.sc>S.hs)S.hs=S.sc;S.ach=S.ach||{};if(S.er>=5)S.ach.endless5=true;if(S.er>=10)S.ach.endless10=true;sv();S.scr="endlessEnd";R();return}if(S.ea>=100){S.ea=50;S.sc+=50;S.coins=(S.coins||0)+50;toast("PERFECT BONUS +50 score, +50 coins!")}if(S.er%5===0){S.ec=C[Math.floor(Math.random()*C.length)];toast("New date: "+S.ec.name+"!")}S.coins=(S.coins||0)+10;S.stats=S.stats||{};S.stats.rounds=(S.stats.rounds||0)+1;S.es++;S.scr="endless";R()}else if(a==="endlessBelly"){var c=S.ec||C[0];S.bc=c;S.bcl=30;S.bact=null;S.drain=0;S.scr="bellyMode";R()}else if(a==="bellyAct"){if(el.dataset.act==="talk"){var bc=S.bc||gc(S.cid)||S.ec||C[0];S.tcid=bc.id;S.tnid=0;S.bellyReturn="bellyMode";S.scr="talk";R()}else{S.bact=el.dataset.act;var bc2=S.bc||gc(S.cid)||S.ec||C[0];if(bc2.id==="riko"&&S.drain>=100){if(!S.rikoDrainEndingShown){S.rikoDrainEndingShown=true;S.af=Math.max(S.af||0,100);S.dated=S.dated||{};S.dated.riko=Math.max(S.dated.riko||0,S.af);S.scr="drainedEnd";R();return}else{S.bcl=Math.min(100,(S.bcl||0)+5);sv();S.bact=null;S.scr="bellyMode";R();return}}S.scr="bellyReact";R()}}else if(a==="aiChatOpen"){S.scr="aiChat";R()}else if(a==="aiChatSend"){var inp=document.getElementById("chatInput");var txt=inp?inp.value.trim():"";if(txt){CHAT_HISTORY.push({role:"user",text:txt});var c=S.bc||gc(S.cid)||S.ec||C[0];var reply=aiChatRespond(c.id,txt);CHAT_HISTORY.push({role:"ai",text:reply});S.bcl=Math.min(100,(S.bcl||0)+2);sv();if(inp)inp.value="";S.scr="aiChat";R()}}else if(a==="bellyModeReturn"){S.scr="bellyMode";R()}else if(a==="goto"){var tired=S.energy<=0;if(tired&&el.dataset.loc!=="home"){
+   else if(a==="contEndless"){var c=gc(S.cid)||S.ec;if(c){S.bc=c;S.bcl=Math.min(50,S.af*3);S.bact=null;S.drain=0;S.ec=c;S.ea=Math.min(100,S.af*5);S.er=0;S.es=Math.floor(Math.random()*SC.length);if(S.scr!=="bellyMode"&&S.scr!=="bellyReact"){S.scr="bellyMode"}S.ach=S.ach||{};S.ach.bellyPet=true;R()}else{S.scr="select";R()}}else if(a==="ec"){const sc=SC[S.es%SC.length];const ch=sc.c[+el.dataset.i];S.afCh=ch.a;S.ea=Math.max(0,S.ea+ch.a);S.sc=Math.max(0,S.sc+ch.s);S.rt=ch;S.scr="endlessReact";R()}else if(a==="nextRound"){S.er++;if(S.ea<=0){if(S.sc>S.hs)S.hs=S.sc;S.ach=S.ach||{};if(S.er>=5)S.ach.endless5=true;if(S.er>=10)S.ach.endless10=true;sv();S.scr="endlessEnd";R();return}if(S.ea>=100){S.ea=50;S.sc+=50;S.coins=(S.coins||0)+50;toast("PERFECT BONUS +50 score, +50 coins!")}if(S.er%5===0){S.ec=C[Math.floor(Math.random()*C.length)];toast("New date: "+S.ec.name+"!")}S.coins=(S.coins||0)+10;S.stats=S.stats||{};S.stats.rounds=(S.stats.rounds||0)+1;S.es++;S.scr="endless";R()}else if(a==="endlessBelly"){var c=S.ec||C[0];S.bc=c;S.bcl=30;S.bact=null;S.drain=0;S.scr="bellyMode";R()}else if(a==="bellyAct"){if(el.dataset.act==="talk"){var bc=S.bc||gc(S.cid)||S.ec||C[0];S.tcid=bc.id;S.tnid=0;S.bellyReturn="bellyMode";S.scr="talk";R()}else{S.bact=el.dataset.act;var bc2=S.bc||gc(S.cid)||S.ec||C[0];if(bc2.id==="riko"&&S.drain>=100){if(!S.rikoDrainEndingShown){S.rikoDrainEndingShown=true;S.af=Math.max(S.af||0,100);S.dated=S.dated||{};S.dated.riko=Math.max(S.dated.riko||0,S.af);S.scr="drainedEnd";R();return}else{S.bcl=Math.min(100,(S.bcl||0)+5);sv();S.bact=null;S.scr="bellyMode";R();return}}S.scr="bellyReact";R()}}else if(a==="aiChatOpen"){S.scr="aiChat";R()}else if(a==="aiChatSend"){window._aiChatSend()}else if(a==="bellyModeReturn"){S.scr="bellyMode";R()}else if(a==="goto"){var tired=S.energy<=0;if(tired&&el.dataset.loc!=="home"){
     if(S.energy<=0&&!S.rikoGone&&isDiscovered("riko")&&!S.rikoDrained&&Math.random()<0.25){
       S.scr="rikoAmbush";sv();return;
     }
