@@ -56,7 +56,7 @@ body{font-family:system-ui,sans-serif;overflow:hidden;background:#1a0e2e;color:#
 .vd{padding:12px 16px 6px;background:rgba(26,14,46,.97)}
 .vsp{font-size:14px;font-weight:700;margin-bottom:4px}
 .vt{font-size:14px;line-height:1.5;min-height:56px}
-.vc{padding:6px 16px 14px;display:flex;flex-direction:column;gap:7px;background:rgba(26,14,46,.97)}
+.vc{padding:6px 16px 14px;display:flex;flex-direction:column;gap:7px;background:rgba(26,14,46,.97);max-height:35vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .vch{padding:11px 14px;border-radius:8px;border:1px solid rgba(167,139,250,.2);background:rgba(167,139,250,.08);font-size:13px;font-weight:500;cursor:pointer;text-align:left;color:#e9d5ff;font-family:inherit}
 .vch:active{transform:scale(.97);background:rgba(167,139,250,.15)}
 .vt2{font-size:12px;color:#a78bfa;text-align:center;padding:10px;cursor:pointer}
@@ -106,9 +106,9 @@ body{font-family:system-ui,sans-serif;overflow:hidden;background:#1a0e2e;color:#
 .vnfade.show{opacity:1;pointer-events:all}
 .twc{display:inline-block;width:2px;height:14px;background:#e9d5ff;animation:tbk .5s infinite;margin-left:2px;vertical-align:middle}
 @keyframes tbk{0%,50%{opacity:1}51%,100%{opacity:0}}
-.dbox{position:relative;z-index:5;padding:10px 16px 4px;background:linear-gradient(180deg,rgba(26,14,46,.85),rgba(26,14,46,.98));border-top:1px solid rgba(167,139,250,.2)}
+.dbox{position:relative;z-index:5;padding:10px 16px 4px;background:linear-gradient(180deg,rgba(26,14,46,.85),rgba(26,14,46,.98));border-top:1px solid rgba(167,139,250,.2);max-height:45vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .dname{display:inline-block;font-size:13px;font-weight:700;padding:3px 12px;border-radius:6px;margin-bottom:6px}
-.dtext{font-size:14px;line-height:1.5;min-height:48px}
+.dtext{font-size:14px;line-height:1.5;min-height:48px;max-height:180px;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .slots{display:flex;flex-direction:column;gap:8px;padding:14px}
 .slot{border:1px solid rgba(167,139,250,.2);border-radius:10px;padding:12px;cursor:pointer;background:rgba(167,139,250,.05)}
 .slot:active{transform:scale(.98)}
@@ -1342,11 +1342,17 @@ function bellyMode(){SND.startAmbient('belly');
   var playerHere=S.bellyPlayerHost===c.id;
   var occupantNames=(S.bc?getPets(S.bc.id):[]).map((pid)=>{var g=gc(pid);return g?g.name:"unknown";});
   var regInfo='';
+  var regBar='';
   if(c.id==='luna'&&ocount>0){
-    var regs=getPets('luna').filter(function(pid){return isLunaRegressed(pid)});
-    if(regs.length>0){
+    var allPets=getPets('luna');
+    var regs=allPets.filter(function(pid){return isLunaRegressed(pid)});
+    var regCount=regs.length;
+    var totalCount=allPets.length;
+    if(regCount>0){
       var regNames=regs.map(function(pid){var g=gc(pid);return g?g.name:'?'}).join(', ');
-      regInfo='<div style="color:#7dd3fc;font-size:11px;margin-top:4px">\ud83d\udc3e '+regNames+' '+(regs.length>1?'have':'has')+' been regressed into Riolu kits by Luna.</div>';
+      var regPct=Math.round((regCount/totalCount)*100);
+      regInfo='<div style="color:#7dd3fc;font-size:11px;margin-top:4px">\ud83d\udc3e Regressed: '+regCount+'/'+totalCount+' ('+regNames+')</div>';
+      regBar='<div style="position:relative;z-index:4;padding:4px 12px;background:rgba(56,189,248,.15);display:flex;justify-content:space-between;align-items:center;font-size:11px"><span style="color:#7dd3fc;font-weight:700">\ud83d\udc3e Regression</span><span>'+regCount+'/'+totalCount+'</span></div><div style="position:relative;z-index:4;height:4px;background:rgba(56,189,248,.2)"><div style="height:100%;width:'+regPct+'%;background:#38bdf8;transition:width .3s"></div></div>';
     }
   }
   var buddyNote=playerHere?'<span style="color:#f472b6">You are sharing this belly with '+(occupantNames.length?occupantNames.join(", "):"no other '+(S.tcid==='luna'?'womb':'belly')+' pets")+'.</span>':(ocount>0?'<span style="color:#f472b6">This belly currently holds '+occupantNames.join(", ")+'.</span>':'');
@@ -1365,7 +1371,7 @@ function bellyMode(){SND.startAmbient('belly');
     +'<div class="vnbar">'+autoBtn+skipBtn+'<button class="b inact" data-a="save">Save</button><button class="b inact" data-a="load">Load</button>'+'</div>'
     +(c.bg?'<div class="vnbg"><img src="'+c.bg+'"></div>':'')
     +'<div class="vnch"><img src="'+bellyImg+'" style="max-width:100%;max-height:100%;object-fit:contain"></div>'
-    +bar+afbar+drainBar+regStatus
+    +bar+afbar+drainBar+regBar+regStatus
     +'<div class="dbox"><div class="dname" style="background:'+c.ac+';color:#fff">'+name+'</div><div class="dtext" id="tw" data-full="'+intro.replace(/"/g,'&quot;')+'"></div></div>'
     +'<div class="vc" id="ch" style="display:none">'
     +'<button class="vch" data-a="bellyAct" data-act="squirm">\ud83d\udc7b Squirm</button>'
@@ -1424,11 +1430,23 @@ function bellyReact(){
     var dp=Math.max(0,Math.min(100,S.drain||0));
     drainBar='<div style="position:relative;z-index:4;padding:4px 12px;background:rgba(60,10,10,.7);display:flex;justify-content:space-between;align-items:center;font-size:11px"><span style="color:#ef4444;font-weight:700">\u{1F534} Strength Drain</span><span>'+dp+'%</span></div><div style="position:relative;z-index:4;height:4px;background:rgba(60,10,10,.4)"><div style="height:100%;width:'+dp+'%;background:#ef4444;transition:width .3s"></div></div>';
   }
+    // Luna regression counter bar
+  var regBar='';
+  if(c.id==='luna'){
+    var allPets=getPets('luna');
+    if(allPets.length>0){
+      var regs=allPets.filter(function(pid){return isLunaRegressed(pid)});
+      if(regs.length>0){
+        var regPct=Math.round((regs.length/allPets.length)*100);
+        regBar='<div style="position:relative;z-index:4;padding:4px 12px;background:rgba(56,189,248,.15);display:flex;justify-content:space-between;align-items:center;font-size:11px"><span style="color:#7dd3fc;font-weight:700">\ud83d\udc3e Regression</span><span>'+regs.length+'/'+allPets.length+'</span></div><div style="position:relative;z-index:4;height:4px;background:rgba(56,189,248,.2)"><div style="height:100%;width:'+regPct+'%;background:#38bdf8;transition:width .3s"></div></div>';
+      }
+    }
+  }
   return '<div class="s vn">'
     +'<div class="vnbar">'+autoBtn+skipBtn+'<button class="b inact" data-a="save">Save</button><button class="b inact" data-a="load">Load</button>'+'</div>'
     +(c.bg?'<div class="vnbg"><img src="'+c.bg+'"></div>':'')
     +'<div class="vnch"><img src="'+bellyImg+'" style="max-width:100%;max-height:100%;object-fit:contain"></div>'
-    +bar+afbar+drainBar
+    +bar+afbar+drainBar+regBar
     +'<div class="dbox"><div class="dname" style="background:'+c.ac+';color:#fff">'+name+'</div><div class="dtext" id="tw" data-full="'+txt.replace(/"/g,'&quot;')+'"></div><div style="font-size:18px;font-weight:900;color:'+afColor+';text-align:center;margin:8px 0">'+afSign+afCh+' Closeness</div></div>'
     +'<div class="vc" id="ch" style="display:none">'
     +'<button class="vch" data-a="bellyAct" data-act="squirm">\ud83d\udc7b Squirm</button>'
@@ -1568,6 +1586,9 @@ function updateWorld(){
       }else if(c.id==="aether"){
         delete S.bd[c.id][pid];
         notes.push(g.name+" rested in Aether\'s belly and left refreshed.");
+      }else if(c.id==="luna"&&isLunaRegressed(pid)){
+        out.push(pid);
+        notes.push(g.name+" stays curled up in Luna\'s womb as a content Riolu kit.");
       }else{
         delete S.bd[c.id][pid];
         out.push(pid);
@@ -1648,6 +1669,7 @@ function charsAt(locId){
   return C.filter((c)=>{
     if(!isDiscovered(c.id))return false;
     if(isPrey(c.id))return false;
+    if(isLunaRegressed(c.id))return false;
     return (S.cpos[c.id]||getHomeLoc(c.id))===locId;
   });
 }
