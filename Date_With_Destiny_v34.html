@@ -1861,7 +1861,7 @@ function updateWorld(){
   var avail=C.map((c)=>{return c.id}).filter((id)=>{return isDiscovered(id)&&!isPrey(id)});
     var PROTECTED=["aether","luna"];
     avail=avail.filter((id)=>{return PROTECTED.indexOf(id)===-1});
-  var RIKO_PREY=["vegeta","champa","wolf","anubis"];
+  var RIKO_PREY=["vegeta","champa","wolf","anubis","louis","legoshi","riz","bill","gohin"];
   if(avail.indexOf("riko")!==-1&&Math.random()<0.45){
       var opts=RIKO_PREY.filter((id)=>{return avail.indexOf(id)!==-1&&!isBellyHost(id)});
     if(opts.length>0){
@@ -1873,13 +1873,13 @@ function updateWorld(){
       opts.forEach((id)=>{S.bd.riko[id]=S.bd.riko[id]||0;S.cpos[id]=S.cpos["riko"]});
       opts.forEach((id)=>{avail.splice(avail.indexOf(id),1)});
       avail.splice(avail.indexOf("riko"),1);
-      if(merged.length>=4){S.ach=S.ach||{};S.ach.fullHouse=true;}
+      if(merged.length>=RIKO_PREY.length){S.ach=S.ach||{};S.ach.fullHouse=true;}
       // Check if all 4 permanent prey are kept (drain>=50) and player hasn't been offered
       if(!S.rikoOfferMade){
         var keptCount=0;
         var rikoPets=getPets("riko");
         rikoPets.forEach(function(pid){if(pid!=="player"&&petDrain("riko",pid)>=50)keptCount++});
-        if(keptCount>=4){
+        if(keptCount>=RIKO_PREY.length){
           S.rikoOfferMade=true;
           // Check affection - if >=65, trigger the offer event
           var rikoAff=S.af||0;
@@ -2032,21 +2032,8 @@ function rikoFullCollectionEnd(){
   var occupants=rikoOccupantText();
   return '<div class="s ew"><div class="ei"><img src="'+c.e+'"><div class="gd"></div></div>'
     +'<div class="et"><div class="etl" style="color:#ef4444">Riko \u2014 The Complete Collection</div>'
-    +'<div class="etb">Riko\u2019s belly glows with a deep crimson light as all five of you settle in together. Vegeta\u2019s pride, Champa\u2019s grumbling, Wolf\u2019s competitiveness, Anubis\u2019s quiet acceptance \u2014 and now you. The little demon who was once a level 3 mob nobody noticed now holds the most powerful collection in all of Destiny City. \u201cThis... this is everything I ever wanted,\u201d Riko whispers, voice cracking. His hands rest on his enormous belly, feeling all five of you shift inside. \u201cI was nobody. A joke. A level 3 mob that players would one-shot for pocket change. But look at me now.\u201d He laughs, and you can feel the warmth of it through his belly walls. \u201cVegeta still won\u2019t admit he likes it in here. Champa complains about the food. Wolf keeps trying to start a betting pool. Anubis just... sleeps. And you? You chose this. You CHOSE me.\u201d His belly gurgles contentedly. \u201cWe\u2019re a family now. A weird, squishy, slightly dysfunctional family. And I\u2019m never letting any of you go.\u201d He pats his belly one last time. \u201cWelcome home.\u201d '+occupants+' all settle in around you. This is your life now \u2014 warm, safe, and permanent. The Complete Collection.</div>'
-    +'<div class="est"><div class="ess"><b>5</b>Full House</div><div class="ess"><b>100</b>Affection</div><div class="ess"><b>COLLECTOR</b>Rank</div></div></div>'
-    +'<div class="eb"><button class="b bp" data-a="continueRikoBelly" style="background:#ef4444">\u{1F47D} Continue in Riko\u2019s Belly</button><button class="b bo" data-a="go" data-d="cityMap" style="flex:1">Back to City</button><button class="b bo" data-a="go" data-d="title" style="flex:1">Home</button></div></div>';
-}
-function giftReact(){
-  var c=gc(S.tcid);
-  if(!c){S.scr="cityMap";return R()}
-  var txt=S.giftReactText||"Thanks!";
-  var boost=S.giftReactBoost||1;
-  var color=boost>=5?'#f472b6':'#4ade80';
-  return '<div class="s vn">'
-    +'<div class="vnbar"><button class="b inact" data-a="giftReact">\u2190 Back to Talk</button></div>'
-    +(c.bg?'<div class="vnbg"><img src="'+c.bg+'"></div>':'')
-    +'<div class="vnch"><img src="'+(c.spr&&c.spr.blush||c.p)+'" style="max-width:100%;max-height:100%;object-fit:contain"></div>'
-    +'<div class="dbox"><div class="dname" style="background:'+c.ac+';color:#fff">'+c.name+'</div>'
+    +'<div class="etb">Riko\u2019s belly glows with a deep crimson light as all of you settle in together \u2014 '+occupants+' and now you. The little demon who was once a level 3 mob nobody noticed now holds the most powerful collection in all of Destiny City. \u201cThis... this is everything I ever wanted,\u201d Riko whispers, voice cracking. His hands rest on his enormous belly, feeling all of you shift inside. \u201cI was nobody. A joke. A level 3 mob that players would one-shot for pocket change. But look at me now.\u201d He laughs, and you can feel the warmth of it through his belly walls. \u201cEvery single one of them fought it at first. Now they are family. And you? You chose this. You CHOSE me.\u201d His belly gurgles contentedly. \u201cWe\u2019re a family now. A weird, squishy, slightly dysfunctional family. But mine. All mine.\u201d</div>'
+    +'<div class="est"><div class="ess"><b>'+getPets("riko").length+'</b>Full House</div><div class="ess"><b>100</b>Affection</div><div class="ess"><b>COLLECTOR</b>Rank</div></div></div>'
     +'<div class="dtext" id="tw" data-full="'+txt.replace(/"/g,'&quot;')+'"></div>'
     +'<div style="font-size:18px;font-weight:900;color:'+color+';text-align:center;margin:8px 0">+'+boost+' Affection</div></div>'
     +'<div class="vc" id="ch" style="display:none"><button class="vch" data-a="giftReact">\u25B6 Continue</button></div></div>';
@@ -2058,7 +2045,7 @@ function rikoOfferScreen(){
     +(c.bg?'<div class="vnbg"><img src="'+c.bg+'"></div>':'')
     +'<div class="vnch"><img src="'+c.p+'" style="max-width:100%;max-height:100%;object-fit:contain"></div>'
     +'<div class="dbox"><div class="dname" style="background:'+c.ac+';color:#fff">Riko \u2014 The Collection</div>'
-    +'<div class="dtxt" style="font-size:14px;line-height:1.6">Riko waddles up to you, his massive belly swaying with all four of his permanent residents shifting inside. He grins up at you with those big ears twitching. \u201cHey. So... I\u2019ve been thinking. I\u2019ve got a full house in here. Vegeta, Champa, Wolf, Anubis \u2014 all nice and settled, all permanent. But there\u2019s always room for one more.\u201d He pats his belly. \u201cYou and me, we go way back. I can feel it. You\u2019re not like the others \u2014 you actually LIKE it in here. So what do you say? Wanna join the collection? Willingly?\u201d His eyes sparkle with genuine excitement. \u201cI promise I\u2019ll take good care of you. You\u2019ll be my favorite.\u201d</div>'
+    +'<div class="dtxt" style="font-size:14px;line-height:1.6">Riko waddles up to you, his massive belly swaying with all of his permanent residents shifting inside. He grins up at you with those big ears twitching. \u201cHey. So... I\u2019ve been thinking. I\u2019ve got a full house in here. Vegeta, Champa, Wolf, Anubis \u2014 all nice and settled, all permanent. But there\u2019s always room for one more.\u201d He pats his belly. \u201cYou and me, we go way back. I can feel it. You\u2019re not like the others \u2014 you actually LIKE it in here. So what do you say? Wanna join the collection? Willingly?\u201d His eyes sparkle with genuine excitement. \u201cI promise I\u2019ll take good care of you. You\u2019ll be my favorite.\u201d</div>'
     +'<div class="vc" style="display:flex">'
     +'<button class="vch" data-a="rikoOfferAccept" style="background:#ef4444;color:#fff">\u{1F47D} Join Willingly (Insta-Drain)</button>'
     +'<button class="vch" data-a="rikoOfferDecline">\u274C Not Yet</button>'
