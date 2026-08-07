@@ -22,21 +22,24 @@ screen map_screen(loc_id):
             text "Location: [locations[loc_id]['name']]" size 14 color "#e9d5ff" xalign 0.5
             text "Energy: [energy]/[max_energy] | Coins: [coins] | Day: [day]" size 13 color "#f472b6" xalign 0.5
 
+            # Give the Android viewport an explicit height and the content an
+            # explicit width. This avoids the zero/ambiguous child-size layout
+            # that can make a Ren'Py viewport appear empty on mobile.
             viewport:
                 id "mobile_city_map_viewport"
                 xfill True
-                yfill True
+                ysize 560
                 scrollbars "vertical"
                 mousewheel True
                 draggable True
 
                 vbox:
-                    xfill True
+                    xsize 430
                     spacing 8
 
                     for map_loc_key, map_loc_data in locations.items():
                         frame:
-                            xfill True
+                            xsize 430
                             background Solid("#2a1a3e")
                             padding (10, 8)
 
