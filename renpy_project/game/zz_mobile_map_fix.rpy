@@ -1,7 +1,6 @@
 # Final mobile City Map override.
-# The original screens.rpy also defines map_screen. This file is deliberately
-# prefixed with zz_ so Ren'Py loads it after screens.rpy and this definition
-# becomes the active Android version.
+# Explicit viewport sizing is intentional for the 480x854 Android target.
+# The original screens.rpy also defines map_screen; this zz_ file loads after it.
 
 screen map_screen(loc_id):
     style_prefix "map"
@@ -16,17 +15,18 @@ screen map_screen(loc_id):
 
         vbox:
             xfill True
-            yfill True
             spacing 8
 
             text "Destiny City Map" size 25 color "#a78bfa" xalign 0.5
             text "Location: [locations[loc_id]['name']]" size 14 color "#e9d5ff" xalign 0.5
             text "Energy: [energy]/[max_energy] | Coins: [coins] | Day: [day]" size 13 color "#f472b6" xalign 0.5
 
+            # Fixed height is important on Android: without an explicit ysize,
+            # this viewport can collapse to almost zero height inside a vbox.
             viewport:
                 id "mobile_city_map_viewport"
                 xfill True
-                yfill True
+                ysize 555
                 scrollbars "vertical"
                 mousewheel True
                 draggable True
