@@ -40,15 +40,15 @@ To honour the JVM settings for this build a single-use Daemon process will be fo
 Daemon will be stopped at the end of the build 
 > Task :app:preBuild UP-TO-DATE
 > Task :app:preReleaseBuild UP-TO-DATE
-> Task :app:javaPreCompileRelease
 > Task :renpyandroid:preBuild UP-TO-DATE
 > Task :renpyandroid:preReleaseBuild UP-TO-DATE
+> Task :app:javaPreCompileRelease
 > Task :app:generateReleaseResValues
+> Task :renpyandroid:writeReleaseAarMetadata
 > Task :renpyandroid:generateReleaseResValues
 > Task :renpyandroid:generateReleaseResources
-> Task :renpyandroid:writeReleaseAarMetadata
-> Task :renpyandroid:packageReleaseResources
 > Task :app:checkReleaseAarMetadata
+> Task :renpyandroid:packageReleaseResources
 > Task :app:mapReleaseSourceSetPaths
 > Task :app:generateReleaseResources
 > Task :app:packageReleaseResources
@@ -58,21 +58,15 @@ Daemon will be stopped at the end of the build
 > Task :renpyandroid:extractDeepLinksRelease
 > Task :renpyandroid:compileReleaseLibraryResources
 > Task :renpyandroid:javaPreCompileRelease
-> Task :renpyandroid:parseReleaseLocalResources
 > Task :app:extractProguardFiles
+> Task :renpyandroid:parseReleaseLocalResources
 > Task :app:parseReleaseLocalResources
-> Task :renpyandroid:processReleaseJavaRes NO-SOURCE
-> Task :renpyandroid:mergeReleaseJniLibFolders
 > Task :renpyandroid:processReleaseManifest
-> Task :renpyandroid:mergeReleaseNativeLibs
+> Task :renpyandroid:processReleaseJavaRes NO-SOURCE
 > Task :app:processReleaseMainManifest
 > Task :app:processReleaseManifest
-> Task :app:processReleaseManifestForPackage
-> Task :renpyandroid:extractDeepLinksForAarRelease
 > Task :renpyandroid:generateReleaseRFile
-> Task :renpyandroid:mergeReleaseShaders
-> Task :renpyandroid:stripReleaseDebugSymbols
-> Task :app:processReleaseResources
+> Task :renpyandroid:mergeReleaseJniLibFolders
 
 > Task :renpyandroid:compileReleaseJavaWithJavac
 warning: [options] source value 8 is obsolete and will be removed in a future release
@@ -84,21 +78,27 @@ Note: /home/runner/work/Image-Assets/Image-Assets/renpy-8.2.3-sdk/rapt/project/r
 Note: Recompile with -Xlint:unchecked for details.
 3 warnings
 
+> Task :app:processReleaseManifestForPackage
 > Task :renpyandroid:bundleLibRuntimeToJarRelease
 > Task :renpyandroid:bundleLibCompileToJarRelease
-> Task :renpyandroid:copyReleaseJniLibsProjectAndLocalJars
+> Task :renpyandroid:createFullJarRelease
+> Task :renpyandroid:extractDeepLinksForAarRelease
+> Task :app:processReleaseResources
+> Task :renpyandroid:mergeReleaseNativeLibs
 > Task :renpyandroid:extractReleaseAnnotations
 > Task :app:compileReleaseJavaWithJavac NO-SOURCE
-> Task :renpyandroid:createFullJarRelease
 > Task :renpyandroid:mergeReleaseGeneratedProguardFiles
 > Task :renpyandroid:mergeReleaseConsumerProguardFiles
+> Task :renpyandroid:mergeReleaseShaders
 > Task :renpyandroid:compileReleaseShaders NO-SOURCE
 > Task :renpyandroid:generateReleaseAssets UP-TO-DATE
 > Task :renpyandroid:packageReleaseAssets
 > Task :renpyandroid:prepareLintJarForPublish
+> Task :renpyandroid:stripReleaseDebugSymbols
 > Task :renpyandroid:prepareReleaseArtProfile
 > Task :renpyandroid:extractProguardFiles
 > Task :renpyandroid:writeReleaseLintModelMetadata
+> Task :renpyandroid:copyReleaseJniLibsProjectAndLocalJars
 > Task :renpyandroid:mergeReleaseJavaResource
 > Task :renpyandroid:generateReleaseLintVitalModel
 > Task :renpyandroid:syncReleaseLibJars
@@ -106,18 +106,18 @@ Note: Recompile with -Xlint:unchecked for details.
 > Task :renpyandroid:generateReleaseLintModel
 > Task :app:generateReleaseLintVitalReportModel
 > Task :app:mergeReleaseJniLibFolders
-> Task :app:checkReleaseDuplicateClasses
 > Task :renpyandroid:copyReleaseJniLibsProjectOnly
-> Task :app:dexBuilderRelease
+> Task :app:checkReleaseDuplicateClasses
 > Task :app:mergeReleaseNativeLibs
-> Task :app:desugarReleaseFileDependencies
-> Task :app:lintVitalAnalyzeRelease
-> Task :renpyandroid:lintVitalAnalyzeRelease
+> Task :app:dexBuilderRelease
 > Task :app:stripReleaseDebugSymbols
+> Task :app:desugarReleaseFileDependencies
 > Task :app:extractReleaseNativeSymbolTables
+> Task :renpyandroid:lintVitalAnalyzeRelease
+> Task :app:lintVitalAnalyzeRelease
+> Task :app:mergeReleaseNativeDebugMetadata NO-SOURCE
 > Task :app:lintVitalReportRelease
 > Task :app:lintVitalRelease
-> Task :app:mergeReleaseNativeDebugMetadata NO-SOURCE
 > Task :app:mergeReleaseArtProfile
 > Task :app:mergeReleaseShaders
 > Task :app:compileReleaseShaders NO-SOURCE
@@ -127,11 +127,11 @@ Note: Recompile with -Xlint:unchecked for details.
 > Task :app:optimizeReleaseResources
 > Task :app:collectReleaseDependencies
 > Task :app:compressReleaseAssets
-> Task :app:mergeReleaseJavaResource
 > Task :app:sdkReleaseDependencyData
 > Task :app:validateSigningRelease
 > Task :app:writeReleaseAppMetadata
 > Task :app:writeReleaseSigningConfigVersions
+> Task :app:mergeReleaseJavaResource
 > Task :app:mergeExtDexRelease
 > Task :renpyandroid:bundleReleaseAar
 > Task :renpyandroid:mapReleaseSourceSetPaths
@@ -147,11 +147,15 @@ Note: Recompile with -Xlint:unchecked for details.
 > Task :renpyiap:packageReleaseResources
 > Task :renpyiap:copyReleaseJniLibsProjectAndLocalJars
 > Task :renpyiap:parseReleaseLocalResources
-> Task :renpyiap:processReleaseManifest
 > Task :renpyiap:javaPreCompileRelease
+> Task :renpyiap:processReleaseManifest
 > Task :renpyiap:mergeReleaseShaders
-> Task :renpyiap:generateReleaseRFile
 > Task :renpyiap:compileReleaseShaders NO-SOURCE
+> Task :renpyiap:generateReleaseAssets UP-TO-DATE
+> Task :renpyiap:packageReleaseAssets
+> Task :renpyiap:prepareLintJarForPublish
+> Task :renpyiap:prepareReleaseArtProfile
+> Task :renpyiap:generateReleaseRFile
 > Task :renpyandroid:verifyReleaseResources
 > Task :renpyiap:extractReleaseAnnotations
 > Task :renpyandroid:assembleRelease
@@ -167,10 +171,6 @@ Note: Recompile with -Xlint:deprecation for details.
 
 > Task :renpyiap:mergeReleaseGeneratedProguardFiles
 > Task :renpyiap:mergeReleaseConsumerProguardFiles
-> Task :renpyiap:generateReleaseAssets UP-TO-DATE
-> Task :renpyiap:packageReleaseAssets
-> Task :renpyiap:prepareLintJarForPublish
-> Task :renpyiap:prepareReleaseArtProfile
 > Task :renpyiap:processReleaseJavaRes NO-SOURCE
 > Task :renpyiap:writeReleaseAarMetadata
 > Task :renpyiap:mergeReleaseJavaResource
@@ -185,7 +185,7 @@ Note: Recompile with -Xlint:deprecation for details.
 > Task :app:createReleaseApkListingFileRedirect
 > Task :app:assembleRelease
 
-BUILD SUCCESSFUL in 1m 14s
+BUILD SUCCESSFUL in 1m 16s
 103 actionable tasks: 103 executed
 
 The build seems to have succeeded.
