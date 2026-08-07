@@ -87,10 +87,10 @@ screen map_screen(loc_id):
                         
                         hbox:
                             spacing 8
-                            textbutton "Travel Here" action Return((loc_key, None)) size_min_width(100, 30)
+                            textbutton "Travel Here" action Return((loc_key, None)) xminimum 100 yminimum 30
                             for char_id in loc_data['chars']:
                                 if char_id in characters:
-                                    textbutton "Visit [characters[char_id]['name']]" action Return((loc_key, char_id)) size_min_width(120, 30)
+                                    textbutton "Visit [characters[char_id]['name']]" action Return((loc_key, char_id)) xminimum 120 yminimum 30
     
     # Bottom action bar
     hbox:
@@ -163,7 +163,7 @@ screen belly_display(char_id, drain_level, closeness_level):
 
 ## ====== ACHIEVEMENT NOTIFICATION ======
 screen achievement_popup(name, desc):
-    zindex 100
+    zorder 100
     frame:
         xalign 0.5
         yalign 0.1

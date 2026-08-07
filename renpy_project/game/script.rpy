@@ -191,18 +191,17 @@ label story_scene:
     scene black with dissolve
     "[sc['text']]"
     if 'choices' in sc and sc['choices']:
-        menu:
-            for choice in sc['choices']:
-                $ label_text = choice['text']
-                "[label_text]":
-                    $ branch_flags[choice.get('flag', '')] = choice.get('value', True)
-                    if 'affection' in choice:
-                        $ affection[current_character] = affection.get(current_character, 0) + choice['affection']
-                    if 'goto' in choice:
-                        $ scene_idx = choice['goto']
-                    else:
-                        $ scene_idx += 1
-                    jump story_scene
+        $ menu_items = [(c['text'], i) for i, c in enumerate(sc['choices'])]
+        $ choice_idx = renpy.display_menu(menu_items)
+        $ chosen = sc['choices'][choice_idx]
+        $ branch_flags[chosen.get('flag', '')] = chosen.get('value', True)
+        if 'affection' in chosen:
+            $ affection[current_character] = affection.get(current_character, 0) + chosen['affection']
+        if 'goto' in chosen:
+            $ scene_idx = chosen['goto']
+        else:
+            $ scene_idx += 1
+        jump story_scene
     else:
         $ scene_idx += 1
         jump story_scene
@@ -284,7 +283,7 @@ label belly_loop:
 
 label drained_ending:
     scene black with dissolve
-    "Riko's drain has reached 100%! Your strength flows into him..."
+    "Riko's drain has reached 100 percent! Your strength flows into him..."
     "You feel yourself becoming part of him — permanently."
     "Riko: 'Finally... your power is mine. You're mine forever now.'"
     $ achievements.add("Drained")
@@ -319,17 +318,13 @@ label endless_round:
     $ scenario = get_endless_scenario()
     scene black with dissolve
     "[scenario['text']]"
-    menu:
-        for choice in scenario['choices']:
-            $ label_text = choice['text']
-            "[label_text]":
-                $ aff_change = choice.get('affection', 0)
-                $ affection[current_character] = max(0, min(100, affection.get(current_character, 0) + aff_change))
-                $ endless_score += abs(aff_change)
-                if aff_change > 0:
-                    "[ch['name']]: [choice.get('reaction', '...')]"
-                else:
-                    "[ch['name']]: [choice.get('reaction', '...')]"
+    $ menu_items = [(c['text'], i) for i, c in enumerate(scenario['choices'])]
+    $ choice_idx = renpy.display_menu(menu_items)
+    $ chosen = scenario['choices'][choice_idx]
+    $ aff_change = chosen.get('affection', 0)
+    $ affection[current_character] = max(0, min(100, affection.get(current_character, 0) + aff_change))
+    $ endless_score += abs(aff_change)
+    "[ch['name']]: [chosen.get('reaction', '...')]"
     if endless_rounds >= 10:
         $ achievements.add("Marathon Date")
     elif endless_rounds >= 5:
@@ -603,14 +598,13 @@ label talk_node:
     scene black with dissolve
     "[node['text']]"
     if 'choices' in node:
-        menu:
-            for choice in node['choices']:
-                $ label_text = choice['text']
-                "[label_text]":
-                    $ talk_node = choice.get('next', talk_node + 1)
-                    if 'affection' in choice:
-                        $ affection[current_character] = max(0, min(100, affection.get(current_character, 0) + choice['affection']))
-                    jump talk_node
+        $ menu_items = [(c['text'], i) for i, c in enumerate(node['choices'])]
+        $ choice_idx = renpy.display_menu(menu_items)
+        $ chosen = node['choices'][choice_idx]
+        $ talk_node = chosen.get('next', talk_node + 1)
+        if 'affection' in chosen:
+            $ affection[current_character] = max(0, min(100, affection.get(current_character, 0) + chosen['affection']))
+        jump talk_node
     else:
         $ talk_node += 1
         jump talk_node
