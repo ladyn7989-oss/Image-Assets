@@ -1296,6 +1296,21 @@ function roommateTalkScreen(){
     +'<button class="vch" data-a="aiChatOpen" style="margin-left:8px">\u{1F9E0} AI Chat with '+rm.name+'</button>'
     +'</div></div>';
 }
+function giftReact(){
+  var c=gc(S.tcid);
+  if(!c){S.scr="cityMap";return R()}
+  var txt=S.giftReactText||"Thanks!";
+  var boost=S.giftReactBoost||1;
+  var color=boost>=5?'#f472b6':'#4ade80';
+  return '<div class="s vn">'
+    +'<div class="vnbar"><button class="b inact" data-a="giftReact">\u2190 Back to Talk</button></div>'
+    +(c.bg?'<div class="vnbg"><img src="'+c.bg+'"></div>':'')
+    +'<div class="vnch"><img src="'+(c.spr&&c.spr.blush||c.p)+'" style="max-width:100%;max-height:100%;object-fit:contain"></div>'
+    +'<div class="dbox"><div class="dname" style="background:'+c.ac+';color:#fff">'+c.name+'</div>'
+    +'<div class="dtext" id="tw" data-full="'+txt.replace(/"/g,'&quot;')+'"></div>'
+    +'<div style="font-size:18px;font-weight:900;color:'+color+';text-align:center;margin:8px 0">+'+boost+' Affection</div></div>'
+    +'<div class="vc" id="ch" style="display:none"><button class="vch" data-a="giftReact">\u25B6 Continue</button></div></div>';
+}
 const screens={title:title,select:sel,cityMap,talk:talkScreen,vn,vn,end:ending,gal,achievements:achievementsScreen,stats:statsScreen,settings:settingsScreen,giftShop,giftsScreen,giftReact,endless,endlessReact,endlessEnd,vnSave,vnLoad,bellyMode,bellyReact,digestEndScreen,drainedEnd,encounter:encounterScreen,petMeeting:petMeetingScreen,npcTalk:npcTalkScreen,twinUnlock:twinUnlockScreen,unnamedEnding:unnamedPredEnding,miniEvent:miniEventScreen,dayEvent:dayEventScreen,charCreator:charCreator,mod:modEd,rikoOffer:rikoOfferScreen,rikoReturn:rikoReturnScreen,rikoAmbush:rikoAmbushScreen,aiChat:aiChatScreen,roommateTalk:roommateTalkScreen,rikoFullCollection:rikoFullCollectionEnd};g.innerHTML=(screens[S.scr]||title)();bind()}
 const GIFT_ITEMS=[
   {id:"choco",name:"Chocolates",icon:"\u{1F36B}",price:20,pref:["beerus","champa","vincent"],react:"Oh! Chocolates! *munches happily* You know the way to my heart~"},
@@ -2623,8 +2638,6 @@ else if(a==="sndVol"){SND.setVolume(+el.value||0);el.nextElementSibling.textCont
   else if(a==="cwDelTalk"){syncCw();var i=+el.dataset.i;if(S.cw.data.tt.length>1)S.cw.data.tt.splice(i,1);R()}
   else if(a==="cwSave"){syncCw();var d=S.cw.data;if(!d.name){toast("Name required");return}var id=d.name.toLowerCase().replace(/[^a-z0-9]/g,'_')+'_'+Date.now().toString(36);var ch={id:id,name:d.name,sub:d.sub||'Custom Character',altEnd:d.altEnd||'They hold you close.',ac:d.ac||'#7c3aed',dr:7,bg:'',p:'',e:'',spr:{},s:d.s||[],d:d.d||''};S.mods=S.mods||[];S.mods=S.mods.filter(function(m){return m.id!==id});S.mods.push(ch);sv();toast('\u2705 Character saved!');S.cw=null;S.scr='select';R()}
 },true)
-// Boot
-ld();R();
 </script>
 
 </body>
