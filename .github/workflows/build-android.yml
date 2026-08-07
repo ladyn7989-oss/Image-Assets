@@ -23,21 +23,25 @@ jobs:
 
       - name: Download Ren'Py SDK
         run: |
+          set -e
           curl -sL "https://www.renpy.org/dl/8.2.3/renpy-8.2.3-sdk.tar.bz2" -o renpy-sdk.tar.bz2
           tar xjf renpy-sdk.tar.bz2
           ls renpy-8.2.3-sdk/
 
       - name: Download and install RAPT
         run: |
+          set -e
           curl -sL "https://www.renpy.org/dl/8.2.3/renpy-8.2.3-rapt.zip" -o rapt.zip
           python3 -c "import zipfile; zipfile.ZipFile('rapt.zip').extractall('.')"
           cp -r rapt renpy-8.2.3-sdk/
-          # Ensure gradlew has execute permission
           chmod +x renpy-8.2.3-sdk/rapt/prototype/gradlew
-          ls renpy-8.2.3-sdk/rapt/android.py
+          chmod +x renpy-8.2.3-sdk/rapt/project/gradlew 2>/dev/null || true
+          ls -l renpy-8.2.3-sdk/rapt/android.py
+          ls -l renpy-8.2.3-sdk/rapt/prototype/gradlew
 
       - name: Set up Android SDK
         run: |
+          set -e
           echo "ANDROID_HOME=$ANDROID_HOME"
           yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
           yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "build-tools;33.0.2" "platforms;android-33" "platform-tools" || true
@@ -47,8 +51,10 @@ jobs:
 
       - name: Pre-setup RAPT project
         run: |
+          set -e
+          rm -rf renpy-8.2.3-sdk/rapt/project
           cp -r renpy-8.2.3-sdk/rapt/prototype renpy-8.2.3-sdk/rapt/project
-          # CRITICAL: gradlew must be executable!
+          chmod +x renpy-8.2.3-sdk/rapt/prototype/gradlew
           chmod +x renpy-8.2.3-sdk/rapt/project/gradlew
           echo "sdk.dir=$ANDROID_HOME" > renpy-8.2.3-sdk/rapt/project/local.properties
           echo "key.alias=android" >> renpy-8.2.3-sdk/rapt/project/local.properties
@@ -60,15 +66,18 @@ jobs:
           echo "key.alias=android" >> renpy-8.2.3-sdk/rapt/project/bundle.properties
           echo "key.store.password=android" >> renpy-8.2.3-sdk/rapt/project/bundle.properties
           echo "key.alias.password=android" >> renpy-8.2.3-sdk/rapt/project/bundle.properties
+          ls -l renpy-8.2.3-sdk/rapt/prototype/gradlew renpy-8.2.3-sdk/rapt/project/gradlew
 
       - name: Generate Android signing keys
         run: |
+          set -e
           cd renpy_project
           keytool -genkey -keystore android.keystore -alias android -keyalg RSA -keysize 2048 -keypass android -storepass android -dname "CN=DateWithDestiny" -validity 20000
           keytool -genkey -keystore bundle.keystore -alias bundle -keyalg RSA -keysize 2048 -keypass android -storepass android -dname "CN=DateWithDestiny" -validity 20000
 
       - name: Configure android.json
         run: |
+          set -e
           cd renpy_project
           cat > android.json << 'JSONEOF'
           {
@@ -106,51 +115,56 @@ jobs:
           ANDROID_HOME: ${{ env.ANDROID_HOME }}
           ANDROID_SDK_ROOT: ${{ env.ANDROID_HOME }}
         run: |
+          set -euo pipefail
           export PATH="$JAVA_HOME/bin:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH"
           cd ${{ github.workspace }}
-          
+
           echo "=== Java check ==="
-          javac -version 2>&1
+          javac -version
           echo "=== gradlew check ==="
-          ls -la renpy-8.2.3-sdk/rapt/project/gradlew
-          echo "---"
-          
+          ls -l renpy-8.2.3-sdk/rapt/prototype/gradlew renpy-8.2.3-sdk/rapt/project/gradlew
+          test -x renpy-8.2.3-sdk/rapt/prototype/gradlew
+          test -x renpy-8.2.3-sdk/rapt/project/gradlew
+
           echo "=== Building APK ==="
-          ./renpy-8.2.3-sdk/renpy.sh renpy-8.2.3-sdk/launcher android_build renpy_project > build_output.txt 2>&1 || true
-          
-          echo "=== BUILD OUTPUT (last 40 lines) ==="
-          tail -40 build_output.txt
-          echo "=== END ==="
-          
+          ./renpy-8.2.3-sdk/renpy.sh renpy-8.2.3-sdk/launcher android_build renpy_project 2>&1 | tee build_output.txt
+
           echo "=== Searching for APKs ==="
-          find . -name "*.apk" -type f 2>/dev/null || echo "No APKs found"
+          find . -name "*.apk" -type f -print
 
       - name: Upload build log to repo
+        if: always()
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Delete old log if exists, then upload new one
-          curl -s -X DELETE \
-            -H "Authorization: token $GH_TOKEN" \
-            -H "Accept: application/vnd.github.v3+json" \
-            "https://api.github.com/repos/${{ github.repository }}/contents/build_log.txt" \
-            -d '{"message":"Delete old build log","sha":""}' 2>/dev/null || true
-          CONTENT=$(base64 -w 0 build_output.txt)
-          curl -s -X PUT \
-            -H "Authorization: token $GH_TOKEN" \
-            -H "Accept: application/vnd.github.v3+json" \
-            "https://api.github.com/repos/${{ github.repository }}/contents/build_log.txt" \
-            -d "{\"message\":\"Upload build log\",\"content\":\"$CONTENT\"}" \
-            || echo "Failed to upload build log"
+          if [ -f build_output.txt ]; then
+            CONTENT=$(base64 -w 0 build_output.txt)
+            SHA=$(curl -s \
+              -H "Authorization: token $GH_TOKEN" \
+              -H "Accept: application/vnd.github.v3+json" \
+              "https://api.github.com/repos/${{ github.repository }}/contents/build_log.txt" | python3 -c "import json,sys; d=json.load(sys.stdin); print(d.get('sha',''))")
+            if [ -n "$SHA" ]; then
+              curl -s -X PUT \
+                -H "Authorization: token $GH_TOKEN" \
+                -H "Accept: application/vnd.github.v3+json" \
+                "https://api.github.com/repos/${{ github.repository }}/contents/build_log.txt" \
+                -d "{\"message\":\"Update build log\",\"content\":\"$CONTENT\",\"sha\":\"$SHA\"}" >/dev/null
+            fi
+          fi
 
       - name: Find APK files
         id: find_apk
         run: |
-          find ${{ github.workspace }} -name "*.apk" -type f 2>/dev/null
-          APK_PATH=$(find ${{ github.workspace }} -name "*.apk" -type f 2>/dev/null | head -1)
+          APK_PATH=$(find "${{ github.workspace }}" -name "*.apk" -type f 2>/dev/null | head -1)
           echo "Found APK: ${APK_PATH:-NONE}"
-          echo "apk_path=$APK_PATH" >> $GITHUB_OUTPUT
-          echo "apk_found=$([ -n "$APK_PATH" ] && echo true || echo false)" >> $GITHUB_OUTPUT
+          echo "apk_path=$APK_PATH" >> "$GITHUB_OUTPUT"
+          if [ -n "$APK_PATH" ]; then
+            echo "apk_found=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "apk_found=false" >> "$GITHUB_OUTPUT"
+            echo "ERROR: Ren'Py build completed without producing an APK."
+            exit 1
+          fi
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
@@ -158,7 +172,7 @@ jobs:
           name: date-with-destiny-apk
           path: |
             **/*.apk
-          if-no-files-found: warn
+          if-no-files-found: error
 
       - name: Create Release with APK
         if: startsWith(github.ref, 'refs/tags/') && steps.find_apk.outputs.apk_found == 'true'
