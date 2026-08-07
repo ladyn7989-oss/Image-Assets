@@ -2153,7 +2153,7 @@ function miniEventScreen(){
     +'<div class="vnch" style="max-height:30vh"><div style="font-size:48px;text-align:center;padding:40px">\u2753</div></div>'
     +'<div class="dbox"><div class="dname" style="background:#7c3aed;color:#fff">\u{1F30A} Random Event</div>'
     +'<div class="dtext" id="tw" data-full="'+ev.text.replace(/"/g,'&quot;')+'"></div></div>'
-    +'<div class="vc" id="ch" style="display:none">'+choices+'</div></div>';
+    +'<div class="vc" id="ch" style="display:none">'+choices+'</div><script>setTimeout(function(){var c=document.getElementById("ch");if(c&&c.style.display==="none")c.style.display="flex"},4000)</script></div>';
 }
 const ENC_FLAVOR=[
   "You hear distant roars echoing from the forest.",
@@ -2419,7 +2419,7 @@ function bind(){document.querySelectorAll("[data-a]").forEach((el)=>{el.addEvent
     if(S.energy<=0&&!S.rikoGone&&isDiscovered("riko")&&!S.rikoDrained&&Math.random()<0.25){
       S.scr="rikoAmbush";sv();R();return;
     }
-    toast("Too tired! Head home to rest.");R();return}S.loc=el.dataset.loc;if(S.energy>0)S.energy--;S.time=((S.time||0)+1)%4;if(S.time===0)S.day++;updateWorld();if(!tired){if(!tryEncounter())tryMiniEvent()}R()}
+    toast("Too tired! Head home to rest.");R();return}S.loc=el.dataset.loc;if(S.energy>0)S.energy--;S.time=((S.time||0)+1)%4;if(S.time===0)S.day++;var prevScr=S.scr;try{updateWorld()}catch(e){console.error("updateWorld error:",e)}if(S.scr!==prevScr||S.rikoReturnScene){R()}else if(!tired){if(!tryEncounter())tryMiniEvent();R()}else{R()}}
    else if(a==="setTypewriter"){S.settings=S.settings||{};S.settings.typewriter=(el.dataset.v==="on");R()}
    else if(a==="setAnim"){S.settings=S.settings||{};S.settings.animations=(el.dataset.v==="on");R()}
    else if(a==="setOffline"){S.settings=S.settings||{};S.settings.offline=(el.dataset.v==="on");sv();toast(S.settings.offline?"Offline Mode enabled":"Network Mode enabled");R()}
@@ -2466,7 +2466,7 @@ function startTypewriter(text, cb){
   stopTypewriter();
   twFull=text; twIdx=0;
   const el=document.getElementById("tw");
-  if(!el)return;
+  if(!el){if(cb)cb();return}
   el.innerHTML='<span id="twc"></span>';
   var ts=S.settings||{};
   const speed=(!ts.typewriter||ts.textSpeed===0)?0:(S.skip?8:(ts.textSpeed||35));
