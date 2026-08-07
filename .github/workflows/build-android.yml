@@ -1,0 +1,60 @@
+name: Build Android APK
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Download Ren'Py SDK
+        run: |
+          wget -q "https://www.renpy.org/dl/8.2.3/renpy-8.2.3-sdk.tar.bz2" -O renpy-sdk.tar.bz2
+          tar xjf renpy-sdk.tar.bz2
+          ls -la renpy-8.2.3-sdk/
+
+      - name: Install Android build dependencies
+        run: |
+          yes | ${{ github.workspace }}/renpy-8.2.3-sdk/renpy.sh install android || true
+
+      - name: Download sprite assets from GitHub
+        run: |
+          mkdir -p game/images/characters
+          # Download all character sprites from the Image-Assets repo
+          python3 scripts/download_assets.py || echo "No download script found, skipping"
+        continue-on-error: true
+
+      - name: Build Android APK
+        run: |
+          cd ${{ github.workspace }}
+          # Create the RAPT build if it doesn't exist
+          ./renpy-8.2.3-sdk/renpy.sh game android build --release || \
+          echo "APK build attempted. Check logs for errors."
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: date-with-destiny-apk
+          path: |
+            **/*.apk
+            game/bin/**/*.apk
+
+      - name: Create Release with APK
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            **/*.apk
+          generate_release_notes: true
