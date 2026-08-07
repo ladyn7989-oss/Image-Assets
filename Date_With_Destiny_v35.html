@@ -2622,10 +2622,10 @@ else if(a==="sndVol"){SND.setVolume(+el.value||0);el.nextElementSibling.textCont
   else if(a==="cwAddTalk"){syncCw();S.cw.data.tt.push({q:'',r:'',a:{t:'',a:2},b:{t:'',a:-1}});R()}
   else if(a==="cwDelTalk"){syncCw();var i=+el.dataset.i;if(S.cw.data.tt.length>1)S.cw.data.tt.splice(i,1);R()}
   else if(a==="cwSave"){syncCw();var d=S.cw.data;if(!d.name){toast("Name required");return}var id=d.name.toLowerCase().replace(/[^a-z0-9]/g,'_')+'_'+Date.now().toString(36);var ch={id:id,name:d.name,sub:d.sub||'Custom Character',altEnd:d.altEnd||'They hold you close.',ac:d.ac||'#7c3aed',dr:7,bg:'',p:'',e:'',spr:{},s:d.s||[],d:d.d||''};S.mods=S.mods||[];S.mods=S.mods.filter(function(m){return m.id!==id});S.mods.push(ch);sv();toast('\u2705 Character saved!');S.cw=null;S.scr='select';R()}
-},true);
+},true)
+// Boot
+ld();R();
 </script>
 
-
-</body></html></script>
 </body>
 </html>
