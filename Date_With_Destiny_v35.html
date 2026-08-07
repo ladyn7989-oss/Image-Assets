@@ -2249,9 +2249,9 @@ function npcTalkScreen(){
 }
 
 function cityMap(){SND.startAmbient('map');
+  if(S.rikoReturnScene){S.scr="rikoReturn";return R()}
   initWorld();
-  var loc=LOC.find((l)=>{if(S.rikoReturnScene){S.scr="rikoReturn";return R()}
-return l.id===S.loc})||LOC[0];
+  var loc=LOC.find((l)=>{return l.id===S.loc})||LOC[0];
   var pins=LOC.filter((l)=>{return !l.hidden||S.twinsUnlocked}).map((l)=>{
     var here=l.id===S.loc;
     var hereChars=charsAt(l.id);
@@ -2301,7 +2301,7 @@ return l.id===S.loc})||LOC[0];
     actions='<div class="mempty">Nobody here right now. Explore the city to find your dates!</div>';
   }
   return '<div class="s">'
-    +'<div class="h"><h2>\u{1F5FA}\uFE0F Destiny City</h2><div class="mstats"><span>\u{1F4C5} Day <b>'+S.day+'</b></span><span>'+['Morning','Afternoon','Night','Late Night'][S.time||0]+'</span><span>\u26A1 Energy <b>'+S.energy+'/3</b></span></div></div>'
+    +'<div class="h"><h2>\u{1F5FA}\uFE0F Destiny City</h2><div class="mstats"><span>\u{1F4C5} Day <b>'+S.day+'</b></span><span>'+['Morning','Afternoon','Night','Late Night'][S.time||0]+'</span><span>\u26A1 Energy <b>'+S.energy+'/5</b></span></div></div>'
     +'<div class="map"><div class="mapbg"></div>'+pins+'</div>'
     +'<div class="mloc"><div class="mlocname">'+loc.icon+' '+loc.name+'</div><div class="mlocdesc">'+loc.desc+'</div>'+actions+'</div>'
     +'<div class="mbar"><button class="b bo" data-a="go" data-d="title">Menu</button><button class="b bo" data-a="openShop" style="flex:1">\u{1F6D2} Shop</button>'+(S.loc==='home'?'<button class="b bp" data-a="rest" style="flex:1">\u{1F6CF}\uFE0F Rest</button>':'<button class="b bo" data-a="goto" data-loc="home" style="flex:1">\u{1F3E0} Home</button>')+'</div>'
@@ -2417,7 +2417,7 @@ function bind(){document.querySelectorAll("[data-a]").forEach((el)=>{el.addEvent
    else if(a==="ll2"){loadSlot(2)}
    else if(a==="contEndless"){var c=gc(S.cid)||S.ec;if(c){S.bc=c;S.bcl=Math.min(50,S.af*3);S.bact=null;S.drain=0;S.ec=c;S.ea=Math.min(100,S.af*5);S.er=0;S.es=Math.floor(Math.random()*SC.length);if(S.scr!=="bellyMode"&&S.scr!=="bellyReact"){S.scr="bellyMode"}S.ach=S.ach||{};S.ach.bellyPet=true;R()}else{S.scr="select";R()}}else if(a==="ec"){const sc=SC[S.es%SC.length];const ch=sc.c[+el.dataset.i];S.afCh=ch.a;S.ea=Math.max(0,S.ea+ch.a);S.sc=Math.max(0,S.sc+ch.s);S.rt=ch;S.scr="endlessReact";R()}else if(a==="nextRound"){S.er++;if(S.ea<=0){if(S.sc>S.hs)S.hs=S.sc;S.ach=S.ach||{};if(S.er>=5)S.ach.endless5=true;if(S.er>=10)S.ach.endless10=true;sv();S.scr="endlessEnd";R();return}if(S.ea>=100){S.ea=50;S.sc+=50;S.coins=(S.coins||0)+50;toast("PERFECT BONUS +50 score, +50 coins!")}if(S.er%5===0){S.ec=C[Math.floor(Math.random()*C.length)];toast("New date: "+S.ec.name+"!")}S.coins=(S.coins||0)+10;S.stats=S.stats||{};S.stats.rounds=(S.stats.rounds||0)+1;S.es++;S.scr="endless";R()}else if(a==="endlessBelly"){var c=S.ec||C[0];S.bc=c;S.bcl=30;S.bact=null;S.drain=0;S.scr="bellyMode";R()}else if(a==="bellyAct"){if(el.dataset.act==="talk"){var bc=S.bc||gc(S.cid)||S.ec||C[0];S.tcid=bc.id;S.tnid=0;S.bellyReturn="bellyMode";S.scr="talk";R()}else{S.bact=el.dataset.act;var bc2=S.bc||gc(S.cid)||S.ec||C[0];if(bc2.id==="riko"&&S.drain>=100){if(!S.rikoDrainEndingShown){S.rikoDrainEndingShown=true;S.af=Math.max(S.af||0,100);S.dated=S.dated||{};S.dated.riko=Math.max(S.dated.riko||0,S.af);S.scr="drainedEnd";R();return}else{S.bcl=Math.min(100,(S.bcl||0)+5);sv();S.bact=null;S.scr="bellyMode";R();return}}S.scr="bellyReact";R()}}else if(a==="aiChatOpen"){if(S._roommateMsg){S.bc=gc(S._roommateMsg.id)||S.bc;S._roommateMsg=null}S.scr="aiChat";R()}else if(a==="aiChatSend"){window._aiChatSend()}else if(a==="bellyModeReturn"){S.scr="bellyMode";R()}else if(a==="roommateTalk"){var pets=getPets("riko").filter(function(pid){return pid!=="player"});if(pets.length===0){toast("No roommates to talk to.");R();return}var roommateId=pets[Math.floor(Math.random()*pets.length)];var roommate=gc(roommateId);if(!roommate){toast("Your roommate seems to be sleeping.");R();return}var lines=ROOMMATE_LINES[roommateId]||["*shifts in the belly* Mmph. Oh. Hey. You're here too, huh?"];var line=lines[Math.floor(Math.random()*lines.length)];S._roommateMsg={name:roommate.name,text:line,id:roommateId};S.scr="roommateTalk";R()}else if(a==="goto"){var tired=S.energy<=0;if(tired&&el.dataset.loc!=="home"){
     if(S.energy<=0&&!S.rikoGone&&isDiscovered("riko")&&!S.rikoDrained&&Math.random()<0.25){
-      S.scr="rikoAmbush";sv();return;
+      S.scr="rikoAmbush";sv();R();return;
     }
     toast("Too tired! Head home to rest.");R();return}S.loc=el.dataset.loc;if(S.energy>0)S.energy--;S.time=((S.time||0)+1)%4;if(S.time===0)S.day++;updateWorld();if(!tired){if(!tryEncounter())tryMiniEvent()}R()}
    else if(a==="setTypewriter"){S.settings=S.settings||{};S.settings.typewriter=(el.dataset.v==="on");R()}
