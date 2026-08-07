@@ -1,10 +1,10 @@
 # Mobile City Map compatibility layer
-# Touch-first presentation for the project's 480x854 portrait Android target.
+# This screen intentionally uses the existing map_screen name so the main
+# game flow does not need to change. Ren'Py uses this later definition.
 
-screen mobile_map_screen(loc_id):
+screen map_screen(loc_id):
     style_prefix "map"
     modal True
-
     add Solid("#1a0e2e")
 
     vbox:
