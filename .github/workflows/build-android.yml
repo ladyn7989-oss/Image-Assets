@@ -82,12 +82,12 @@ jobs:
         continue-on-error: true
 
       - name: Build Android APK
+        env:
+          JAVA_HOME: ${{ env.JAVA_HOME }}
+          ANDROID_HOME: ${{ env.ANDROID_HOME }}
+          ANDROID_SDK_ROOT: ${{ env.ANDROID_HOME }}
         run: |
-          export JAVA_HOME=${JAVA_HOME}
-          export ANDROID_HOME=${ANDROID_HOME}
-          export ANDROID_SDK_ROOT=$ANDROID_HOME
           export PATH="$JAVA_HOME/bin:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools:$PATH"
-          
           cd ${{ github.workspace }}
           
           echo "=== Java check ==="
@@ -96,8 +96,9 @@ jobs:
           echo "ANDROID_HOME=$ANDROID_HOME"
           echo "---"
           
-          echo "=== Running build (output to file) ==="
-          ./renpy-8.2.3-sdk/renpy.sh launcher android_build renpy_project > build_output.txt 2>&1 || true
+          echo "=== Building APK ==="
+          # Use FULL PATH to launcher, not just "launcher"
+          ./renpy-8.2.3-sdk/renpy.sh renpy-8.2.3-sdk/launcher android_build renpy_project > build_output.txt 2>&1 || true
           
           echo "=== BUILD OUTPUT (last 80 lines) ==="
           tail -80 build_output.txt
