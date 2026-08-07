@@ -64,15 +64,16 @@ label start:
 
 label new_game:
     scene black
-    "You wake up in a new city. A fresh start — new faces, new possibilities."
+    "You wake up in a new city. A fresh start, new faces, new possibilities."
     "Your phone buzzes. A dating app notification: 'Welcome to Destiny City! Meet your soulmate today.'"
     "You look out the window at the sprawling city below. Time to explore."
     jump city_map
 
 label city_map:
-    $ time_label = {"morning": "☀️ Morning", "afternoon": "🌤️ Afternoon", "evening": "🌆 Evening", "night": "🌙 Night"}[time_of_day]
+    $ time_label = {"morning": "Morning", "afternoon": "Afternoon", "evening": "Evening", "night": "Night"}[time_of_day]
+    $ cur_loc_name = locations[current_location]["name"]
     scene black
-    show text "Day [day] — [time_label]\nEnergy: [energy]/[max_energy]  |  Coins: [coins]\nLocation: [locations[current_location]['name']]" at truecenter
+    show text "Day [day] - [time_label]\nEnergy: [energy]/[max_energy]  |  Coins: [coins]\nLocation: [cur_loc_name]" at truecenter
     pause 1.0
     hide text
     call screen map_screen(current_location)
@@ -99,7 +100,8 @@ label city_map:
             $ current_location = loc_id
             $ energy -= 1
             $ advance_time()
-            "You travel to [locations[loc_id]['name']]."
+            $ travel_name = locations[loc_id]["name"]
+            "You travel to [travel_name]."
         if char_id:
             $ current_character = char_id
             jump character_menu
@@ -110,8 +112,10 @@ label city_map:
 
 label character_menu:
     $ ch = characters[current_character]
+    $ ch_name = ch["name"]
+    $ ch_aff = affection.get(current_character, 0)
     scene black
-    show text "[ch['name']] is here.\nAffection: [affection.get(current_character, 0)]/100" at truecenter
+    show text "[ch_name] is here.\nAffection: [ch_aff]/100" at truecenter
     pause 0.5
     hide text
     
@@ -150,25 +154,21 @@ init python:
         time_of_day = order[idx]
         if time_of_day == "morning":
             energy = max_energy
-            # World simulation: characters move, encounters happen
             update_world()
 
 ## ====== WORLD SIMULATION ======
 init python:
     def update_world():
-        # 30% chance a character moves to a random location
         import random
         for char_id in characters:
             if random.random() < 0.3:
-                if char_id not in ["aether", "luna"]:  # Protected chars don't move
+                if char_id not in ["aether", "luna"]:
                     new_loc = random.choice(list(locations.keys()))
-                    # Remove from old location
                     for loc in locations.values():
                         if char_id in loc["chars"]:
                             loc["chars"].remove(char_id)
                     locations[new_loc]["chars"].append(char_id)
         
-        # 30% chance of belly pet encounter
         if random.random() < 0.3:
             preds = [c for c in characters if characters[c].get("pred", False)]
             prey = [c for c in characters if not characters[c].get("pred", False) and c not in ["aether", "luna"]]
@@ -187,18 +187,19 @@ label story_mode:
 label story_scene:
     if scene_idx >= 7:
         jump story_ending
-    $ sc = ch['story'][scene_idx]
+    $ sc = ch["story"][scene_idx]
+    $ sc_text = sc["text"]
     scene black with dissolve
-    "[sc['text']]"
-    if 'choices' in sc and sc['choices']:
-        $ menu_items = [(c['text'], i) for i, c in enumerate(sc['choices'])]
+    "[sc_text]"
+    if "choices" in sc and sc["choices"]:
+        $ menu_items = [(c["text"], i) for i, c in enumerate(sc["choices"])]
         $ choice_idx = renpy.display_menu(menu_items)
-        $ chosen = sc['choices'][choice_idx]
-        $ branch_flags[chosen.get('flag', '')] = chosen.get('value', True)
-        if 'affection' in chosen:
-            $ affection[current_character] = affection.get(current_character, 0) + chosen['affection']
-        if 'goto' in chosen:
-            $ scene_idx = chosen['goto']
+        $ chosen = sc["choices"][choice_idx]
+        $ branch_flags[chosen.get("flag", "")] = chosen.get("value", True)
+        if "affection" in chosen:
+            $ affection[current_character] = affection.get(current_character, 0) + chosen["affection"]
+        if "goto" in chosen:
+            $ scene_idx = chosen["goto"]
         else:
             $ scene_idx += 1
         jump story_scene
@@ -214,7 +215,7 @@ label story_ending:
         $ ending_type = "neutral"
     else:
         $ ending_type = "bad"
-    $ ending_text = ch.get('endings', {}).get(ending_type, "Your date comes to an end.")
+    $ ending_text = ch.get("endings", {}).get(ending_type, "Your date comes to an end.")
     scene black with dissolve
     "[ending_text]"
     $ achievements.add("First Date")
@@ -227,7 +228,7 @@ label story_ending:
 label post_ending:
     "What would you like to do?"
     menu:
-        "Enter Belly Pet Mode" if ch.get('pred', False):
+        "Enter Belly Pet Mode" if ch.get("pred", False):
             jump belly_mode
         "Continue to Endless Mode":
             jump endless_mode
@@ -237,45 +238,45 @@ label post_ending:
 ## ====== BELLY PET MODE ======
 label belly_mode:
     $ ch = characters[current_character]
+    $ ch_name = ch["name"]
     $ closeness[current_character] = closeness.get(current_character, 0)
     $ drain_level = drain.get(current_character, 0)
+    $ pet_count = len(belly_pets)
     
 label belly_loop:
     scene black with dissolve
-    show text "[ch['name']]'s Belly Pet Mode\nCloseness: [closeness[current_character]]  |  Drain: [drain_level]%\nOccupants: [len(belly_pets)]" at truecenter
+    $ close_val = closeness[current_character]
+    show text "[ch_name]'s Belly Pet Mode\nCloseness: [close_val]  |  Drain: [drain_level]%\nOccupants: [pet_count]" at truecenter
     pause 0.5
     hide text
     
     menu:
-        "{b}Squirm{/b}":
+        "Squirm":
             $ reaction = get_belly_reaction(current_character, "squirm")
             "[reaction]"
             $ closeness[current_character] -= 2
             if current_character == "riko":
                 $ drain_level = max(0, drain_level - 3)
             jump belly_loop
-        "{b}Massage{/b}":
+        "Massage":
             $ reaction = get_belly_reaction(current_character, "massage")
             "[reaction]"
             $ closeness[current_character] += 3
             if current_character == "riko":
                 $ drain_level = min(100, drain_level + 12)
             jump belly_loop
-        "{b}Talk{/b}":
+        "Talk":
             $ reaction = get_belly_reaction(current_character, "talk")
             "[reaction]"
             $ closeness[current_character] += 1
             if current_character == "riko":
                 $ drain_level = min(100, drain_level + 5)
             jump belly_loop
-        "{b}Chat (AI){/b}":
+        "Chat (AI)":
             jump ai_chat
-        "{b}Struggle Free{/b}" if drain_level < 50 or current_character != "riko":
+        "Struggle Free" if drain_level < 50 or current_character != "riko":
             "You manage to struggle free!"
             $ drain[current_character] = 0
-            jump city_map
-        "{b}Leave{/b}":
-            $ drain[current_character] = drain_level
             jump city_map
 
     if drain_level >= 100 and current_character == "riko":
@@ -284,7 +285,7 @@ label belly_loop:
 label drained_ending:
     scene black with dissolve
     "Riko's drain has reached 100 percent! Your strength flows into him..."
-    "You feel yourself becoming part of him — permanently."
+    "You feel yourself becoming part of him, permanently."
     "Riko: 'Finally... your power is mine. You're mine forever now.'"
     $ achievements.add("Drained")
     $ affection["riko"] = 100
@@ -294,7 +295,8 @@ label drained_ending:
 ## ====== AI CHAT SYSTEM ======
 label ai_chat:
     $ ch = characters[current_character]
-    "Chat with [ch['name']] inside the belly. Type a message:"
+    $ ch_name = ch["name"]
+    "Chat with [ch_name] inside the belly. Type a message:"
     
 label chat_loop:
     $ user_input = renpy.input("You:", length=200)
@@ -304,27 +306,30 @@ label chat_loop:
     if user_input.lower() in ["exit", "quit", "leave", "back"]:
         jump belly_loop
     $ response = get_ai_chat_response(current_character, user_input)
-    "[ch['name']]: [response]"
+    "[ch_name]: [response]"
     jump chat_loop
 
 ## ====== ENDLESS MODE ======
 label endless_mode:
     $ ch = characters[current_character]
+    $ ch_name = ch["name"]
     $ endless_score = 0
     $ endless_rounds = 0
     
 label endless_round:
     $ endless_rounds += 1
     $ scenario = get_endless_scenario()
+    $ scenario_text = scenario["text"]
     scene black with dissolve
-    "[scenario['text']]"
-    $ menu_items = [(c['text'], i) for i, c in enumerate(scenario['choices'])]
+    "[scenario_text]"
+    $ menu_items = [(c["text"], i) for i, c in enumerate(scenario["choices"])]
     $ choice_idx = renpy.display_menu(menu_items)
-    $ chosen = scenario['choices'][choice_idx]
-    $ aff_change = chosen.get('affection', 0)
+    $ chosen = scenario["choices"][choice_idx]
+    $ aff_change = chosen.get("affection", 0)
     $ affection[current_character] = max(0, min(100, affection.get(current_character, 0) + aff_change))
     $ endless_score += abs(aff_change)
-    "[ch['name']]: [chosen.get('reaction', '...')]"
+    $ chosen_reaction = chosen.get("reaction", "...")
+    "[ch_name]: [chosen_reaction]"
     if endless_rounds >= 10:
         $ achievements.add("Marathon Date")
     elif endless_rounds >= 5:
@@ -340,22 +345,23 @@ label endless_round:
 ## ====== GIFT SYSTEM ======
 label gift_menu:
     $ ch = characters[current_character]
-    "Gift Shop — Your Coins: [coins]"
+    $ ch_name = ch["name"]
+    "Gift Shop - Your Coins: [coins]"
     menu:
         "Chocolate Box (20 coins)" if coins >= 20:
             $ coins -= 20
             $ affection[current_character] = min(100, affection.get(current_character, 0) + 10)
             $ gifted[current_character] = gifted.get(current_character, []) + ["chocolate"]
-            "[ch['name']] loves the chocolate! +10 affection!"
+            "[ch_name] loves the chocolate! +10 affection!"
         "Plush Toy (35 coins)" if coins >= 35:
             $ coins -= 35
             $ affection[current_character] = min(100, affection.get(current_character, 0) + 15)
-            "[ch['name']] hugs the plushie tight! +15 affection!"
+            "[ch_name] hugs the plushie tight! +15 affection!"
         "Belly Oil (50 coins)" if coins >= 50:
             $ coins -= 50
             $ affection[current_character] = min(100, affection.get(current_character, 0) + 25)
             $ closeness[current_character] = closeness.get(current_character, 0) + 10
-            "[ch['name']] purrs at the belly oil... +25 affection, +10 closeness!"
+            "[ch_name] purrs at the belly oil... +25 affection, +10 closeness!"
         "Back":
             jump character_menu
     jump gift_menu
@@ -382,8 +388,10 @@ label shop:
 
 ## ====== STATS SCREEN ======
 label stats_screen:
+    $ date_count = len(visited_dates)
+    $ ach_count = len(achievements)
     scene black with dissolve
-    show text "=== Stats ===\nDay: [day]  Month: [month]\nCoins: [coins]\nEnergy: [energy]/[max_energy]\n\nDates Completed: [len(visited_dates)]\nAchievements: [len(achievements)]/20\n\nAffection Levels:" at truecenter
+    show text "=== Stats ===\nDay: [day]  Month: [month]\nCoins: [coins]\nEnergy: [energy]/[max_energy]\n\nDates Completed: [date_count]\nAchievements: [ach_count]/20" at truecenter
     pause 2.0
     hide text
     jump city_map
@@ -423,7 +431,7 @@ label cheat_menu:
 ## ====== GALLERY ======
 label gallery:
     scene black with dissolve
-    "Gallery — View unlocked art"
+    "Gallery - View unlocked art"
     menu:
         "Character Portraits":
             jump gallery_portraits
@@ -472,13 +480,14 @@ label settings:
 
 ## ====== ACHIEVEMENTS ======
 label achievements_screen:
+    $ ach_count = len(achievements)
     scene black with dissolve
-    "Achievements: [len(achievements)]/20"
+    "Achievements: [ach_count]/20"
     $ ach_list = ["First Date","Belly Pet","Heartbreaker","Sentient Fat","Drained","Survivor","Marathon Date","Curious Cat","Belly Buddy","First Keep","Full House","Completionist","Flower Picker","Ghost Hunter","Big Spender","True Romance","Cold Rejection","Three Faces of Love","Daily Champion","Deja Vu"]
     $ ach_desc = {"First Date":"Complete your first date","Belly Pet":"Enter belly pet mode","Heartbreaker":"Unlock endings for every character","Sentient Fat":"Get absorbed by Fomo","Drained":"Get drained by Riko","Survivor":"Survive 5+ endless rounds","Marathon Date":"Survive 10+ endless rounds","Curious Cat":"Investigate a random encounter","Belly Buddy":"Join someone's belly","First Keep":"Keep a pet at 50% drain","Full House":"Riko holds all 10 pets","Completionist":"Unlock everything","Flower Picker":"Pick a glowing flower","Ghost Hunter":"Follow a ghostly whisper","Big Spender":"Spend 100+ coins","True Romance":"Good ending","Cold Rejection":"Bad ending","Three Faces of Love":"All 3 ending tiers","Daily Champion":"Complete a Daily Challenge","Deja Vu":"Complete New Game+"}
     python:
         for ach in ach_list:
-            status = "✅" if ach in achievements else "🔒"
+            status = "[x]" if ach in achievements else "[ ]"
             desc = ach_desc.get(ach, "")
             renpy.say(None, f"{status} {ach}: {desc}", interact=False)
     ""
@@ -516,7 +525,6 @@ init python:
         chat_data = ch.get('chat', {})
         user_lower = user_input.lower()
         
-        # Keyword-based response system (15 categories)
         categories = [
             ("greeting", ["hello", "hi", "hey", "yo", "sup"], "greeting"),
             ("feeling", ["how are you", "how do you feel", "you ok", "feeling"], "feeling"),
@@ -529,19 +537,20 @@ init python:
             ("squirm", ["squirm", "move", "struggle", "wiggle"], "squirm"),
             ("dark", ["dark", "can't see", "scared of dark", "light"], "dark"),
             ("sleep", ["sleep", "tired", "rest", "nap"], "sleep"),
-            ("time", ["how long", "when", "time", "forever"], "time"),
-            ("anger", ["hate", "stupid", "let go", "release me", "jerk"], "anger"),
-            ("curious", ["what is", "why", "how come", "what happened"], "curious"),
-            ("other", [], "default"),
+            ("joke", ["joke", "funny", "laugh", "haha"], "joke"),
+            ("sorry", ["sorry", "apologize", "my bad"], "sorry"),
+            ("help", ["help", "stuck", "trapped", "can't move"], "help"),
+            ("bye", ["bye", "goodbye", "see you", "later"], "bye"),
         ]
         
         for cat_name, keywords, response_key in categories:
-            if any(kw in user_lower for kw in keywords):
-                responses = chat_data.get(response_key, ["..."])
-                import random
-                return random.choice(responses)
+            for kw in keywords:
+                if kw in user_lower:
+                    responses = chat_data.get(response_key, ["..."])
+                    import random
+                    return random.choice(responses)
         
-        responses = chat_data.get("default", ["Hmm... tell me more."])
+        responses = chat_data.get("default", ["Hmm... interesting."])
         import random
         return random.choice(responses)
     
@@ -591,19 +600,20 @@ label talk_tree:
     $ talk_node = 0
     
 label talk_node:
-    if str(talk_node) not in ch.get('talk', {}):
+    if str(talk_node) not in ch.get("talk", {}):
         "You've covered everything for now."
         jump character_menu
-    $ node = ch['talk'][str(talk_node)]
+    $ node = ch["talk"][str(talk_node)]
+    $ node_text = node["text"]
     scene black with dissolve
-    "[node['text']]"
-    if 'choices' in node:
-        $ menu_items = [(c['text'], i) for i, c in enumerate(node['choices'])]
+    "[node_text]"
+    if "choices" in node:
+        $ menu_items = [(c["text"], i) for i, c in enumerate(node["choices"])]
         $ choice_idx = renpy.display_menu(menu_items)
-        $ chosen = node['choices'][choice_idx]
-        $ talk_node = chosen.get('next', talk_node + 1)
-        if 'affection' in chosen:
-            $ affection[current_character] = max(0, min(100, affection.get(current_character, 0) + chosen['affection']))
+        $ chosen = node["choices"][choice_idx]
+        $ talk_node = chosen.get("next", talk_node + 1)
+        if "affection" in chosen:
+            $ affection[current_character] = max(0, min(100, affection.get(current_character, 0) + chosen["affection"]))
         jump talk_node
     else:
         $ talk_node += 1
@@ -612,13 +622,14 @@ label talk_node:
 ## ====== BELLY JOIN (World Sim) ======
 label belly_join:
     $ ch = characters[current_character]
+    $ ch_name = ch["name"]
     if current_character in belly_pets:
-        "There's already someone in [ch['name']]'s belly!"
+        "There's already someone in [ch_name]'s belly!"
         jump character_menu
-    "You ask to join [ch['name']]'s belly."
-    if ch.get('pred', False):
+    "You ask to join [ch_name]'s belly."
+    if ch.get("pred", False):
         $ achievements.add("Belly Buddy")
         jump belly_mode
     else:
-        "[ch['name']] isn't a predator. They can't hold you in their belly."
+        "[ch_name] isn't a predator. They can't hold you in their belly."
         jump character_menu

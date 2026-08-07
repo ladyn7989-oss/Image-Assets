@@ -25,7 +25,7 @@ screen title_screen():
         textbutton "Settings" action Return("settings") xalign 0.5
         textbutton "Credits" action Return("credits") xalign 0.5
     
-    text "v1.0 — by MariaTheGlaceon" size 12 color "#4a3a5a" xalign 0.5 yalign 0.96
+    text "v1.0 by MariaTheGlaceon" size 12 color "#4a3a5a" xalign 0.5 yalign 0.96
 
 ## ====== LOAD SCREEN ======
 screen load_screen():
@@ -52,12 +52,14 @@ screen map_screen(loc_id):
     style_prefix "map"
     add Solid("#1a0e2e")
     
+    $ cur_loc_name = locations[loc_id]["name"]
+    
     vbox:
         xalign 0.5
         yalign 0.05
         spacing 4
         text "Destiny City Map" size 24 color "#a78bfa" xalign 0.5
-        text "Location: [locations[loc_id]['name']]" size 14 color "#e9d5ff" xalign 0.5
+        text "Location: [cur_loc_name]" size 14 color "#e9d5ff" xalign 0.5
         text "Energy: [energy]/[max_energy] | Coins: [coins] | Day: [day]" size 14 color "#f472b6" xalign 0.5
     
     # Location grid
@@ -72,6 +74,11 @@ screen map_screen(loc_id):
         vbox:
             spacing 8
             for loc_key, loc_data in locations.items():
+                $ loc_name = loc_data["name"]
+                $ loc_desc = loc_data["desc"]
+                $ loc_chars = loc_data["chars"]
+                $ char_names = ", ".join([characters[c]["name"] for c in loc_chars if c in characters])
+                
                 frame:
                     background Solid("#2a1a3e")
                     xsize 420
@@ -79,18 +86,19 @@ screen map_screen(loc_id):
                     
                     vbox:
                         spacing 4
-                        text "[loc_data['name']]" size 16 color "#a78bfa"
-                        text "[loc_data['desc']]" size 12 color "#9a8aaf"
+                        text "[loc_name]" size 16 color "#a78bfa"
+                        text "[loc_desc]" size 12 color "#9a8aaf"
                         
-                        if loc_data['chars']:
-                            text "Characters here: [', '.join([characters[c]['name'] for c in loc_data['chars'] if c in characters])]" size 11 color "#f472b6"
+                        if loc_chars:
+                            text "Characters here: [char_names]" size 11 color "#f472b6"
                         
                         hbox:
                             spacing 8
                             textbutton "Travel Here" action Return((loc_key, None)) xminimum 100 yminimum 30
-                            for char_id in loc_data['chars']:
+                            for char_id in loc_chars:
                                 if char_id in characters:
-                                    textbutton "Visit [characters[char_id]['name']]" action Return((loc_key, char_id)) xminimum 120 yminimum 30
+                                    $ visit_name = characters[char_id]["name"]
+                                    textbutton "Visit [visit_name]" action Return((loc_key, char_id)) xminimum 120 yminimum 30
     
     # Bottom action bar
     hbox:
@@ -109,14 +117,19 @@ screen char_interaction(char_id):
     add Solid("#1a0e2e")
     
     $ ch = characters.get(char_id, {})
+    $ ch_name = ch.get("name", "Unknown")
+    $ ch_desc = ch.get("desc", "")
+    $ ch_aff = affection.get(char_id, 0)
+    $ ch_initial = ch_name[0] if ch_name else "?"
+    $ ch_pred = ch.get("pred", False)
     
     vbox:
         xalign 0.5
         yalign 0.1
         spacing 6
-        text "[ch.get('name', 'Unknown')]" size 28 color "#a78bfa" xalign 0.5
-        text "[ch.get('desc', '')]" size 14 color "#9a8aaf" xalign 0.5
-        text "Affection: [affection.get(char_id, 0)]/100" size 16 color "#f472b6" xalign 0.5
+        text "[ch_name]" size 28 color "#a78bfa" xalign 0.5
+        text "[ch_desc]" size 14 color "#9a8aaf" xalign 0.5
+        text "Affection: [ch_aff]/100" size 16 color "#f472b6" xalign 0.5
     
     # Character sprite placeholder
     frame:
@@ -125,7 +138,7 @@ screen char_interaction(char_id):
         background Solid("#2a1a3e")
         xsize 200
         ysize 200
-        text "[ch.get('name', '?')[0]]" size 80 color "#7c3aed" xalign 0.5 yalign 0.5
+        text "[ch_initial]" size 80 color "#7c3aed" xalign 0.5 yalign 0.5
     
     vbox:
         xalign 0.5
@@ -135,7 +148,7 @@ screen char_interaction(char_id):
         
         textbutton "Talk" action Return("talk")
         textbutton "Date" action Return("date")
-        if ch.get('pred', False):
+        if ch_pred:
             textbutton "Belly Pet Mode" action Return("belly")
         textbutton "Gift" action Return("gift")
         textbutton "Back" action Return("back")
@@ -144,13 +157,16 @@ screen char_interaction(char_id):
 screen belly_display(char_id, drain_level, closeness_level):
     add Solid("#1a0e2e")
     
+    $ belly_name = characters[char_id]["name"]
+    $ pet_count = len(belly_pets)
+    
     vbox:
         xalign 0.5
         yalign 0.08
         spacing 4
-        text "Inside [characters[char_id]['name']]'s Belly" size 24 color "#a78bfa" xalign 0.5
+        text "Inside [belly_name]'s Belly" size 24 color "#a78bfa" xalign 0.5
         text "Closeness: [closeness_level]  |  Drain: [drain_level]%" size 16 color "#f472b6" xalign 0.5
-        text "Occupants: [len(belly_pets)]" size 14 color "#e9d5ff" xalign 0.5
+        text "Occupants: [pet_count]" size 14 color "#e9d5ff" xalign 0.5
     
     # Belly sprite placeholder
     frame:
@@ -159,7 +175,7 @@ screen belly_display(char_id, drain_level, closeness_level):
         background Solid("#2a1a3e")
         xsize 240
         ysize 240
-        text "🫃" size 100 xalign 0.5 yalign 0.5
+        text " Belly" size 100 xalign 0.5 yalign 0.5
 
 ## ====== ACHIEVEMENT NOTIFICATION ======
 screen achievement_popup(name, desc):
@@ -172,7 +188,7 @@ screen achievement_popup(name, desc):
         
         vbox:
             spacing 4
-            text "🏆 Achievement Unlocked!" size 18 color "#f472b6" xalign 0.5
+            text "Achievement Unlocked!" size 18 color "#f472b6" xalign 0.5
             text "[name]" size 20 color "#e9d5ff" xalign 0.5
             text "[desc]" size 14 color "#c9b5df" xalign 0.5
     
@@ -181,7 +197,6 @@ screen achievement_popup(name, desc):
 ## ====== STYLES ======
 style title_text:
     color "#e9d5ff"
-
 
 style title_button:
     background Solid("#2a1a3e")
