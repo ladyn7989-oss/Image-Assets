@@ -32,6 +32,8 @@ jobs:
           curl -sL "https://www.renpy.org/dl/8.2.3/renpy-8.2.3-rapt.zip" -o rapt.zip
           python3 -c "import zipfile; zipfile.ZipFile('rapt.zip').extractall('.')"
           cp -r rapt renpy-8.2.3-sdk/
+          # Ensure gradlew has execute permission
+          chmod +x renpy-8.2.3-sdk/rapt/prototype/gradlew
           ls renpy-8.2.3-sdk/rapt/android.py
 
       - name: Set up Android SDK
@@ -46,6 +48,8 @@ jobs:
       - name: Pre-setup RAPT project
         run: |
           cp -r renpy-8.2.3-sdk/rapt/prototype renpy-8.2.3-sdk/rapt/project
+          # CRITICAL: gradlew must be executable!
+          chmod +x renpy-8.2.3-sdk/rapt/project/gradlew
           echo "sdk.dir=$ANDROID_HOME" > renpy-8.2.3-sdk/rapt/project/local.properties
           echo "key.alias=android" >> renpy-8.2.3-sdk/rapt/project/local.properties
           echo "key.store.password=android" >> renpy-8.2.3-sdk/rapt/project/local.properties
@@ -107,14 +111,16 @@ jobs:
           
           echo "=== Java check ==="
           javac -version 2>&1
+          echo "=== gradlew check ==="
+          ls -la renpy-8.2.3-sdk/rapt/project/gradlew
           echo "---"
           
           echo "=== Building APK ==="
           ./renpy-8.2.3-sdk/renpy.sh renpy-8.2.3-sdk/launcher android_build renpy_project > build_output.txt 2>&1 || true
           
-          echo "=== BUILD OUTPUT (full) ==="
-          cat build_output.txt
-          echo "=== END OUTPUT ==="
+          echo "=== BUILD OUTPUT (last 40 lines) ==="
+          tail -40 build_output.txt
+          echo "=== END ==="
           
           echo "=== Searching for APKs ==="
           find . -name "*.apk" -type f 2>/dev/null || echo "No APKs found"
@@ -123,13 +129,18 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Use GitHub API to create the file in the repo
+          # Delete old log if exists, then upload new one
+          curl -s -X DELETE \
+            -H "Authorization: token $GH_TOKEN" \
+            -H "Accept: application/vnd.github.v3+json" \
+            "https://api.github.com/repos/${{ github.repository }}/contents/build_log.txt" \
+            -d '{"message":"Delete old build log","sha":""}' 2>/dev/null || true
           CONTENT=$(base64 -w 0 build_output.txt)
           curl -s -X PUT \
             -H "Authorization: token $GH_TOKEN" \
             -H "Accept: application/vnd.github.v3+json" \
             "https://api.github.com/repos/${{ github.repository }}/contents/build_log.txt" \
-            -d "{\"message\":\"Upload build log for debugging\",\"content\":\"$CONTENT\"}" \
+            -d "{\"message\":\"Upload build log\",\"content\":\"$CONTENT\"}" \
             || echo "Failed to upload build log"
 
       - name: Find APK files
