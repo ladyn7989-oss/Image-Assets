@@ -32,7 +32,7 @@ jobs:
           curl -sL "https://www.renpy.org/dl/8.2.3/renpy-8.2.3-rapt.zip" -o rapt.zip
           python3 -c "import zipfile; zipfile.ZipFile('rapt.zip').extractall('.')"
           cp -r rapt renpy-8.2.3-sdk/
-          echo "RAPT installed at renpy-8.2.3-sdk/rapt/"
+          echo "RAPT installed"
           ls renpy-8.2.3-sdk/rapt/android.py
 
       - name: Set up Android SDK
@@ -40,8 +40,45 @@ jobs:
           echo "ANDROID_HOME=$ANDROID_HOME"
           yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
           yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "build-tools;34.0.0" "platforms;android-34" "platform-tools" || true
-          # Create sdk.txt so RAPT knows where the SDK is
           echo "$ANDROID_HOME" > renpy-8.2.3-sdk/rapt/sdk.txt
+
+      - name: Generate Android signing keys
+        run: |
+          cd renpy_project
+          # Generate android.keystore (RAPT expects password "android")
+          keytool -genkey -keystore android.keystore -alias android -keyalg RSA -keysize 2048 -keypass android -storepass android -dname "CN=DateWithDestiny" -validity 20000
+          # Generate bundle.keystore
+          keytool -genkey -keystore bundle.keystore -alias bundle -keyalg RSA -keysize 2048 -keypass android -storepass android -dname "CN=DateWithDestiny" -validity 20000
+          echo "Keys generated:"
+          ls -la *.keystore
+
+      - name: Configure android.json
+        run: |
+          cd renpy_project
+          cat > android.json << 'JSONEOF'
+          {
+              "expansion": false,
+              "google_play_key": null,
+              "google_play_salt": null,
+              "heap_size": null,
+              "icon_name": "Date With Destiny",
+              "include_pil": false,
+              "include_sqlite": false,
+              "layout": "standard",
+              "name": "Date With Destiny",
+              "numeric_version": 1,
+              "orientation": "sensorPortrait",
+              "package": "com.dwd.datewithdestiny",
+              "permissions": ["VIBRATE"],
+              "source": false,
+              "store": "none",
+              "update_always": true,
+              "update_icons": true,
+              "update_keystores": true,
+              "version": "1.0"
+          }
+          JSONEOF
+          echo "android.json configured"
 
       - name: Download sprite assets
         run: |
@@ -55,20 +92,17 @@ jobs:
           export ANDROID_SDK_ROOT=$ANDROID_HOME
           cd ${{ github.workspace }}
           
-          echo "=== Building APK with launcher android_build ==="
+          echo "=== Building APK ==="
           ./renpy-8.2.3-sdk/renpy.sh launcher android_build renpy_project 2>&1
           BUILD_EXIT=$?
           echo "=== Build exit code: $BUILD_EXIT ==="
           
           echo "=== Searching for APKs ==="
           find . -name "*.apk" -type f 2>/dev/null
-          ls -la renpy_project/bin/ 2>/dev/null || echo "No bin directory in project"
-          ls -la renpy-8.2.3-sdk/rapt/bin/ 2>/dev/null || echo "No bin in rapt"
 
       - name: Find APK files
         id: find_apk
         run: |
-          echo "=== All APK files ==="
           find ${{ github.workspace }} -name "*.apk" -type f 2>/dev/null
           APK_PATH=$(find ${{ github.workspace }} -name "*.apk" -type f 2>/dev/null | head -1)
           echo "Found APK: ${APK_PATH:-NONE}"
