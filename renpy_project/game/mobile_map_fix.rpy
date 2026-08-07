@@ -1,82 +1,86 @@
 # Mobile City Map compatibility layer
-# Keeps the existing map data/logic intact while providing a touch-friendly
-# presentation for the project's 480x854 portrait Android target.
+# Touch-first presentation for the project's 480x854 portrait Android target.
 
 screen mobile_map_screen(loc_id):
+    style_prefix "map"
     modal True
-    zorder 100
 
-    frame:
+    add Solid("#1a0e2e")
+
+    vbox:
         xfill True
         yfill True
-        background Solid("#10131b")
+        spacing 6
+        padding (10, 10)
 
-        vbox:
+        text "Destiny City Map" size 25 color "#a78bfa" xalign 0.5
+        text "Location: [locations[loc_id]['name']]" size 14 color "#e9d5ff" xalign 0.5
+        text "Energy: [energy]/[max_energy] | Coins: [coins] | Day: [day]" size 13 color "#f472b6" xalign 0.5
+
+        viewport:
+            id "mobile_city_map_viewport"
             xfill True
             yfill True
-            spacing 8
-            padding (12, 12)
+            scrollbars "vertical"
+            mousewheel True
+            draggable True
 
-            hbox:
+            vbox:
                 xfill True
-                ysize 52
                 spacing 8
 
-                text "CITY MAP":
-                    size 28
-                    bold True
-                    yalign 0.5
+                for map_loc_key, map_loc_data in locations.items():
+                    frame:
+                        xfill True
+                        background Solid("#2a1a3e")
+                        padding (10, 8)
 
-                null width 1
-
-                textbutton "CLOSE":
-                    xminimum 100
-                    yminimum 48
-                    action Return("back")
-
-            # A touch-first scrolling area.  The existing map data is reused,
-            # but buttons are deliberately large enough for Android taps.
-            viewport:
-                id "mobile_city_map_viewport"
-                mousewheel True
-                draggable True
-                scrollbars "vertical"
-                yfill True
-
-                vbox:
-                    xfill True
-                    spacing 10
-
-                    for map_loc_key, map_loc_data in locations.items():
-                        frame:
+                        vbox:
                             xfill True
-                            padding (10, 10)
-                            background Solid("#1c2230")
+                            spacing 5
 
-                            vbox:
+                            text map_loc_data["name"] size 18 color "#a78bfa"
+                            text map_loc_data["desc"] size 12 color "#9a8aaf"
+
+                            $ map_loc_chars = map_loc_data.get("chars", [])
+                            if map_loc_chars:
+                                $ map_char_names = ", ".join([characters[c]["name"] for c in map_loc_chars if c in characters])
+                                text "Characters here: [map_char_names]" size 11 color "#f472b6"
+
+                            hbox:
                                 xfill True
-                                spacing 8
+                                spacing 6
 
-                                text map_loc_data.get("name", map_loc_key):
-                                    size 24
-                                    bold True
+                                textbutton "Travel Here":
+                                    xminimum 110
+                                    yminimum 50
+                                    action Return((map_loc_key, None))
 
-                                text map_loc_data.get("desc", ""):
-                                    size 17
-
-                                for map_char_id in map_loc_data.get("characters", []):
+                                for map_char_id in map_loc_chars:
                                     if map_char_id in characters:
-                                        textbutton characters[map_char_id].get("name", map_char_id):
-                                            xfill True
-                                            yminimum 56
-                                            action Return(map_char_id)
+                                        textbutton "Visit [characters[map_char_id]['name']]":
+                                            xminimum 135
+                                            yminimum 50
+                                            action Return((map_loc_key, map_char_id))
 
-            textbutton "RETURN":
+        hbox:
+            xfill True
+            spacing 6
+
+            textbutton "Rest":
                 xfill True
-                yminimum 56
-                action Return("back")
-
-# Override the city-map entry point with a mobile-safe screen.
-label mobile_city_map:
-    call screen mobile_map_screen(current_location)
-    return
+                yminimum 52
+                action Return("rest")
+            textbutton "Shop":
+                xfill True
+                yminimum 52
+                action Return("shop")
+            textbutton "Stats":
+                xfill True
+                yminimum 52
+                action Return("stats")
+            if cheat_mode:
+                textbutton "Cheats":
+                    xfill True
+                    yminimum 52
+                    action Return("cheat")
