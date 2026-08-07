@@ -41,6 +41,27 @@ jobs:
           echo "JAVA_HOME=$JAVA_HOME" >> $GITHUB_ENV
           echo "ANDROID_HOME=$ANDROID_HOME" >> $GITHUB_ENV
 
+      - name: Pre-setup RAPT project
+        run: |
+          # Manually copy the RAPT prototype to project (what copy_project does)
+          cp -r renpy-8.2.3-sdk/rapt/prototype renpy-8.2.3-sdk/rapt/project
+          # Create local.properties with Android SDK path
+          echo "sdk.dir=$ANDROID_HOME" > renpy-8.2.3-sdk/rapt/project/local.properties
+          echo "key.alias=android" >> renpy-8.2.3-sdk/rapt/project/local.properties
+          echo "key.store.password=android" >> renpy-8.2.3-sdk/rapt/project/local.properties
+          echo "key.alias.password=android" >> renpy-8.2.3-sdk/rapt/project/local.properties
+          KEYSTORE_ABS=$(realpath renpy_project/android.keystore)
+          BUNDLE_ABS=$(realpath renpy_project/bundle.keystore)
+          echo "key.store=$KEYSTORE_ABS" >> renpy-8.2.3-sdk/rapt/project/local.properties
+          # Create bundle.properties too
+          echo "sdk.dir=$ANDROID_HOME" > renpy-8.2.3-sdk/rapt/project/bundle.properties
+          echo "key.alias=android" >> renpy-8.2.3-sdk/rapt/project/bundle.properties
+          echo "key.store.password=android" >> renpy-8.2.3-sdk/rapt/project/bundle.properties
+          echo "key.alias.password=android" >> renpy-8.2.3-sdk/rapt/project/bundle.properties
+          echo "key.store=$BUNDLE_ABS" >> renpy-8.2.3-sdk/rapt/project/bundle.properties
+          echo "=== RAPT project setup ==="
+          cat renpy-8.2.3-sdk/rapt/project/local.properties
+
       - name: Generate Android signing keys
         run: |
           cd renpy_project
@@ -103,14 +124,19 @@ jobs:
           
           echo "=== Searching for APKs ==="
           find . -name "*.apk" -type f 2>/dev/null || echo "No APKs found"
+          echo "=== RAPT project dir ==="
+          ls -la renpy-8.2.3-sdk/rapt/project/ 2>/dev/null | head -20
+          echo "=== RAPT bin ==="
+          ls -la renpy-8.2.3-sdk/rapt/bin/ 2>/dev/null || echo "No bin"
+          echo "=== APK output dirs ==="
+          find renpy-8.2.3-sdk/rapt/project -name "*.apk" 2>/dev/null || echo "No APK in project"
+          find renpy-8.2.3-sdk/rapt -name "*.apk" 2>/dev/null || echo "No APK in rapt"
 
-      - name: Commit build output for debugging
-        run: |
-          git config user.name "github-actions"
-          git config user.email "actions@github.com"
-          git add build_output.txt
-          git commit -m "Build output from run [skip ci]" || echo "Nothing to commit"
-          git push 2>&1 || echo "Push failed (ok for debugging)"
+      - name: Upload build output
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-output
+          path: build_output.txt
 
       - name: Find APK files
         id: find_apk
