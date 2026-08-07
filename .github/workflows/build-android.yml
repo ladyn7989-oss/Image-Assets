@@ -19,6 +19,16 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
 
+      - name: Verify Java setup
+        run: |
+          echo "JAVA_HOME=$JAVA_HOME"
+          which javac || echo "javac not in PATH"
+          which java || echo "java not in PATH"
+          javac -version 2>&1 || echo "javac -version failed"
+          ls -la $JAVA_HOME/bin/javac 2>/dev/null || echo "No javac in JAVA_HOME/bin"
+          # Export JAVA_HOME for all subsequent steps
+          echo "JAVA_HOME=$JAVA_HOME" >> $GITHUB_ENV
+
       - name: Download Ren'Py SDK
         run: |
           curl -sL "https://www.renpy.org/dl/8.2.3/renpy-8.2.3-sdk.tar.bz2" -o renpy-sdk.tar.bz2
@@ -36,7 +46,6 @@ jobs:
         run: |
           echo "ANDROID_HOME=$ANDROID_HOME"
           yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
-          # RAPT expects android-33, not android-34
           yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "build-tools;33.0.2" "platforms;android-33" "platform-tools" || true
           echo "$ANDROID_HOME" > renpy-8.2.3-sdk/rapt/sdk.txt
 
@@ -80,44 +89,38 @@ jobs:
           python3 scripts/download_assets.py || echo "Some assets may be missing"
         continue-on-error: true
 
-      - name: Build Android APK (with full error capture)
+      - name: Build Android APK
+        env:
+          JAVA_HOME: ${{ env.JAVA_HOME }}
+          ANDROID_HOME: ${{ env.ANDROID_HOME }}
+          ANDROID_SDK_ROOT: ${{ env.ANDROID_HOME }}
+          PATH: ${{ env.JAVA_HOME }}/bin:${{ env.ANDROID_HOME }}/cmdline-tools/latest/bin:${{ env.ANDROID_HOME }}/platform-tools:${{ env.PATH }}
         run: |
-          export ANDROID_HOME=${ANDROID_HOME:-/usr/local/lib/android/sdk}
-          export ANDROID_SDK_ROOT=$ANDROID_HOME
           cd ${{ github.workspace }}
           
-          echo "=== Verifying prerequisites ==="
-          echo "Project structure:"
-          find renpy_project -maxdepth 2 -type f | sort | head -20
-          echo "---"
-          echo "android.json:"
-          cat renpy_project/android.json
-          echo "---"
-          echo "Keystores:"
-          ls -la renpy_project/*.keystore
-          echo "---"
-          echo "SDK:"
-          ls $ANDROID_HOME/platforms/ 2>/dev/null || echo "No platforms dir"
+          echo "=== Environment check ==="
+          echo "JAVA_HOME=$JAVA_HOME"
+          echo "ANDROID_HOME=$ANDROID_HOME"
+          echo "PATH includes java: $(which javac 2>/dev/null || echo 'NOT FOUND')"
+          javac -version 2>&1
           echo "---"
           
-          echo "=== Running lint first ==="
-          ./renpy-8.2.3-sdk/renpy.sh renpy_project lint 2>&1 || echo "Lint had warnings (ok)"
+          echo "=== Running lint ==="
+          ./renpy-8.2.3-sdk/renpy.sh renpy_project lint 2>&1 | tail -10
           echo "---"
           
           echo "=== Building APK ==="
-          # Use || true so the step doesn't fail and we can see full output
-          ./renpy-8.2.3-sdk/renpy.sh launcher android_build renpy_project 2>&1 || true
+          ./renpy-8.2.3-sdk/renpy.sh launcher android_build renpy_project 2>&1 | tail -100
+          BUILD_EXIT=${PIPESTATUS[0]}
+          echo "=== Build exit code: $BUILD_EXIT ==="
           
-          echo "=== Build complete, searching for APKs ==="
+          echo "=== Searching for APKs ==="
           find . -name "*.apk" -type f 2>/dev/null || echo "No APKs found"
           
-          echo "=== Check for error files ==="
-          cat renpy_project/errors.txt 2>/dev/null || echo "No errors.txt"
-          cat renpy_project/android.txt 2>/dev/null || echo "No android.txt"
-          
-          echo "=== Check rapt bin directory ==="
+          echo "=== Check rapt directories ==="
           ls -la renpy-8.2.3-sdk/rapt/bin/ 2>/dev/null || echo "No rapt/bin"
           ls -la renpy-8.2.3-sdk/rapt/project/ 2>/dev/null || echo "No rapt/project"
+          find renpy-8.2.3-sdk/rapt -name "*.apk" 2>/dev/null || echo "No APK in rapt"
 
       - name: Find APK files
         id: find_apk
