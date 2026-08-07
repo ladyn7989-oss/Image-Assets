@@ -9,6 +9,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout project
         uses: actions/checkout@v4
@@ -43,31 +45,23 @@ jobs:
 
       - name: Pre-setup RAPT project
         run: |
-          # Manually copy the RAPT prototype to project (what copy_project does)
           cp -r renpy-8.2.3-sdk/rapt/prototype renpy-8.2.3-sdk/rapt/project
-          # Create local.properties with Android SDK path
           echo "sdk.dir=$ANDROID_HOME" > renpy-8.2.3-sdk/rapt/project/local.properties
           echo "key.alias=android" >> renpy-8.2.3-sdk/rapt/project/local.properties
           echo "key.store.password=android" >> renpy-8.2.3-sdk/rapt/project/local.properties
           echo "key.alias.password=android" >> renpy-8.2.3-sdk/rapt/project/local.properties
-          KEYSTORE_ABS=$(realpath renpy_project/android.keystore)
-          BUNDLE_ABS=$(realpath renpy_project/bundle.keystore)
+          KEYSTORE_ABS=$(realpath renpy_project/android.keystore 2>/dev/null || echo "")
           echo "key.store=$KEYSTORE_ABS" >> renpy-8.2.3-sdk/rapt/project/local.properties
-          # Create bundle.properties too
           echo "sdk.dir=$ANDROID_HOME" > renpy-8.2.3-sdk/rapt/project/bundle.properties
           echo "key.alias=android" >> renpy-8.2.3-sdk/rapt/project/bundle.properties
           echo "key.store.password=android" >> renpy-8.2.3-sdk/rapt/project/bundle.properties
           echo "key.alias.password=android" >> renpy-8.2.3-sdk/rapt/project/bundle.properties
-          echo "key.store=$BUNDLE_ABS" >> renpy-8.2.3-sdk/rapt/project/bundle.properties
-          echo "=== RAPT project setup ==="
-          cat renpy-8.2.3-sdk/rapt/project/local.properties
 
       - name: Generate Android signing keys
         run: |
           cd renpy_project
           keytool -genkey -keystore android.keystore -alias android -keyalg RSA -keysize 2048 -keypass android -storepass android -dname "CN=DateWithDestiny" -validity 20000
           keytool -genkey -keystore bundle.keystore -alias bundle -keyalg RSA -keysize 2048 -keypass android -storepass android -dname "CN=DateWithDestiny" -validity 20000
-          ls -la *.keystore
 
       - name: Configure android.json
         run: |
@@ -124,19 +118,19 @@ jobs:
           
           echo "=== Searching for APKs ==="
           find . -name "*.apk" -type f 2>/dev/null || echo "No APKs found"
-          echo "=== RAPT project dir ==="
-          ls -la renpy-8.2.3-sdk/rapt/project/ 2>/dev/null | head -20
-          echo "=== RAPT bin ==="
-          ls -la renpy-8.2.3-sdk/rapt/bin/ 2>/dev/null || echo "No bin"
-          echo "=== APK output dirs ==="
-          find renpy-8.2.3-sdk/rapt/project -name "*.apk" 2>/dev/null || echo "No APK in project"
-          find renpy-8.2.3-sdk/rapt -name "*.apk" 2>/dev/null || echo "No APK in rapt"
 
-      - name: Upload build output
-        uses: actions/upload-artifact@v4
-        with:
-          name: build-output
-          path: build_output.txt
+      - name: Upload build log to repo
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Use GitHub API to create the file in the repo
+          CONTENT=$(base64 -w 0 build_output.txt)
+          curl -s -X PUT \
+            -H "Authorization: token $GH_TOKEN" \
+            -H "Accept: application/vnd.github.v3+json" \
+            "https://api.github.com/repos/${{ github.repository }}/contents/build_log.txt" \
+            -d "{\"message\":\"Upload build log for debugging\",\"content\":\"$CONTENT\"}" \
+            || echo "Failed to upload build log"
 
       - name: Find APK files
         id: find_apk
