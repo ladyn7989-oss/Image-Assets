@@ -2127,9 +2127,9 @@ const MINI_EVENTS=[
   {id:"vendor",text:"A food cart vendor is handing out free samples of something that smells incredible.",choices:[{t:"Try one",r:"It tastes like heaven. You feel energized!",energy:1},{t:"Politely decline",r:"You never trust free food. Smart... or paranoid?"}]},
   {id:"fortune",text:"A fortune teller's tent glows with purple light. \'Come in, traveler. Your future awaits...\'",choices:[{t:"Get fortune read (-15 coins)",r:"\"You will be swallowed by someone who truly loves you,\" she whispers. \"And you will love every moment.\" Spooky accurate.",coins:-15},{t:"Keep walking",r:"You don't need to know the future. You'll make your own."}]}
 ,
-{id:"rikoConv1",t:"Overheard Conversation",d:"You pass by an alley and hear Riko talking with someone. \u201cSo like, I\u2019ve got four of \u2019em now. Permanently. And they\u2019re all super comfy. Vegeta grumbles but he\u2019s the happiest. Champa just eats in there, which is weird but okay. Wolf keeps trying to organize everyone. Anubis just purrs.\u201d A voice from inside his belly yells, \u201cI do NOT purr!\u201d Riko giggles. \u201cSee? Adorable.\u201d",r:{coins:0}},
-{id:"rikoConv2",t:"Overheard Conversation",d:"Riko is showing off his belly to a passerby. \u201cThis is my collection! Each one is a Level 40+ character who thought they could take me. Now look at \u2019em \u2014 all cozy and drained. I\u2019m only Level 3, but in HERE?\u201d He taps his belly. \u201cIn here, I\u2019m the strongest.\u201d A muffled voice says, \u201cHe\u2019s not wrong, unfortunately.\u201d",r:{coins:0}},
-{id:"rikoConv3",t:"Overheard Conversation",d:"You spot Riko sitting alone, humming to his belly. \u201cOkay, everyone, bedtime story time. Once upon a time, there was a tiny Level 3 demon who everyone thought was weak. But he had a secret \u2014 he could swallow anything. And one day, he found the BEST belly pets in all of Destiny City, and they all lived happily ever after inside him. The end.\u201d Someone inside groans. \u201cThat\u2019s the third time tonight, Riko.\u201d \u201cAnd it gets better every time!\u201d",r:{coins:0}}];
+{itext:"rikoConv1",t:"Overheard Conversation",d:"You pass by an alley and hear Riko talking with someone. \u201cSo like, I\u2019ve got four of \u2019em now. Permanently. And they\u2019re all super comfy. Vegeta grumbles but he\u2019s the happiest. Champa just eats in there, which is weird but okay. Wolf keeps trying to organize everyone. Anubis just purrs.\u201d A voice from inside his belly yells, \u201cI do NOT purr!\u201d Riko giggles. \u201cSee? Adorable.\u201d",choices:[{t:"Continue",r:"You walk away, having overheard something interesting.",coins:0}]},
+{itext:"rikoConv2",t:"Overheard Conversation",d:"Riko is showing off his belly to a passerby. \u201cThis is my collection! Each one is a Level 40+ character who thought they could take me. Now look at \u2019em \u2014 all cozy and drained. I\u2019m only Level 3, but in HERE?\u201d He taps his belly. \u201cIn here, I\u2019m the strongest.\u201d A muffled voice says, \u201cHe\u2019s not wrong, unfortunately.\u201d",choices:[{t:"Continue",r:"You walk away, having overheard something interesting.",coins:0}]},
+{itext:"rikoConv3",t:"Overheard Conversation",d:"You spot Riko sitting alone, humming to his belly. \u201cOkay, everyone, bedtime story time. Once upon a time, there was a tiny Level 3 demon who everyone thought was weak. But he had a secret \u2014 he could swallow anything. And one day, he found the BEST belly pets in all of Destiny City, and they all lived happily ever after inside him. The end.\u201d Someone inside groans. \u201cThat\u2019s the third time tonight, Riko.\u201d \u201cAnd it gets better every time!\u201d",choices:[{t:"Continue",r:"You walk away, having overheard something interesting.",coins:0}]}];
 function tryMiniEvent(){
   if(Math.random()<0.18){
     S.me=MINI_EVENTS[Math.floor(Math.random()*MINI_EVENTS.length)];
@@ -2153,7 +2153,7 @@ function miniEventScreen(){
     +'<div class="vnch" style="max-height:30vh"><div style="font-size:48px;text-align:center;padding:40px">\u2753</div></div>'
     +'<div class="dbox"><div class="dname" style="background:#7c3aed;color:#fff">\u{1F30A} Random Event</div>'
     +'<div class="dtext" id="tw" data-full="'+ev.text.replace(/"/g,'&quot;')+'"></div></div>'
-    +'<div class="vc" id="ch" style="display:none">'+choices+'</div><script>setTimeout(function(){var c=document.getElementById("ch");if(c&&c.style.display==="none")c.style.display="flex"},4000)</script></div>';
+    +'<div class="vc" id="ch" style="display:none">'+choices+'</div></div>';
 }
 const ENC_FLAVOR=[
   "You hear distant roars echoing from the forest.",
@@ -2541,7 +2541,7 @@ document.addEventListener('touchend',(e)=>{
 ld();R();
 // VN post-render hook
 origR=R;
-R=()=>{origR();if(S.scr==="vn"||S.scr==="endless"||S.scr==="endlessReact"||S.scr==="bellyMode"||S.scr==="bellyReact"||S.scr==="talk"||S.scr==="petMeeting"||S.scr==="npcTalk"||S.scr==="miniEvent"||S.scr==="giftReact"){var tw=document.getElementById("tw");if(tw&&tw.dataset.full){startTypewriter(tw.dataset.full,showChoices)}}};
+R=()=>{origR();if(S.scr==="vn"||S.scr==="endless"||S.scr==="endlessReact"||S.scr==="bellyMode"||S.scr==="bellyReact"||S.scr==="talk"||S.scr==="petMeeting"||S.scr==="npcTalk"||S.scr==="miniEvent"||S.scr==="giftReact"){var tw=document.getElementById("tw");if(tw&&tw.dataset.full){startTypewriter(tw.dataset.full,showChoices)};if(S.scr==="miniEvent"){setTimeout(function(){var c=document.getElementById("ch");if(c&&c.style.display==="none")c.style.display="flex"},4000)}}};
 document.addEventListener("click",(e)=>{
   var el=e.target&&e.target.closest?e.target.closest("[data-a]"):null;
   if(!el)return;
