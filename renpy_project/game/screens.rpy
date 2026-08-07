@@ -181,7 +181,7 @@ screen achievement_popup(name, desc):
 ## ====== STYLES ======
 style title_text:
     color "#e9d5ff"
-    font "gui/fonts/default.ttf"
+
 
 style title_button:
     background Solid("#2a1a3e")
