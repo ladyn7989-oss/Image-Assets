@@ -23,30 +23,38 @@ jobs:
         run: |
           wget -q "https://www.renpy.org/dl/8.2.3/renpy-8.2.3-sdk.tar.bz2" -O renpy-sdk.tar.bz2
           tar xjf renpy-sdk.tar.bz2
-          echo "SDK extracted to renpy-8.2.3-sdk/"
+          echo "SDK extracted"
           ls renpy-8.2.3-sdk/
+
+      - name: Download and install RAPT
+        run: |
+          echo "Downloading RAPT (61MB)..."
+          wget -q "https://www.renpy.org/dl/8.2.3/renpy-8.2.3-rapt.zip" -O rapt.zip
+          echo "Extracting RAPT..."
+          unzip -q rapt.zip
+          echo "RAPT extracted, checking contents..."
+          ls -la
+          # RAPT might extract to a different directory name
+          find . -maxdepth 2 -name "rapt" -type d 2>/dev/null
+          find . -maxdepth 2 -name "android.py" 2>/dev/null
+          
+          # Move RAPT to the SDK directory if it's not already there
+          if [ -d "rapt" ]; then
+            cp -r rapt renpy-8.2.3-sdk/
+          fi
+          
+          # Check if RAPT is in the SDK
+          ls -la renpy-8.2.3-sdk/rapt/ 2>/dev/null || echo "RAPT not in SDK dir yet"
+          
+          # Also check for alternative extraction location
+          find . -maxdepth 3 -name "android.py" -path "*/rapt/*" 2>/dev/null || echo "No android.py found in rapt dirs"
 
       - name: Set up Android SDK
         run: |
           echo "ANDROID_HOME=$ANDROID_HOME"
-          echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT"
-          ls -la $ANDROID_HOME 2>/dev/null || echo "ANDROID_HOME not found at default location"
-          # GitHub Actions runners have Android SDK pre-installed
-          # Make sure the necessary components are there
-          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --list_installed 2>/dev/null | head -20 || echo "sdkmanager not found at expected path"
-          # Accept licenses
+          ls -la $ANDROID_HOME 2>/dev/null
           yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
-          # Install build tools and platform
           yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "build-tools;34.0.0" "platforms;android-34" "platform-tools" || true
-
-      - name: Install RAPT
-        run: |
-          export ANDROID_HOME=${ANDROID_HOME:-/usr/local/lib/android/sdk}
-          export ANDROID_SDK_ROOT=$ANDROID_HOME
-          ${{ github.workspace }}/renpy-8.2.3-sdk/renpy.sh install android 2>&1
-          echo "=== RAPT install exit code: $? ==="
-          ls -la ${{ github.workspace }}/renpy-8.2.3-sdk/rapt/ 2>/dev/null || echo "No rapt directory"
-          find ${{ github.workspace }} -maxdepth 3 -name "rapt" -type d 2>/dev/null
 
       - name: Download sprite assets
         run: |
@@ -54,43 +62,56 @@ jobs:
           python3 scripts/download_assets.py || echo "Some assets may be missing"
         continue-on-error: true
 
-      - name: Configure Android build
-        run: |
-          export ANDROID_HOME=${ANDROID_HOME:-/usr/local/lib/android/sdk}
-          export ANDROID_SDK_ROOT=$ANDROID_HOME
-          cd ${{ github.workspace }}
-          echo "=== Configuring Android project ==="
-          ./renpy-8.2.3-sdk/renpy.sh renpy_project android configure 2>&1 || \
-          ./renpy-8.2.3-sdk/renpy.sh renpy_project android config 2>&1 || true
-          echo "=== Config exit code: $? ==="
-
       - name: Build Android APK
         run: |
           export ANDROID_HOME=${ANDROID_HOME:-/usr/local/lib/android/sdk}
           export ANDROID_SDK_ROOT=$ANDROID_HOME
           cd ${{ github.workspace }}
-          echo "=== Building APK ==="
-          ./renpy-8.2.3-sdk/renpy.sh renpy_project android build --release 2>&1
-          BUILD_EXIT=$?
-          echo "=== Build exit code: $BUILD_EXIT ==="
           
-          if [ $BUILD_EXIT -ne 0 ]; then
-            echo "=== Release build failed, trying debug build ==="
-            ./renpy-8.2.3-sdk/renpy.sh renpy_project android build 2>&1
-            echo "=== Debug build exit code: $? ==="
+          echo "=== Attempting build with RAPT ==="
+          # Try multiple approaches
+          # Approach 1: Standard renpy.sh build
+          echo "--- Approach 1: renpy.sh android build ---"
+          ./renpy-8.2.3-sdk/renpy.sh renpy_project android build --release 2>&1 || echo "EXIT CODE: $?"
+          
+          # Check if APK was created
+          APK_COUNT=$(find . -name "*.apk" -type f 2>/dev/null | wc -l)
+          echo "APKs found after approach 1: $APK_COUNT"
+          
+          if [ "$APK_COUNT" -eq 0 ]; then
+            # Approach 2: Try with just 'build' (no --release)
+            echo "--- Approach 2: renpy.sh android build (no release flag) ---"
+            ./renpy-8.2.3-sdk/renpy.sh renpy_project android build 2>&1 || echo "EXIT CODE: $?"
+            APK_COUNT=$(find . -name "*.apk" -type f 2>/dev/null | wc -l)
+            echo "APKs found after approach 2: $APK_COUNT"
           fi
           
-          echo "=== Searching for APKs ==="
-          find ${{ github.workspace }} -name "*.apk" -type f 2>/dev/null
-          echo "=== Done searching ==="
+          if [ "$APK_COUNT" -eq 0 ]; then
+            # Approach 3: Try direct rapt invocation
+            echo "--- Approach 3: Direct rapt.py ---"
+            if [ -f "renpy-8.2.3-sdk/rapt/rapt.py" ]; then
+              cd renpy-8.2.3-sdk/rapt/
+              python3 rapt.py build ${{ github.workspace }}/renpy_project 2>&1 || echo "EXIT CODE: $?"
+              cd ${{ github.workspace }}
+            elif [ -f "rapt/rapt.py" ]; then
+              cd rapt/
+              python3 rapt.py build ${{ github.workspace }}/renpy_project 2>&1 || echo "EXIT CODE: $?"
+              cd ${{ github.workspace }}
+            fi
+            APK_COUNT=$(find . -name "*.apk" -type f 2>/dev/null | wc -l)
+            echo "APKs found after approach 3: $APK_COUNT"
+          fi
+          
+          echo "=== Final APK search ==="
+          find . -name "*.apk" -type f 2>/dev/null || echo "No APKs found anywhere"
 
       - name: Find APK files
         id: find_apk
         run: |
-          echo "=== All APK files in workspace ==="
+          echo "=== All APK files ==="
           find ${{ github.workspace }} -name "*.apk" -type f 2>/dev/null
           APK_PATH=$(find ${{ github.workspace }} -name "*.apk" -type f 2>/dev/null | head -1)
-          echo "Found APK at: ${APK_PATH:-NONE}"
+          echo "Found APK: ${APK_PATH:-NONE}"
           echo "apk_path=$APK_PATH" >> $GITHUB_OUTPUT
           echo "apk_found=$([ -n "$APK_PATH" ] && echo true || echo false)" >> $GITHUB_OUTPUT
 
@@ -109,8 +130,6 @@ jobs:
           files: |
             **/*.apk
           generate_release_notes: true
-          draft: false
-          prerelease: false
 
       - name: Create Draft Release (no APK)
         if: startsWith(github.ref, 'refs/tags/') && steps.find_apk.outputs.apk_found != 'true'
@@ -119,14 +138,7 @@ jobs:
           generate_release_notes: true
           draft: true
           body: |
-            ## APK Build Failed
+            ## APK Build Status
             
-            The Ren'Py project compiled but no APK was produced.
-            Check the Actions logs for detailed build errors.
-            
-            Common fixes:
-            - RAPT may need manual setup
-            - Android SDK version mismatch
-            - Project configuration needed
-            
-            The full Ren'Py project source is available in this repo under `renpy_project/`.
+            Build attempted but no APK was produced. Check Actions logs.
+            The full Ren'Py project source is available under `renpy_project/`.
